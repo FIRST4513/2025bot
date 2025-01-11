@@ -256,13 +256,14 @@ public class SwerveModule {
         mDriveVoltageReq.UpdateFreqHz = 0;
         mAnglePIDReq.UpdateFreqHz = 0;
 
-        // TODO: leave out StatusSignals<Double> for motor positions and velocities
-        // used by odometry (Spectrum file `Module.java` lines 40-43 and 189-192)
+        /* TODO: leave out StatusSignals<Double> for motor positions and velocities
+         used by odometry (Spectrum file `Module.java` lines 40-43 and 189-192)
 
         m_drivePosition = mDriveMotor.getPosition().clone();
         m_driveVelocity = mDriveMotor.getVelocity().clone();
         m_steerPosition = mAngleMotor.getPosition().clone();
         m_steerVelocity = mAngleMotor.getVelocity().clone();
+        */
 
         m_signals = new BaseStatusSignal[4];
         m_signals[0] = m_drivePosition;
@@ -288,19 +289,19 @@ public class SwerveModule {
         }
 
         /* Now latency-compensate our signals */
-        double drive_rot = BaseStatusSignal.getLatencyCompensatedValue(m_drivePosition, m_driveVelocity);
-        double angle_rot = BaseStatusSignal.getLatencyCompensatedValue(m_steerPosition, m_steerVelocity);
+        //double drive_rot = BaseStatusSignal.getLatencyCompensatedValue(m_drivePosition, m_driveVelocity);
+        //double angle_rot = BaseStatusSignal.getLatencyCompensatedValue(m_steerPosition, m_steerVelocity);
 
         /*
          * Back out the drive rotations based on angle rotations due to coupling between
          * azimuth and steer
          */
-        drive_rot -= angle_rot * AngleFalconConfig.angleGearRatio;
+        //drive_rot -= angle_rot * AngleFalconConfig.angleGearRatio;
 
         /* And push them into a SwerveModuleState object to return */
         m_internalState.distanceMeters = getModulePositionMeters();
         /* Angle is already in terms of steer rotations */
-        m_internalState.angle = Rotation2d.fromRotations(angle_rot);
+        //m_internalState.angle = Rotation2d.fromRotations(angle_rot);
 
         return m_internalState;
     }

@@ -1,5 +1,7 @@
 package frc.robot.drivetrain;
 
+import static edu.wpi.first.units.Units.Degrees;
+
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -25,6 +27,9 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.numbers.N5;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.AngleUnit;
+import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Threads;
 import edu.wpi.first.wpilibj.Timer;
@@ -151,8 +156,8 @@ public class OdometryThread extends Thread {
             }
             
             // Assume Pigeon2 is flat-and-level so latency compensation can be performed
-            double yawDegrees =
-                    BaseStatusSignal.getLatencyCompensatedValue(drive.gyro.yawGetter, drive.gyro.angularZVelGetter);
+            Measure<AngleUnit> yawDegrees =
+                BaseStatusSignal.getLatencyCompensatedValue(drive.gyro.yawGetter, drive.gyro.angularZVelGetter);
 
             /* Keep track of previous and current pose to account for the carpet vector */
             m_odometry.update(Rotation2d.fromDegrees(yawDegrees), m_modulePositions);

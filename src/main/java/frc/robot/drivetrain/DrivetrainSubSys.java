@@ -8,9 +8,9 @@ import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.path.PathPlannerTrajectory;
+//import com.pathplanner.lib.path.PathPlannerTrajectory;
 import com.pathplanner.lib.path.PathPoint;
-import com.pathplanner.lib.path.PathPlannerTrajectory.State;
+//import com.pathplanner.lib.path.PathPlannerTrajectory.State;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -30,7 +30,7 @@ import frc.robot.Robot;
 import frc.util.DriveState;
 import frc.util.PoseAndTimestamp;
 import frc.robot.drivetrain.config.DrivetrainConfig;
-import frc.robot.vision.VisionSubSys;
+//import frc.robot.vision.VisionSubSys;
 
 
 public class DrivetrainSubSys extends SubsystemBase {

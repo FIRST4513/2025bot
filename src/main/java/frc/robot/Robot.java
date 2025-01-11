@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.XBoxCtrlrs.pilot.PilotGamepad;
+import frc.robot.drivetrain.DrivetrainSubSys;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -18,6 +20,13 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
+  //base robot
+  public static DrivetrainSubSys swerve;
+  public static PilotGamepad pilotGamepad;
+  //public static OperatorGamepad   operatorGamepad;
+
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -101,4 +110,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {}
+
+
+  public static void print(String toPrint) {
+    System.out.println( "-----------  " + toPrint + "  ---------------  "/*+ Robot.sysTimer.get() */ );
+}
 }

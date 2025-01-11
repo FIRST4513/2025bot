@@ -7,12 +7,16 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.lib.gamepads.Gamepad;
 import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
-import frc.robot.Robot.TeamAlliance;
+
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
-import frc.robot.mechanisms.climber.commands.ClimberCmds;
-import frc.robot.mechanisms.shooter.commands.ShooterCmds;
-import frc.util.FieldConstants;
+//import frc.robot.mechanisms.climber.commands.ClimberCmds;
+//import frc.robot.mechanisms.shooter.commands.ShooterCmds;
+
+//figure out later
+//import frc.util.FieldConstants;
+//import frc.robot.Robot.TeamAlliance;
+
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -63,10 +67,13 @@ public class PilotGamepad extends Gamepad {
         // "Select" Button - Reset Gyro to 180
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
+        /*
+        2024 elevator cmds
         gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
         gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
         gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
         gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
+        */
 
         // Possible climber control for Corbin:
         // Left D-pad: control left with right stick
@@ -165,15 +172,8 @@ public class PilotGamepad extends Gamepad {
         this.gamepad.setRumble(intensity, intensity);
     }
 
-    public void rumblePilotByClimber() {
-        if (Robot.climber.getAnyAboveZero()) {
-            rumble(0.1);
-        } else {
-            rumble(0);
-        }
-    }
-
-    public void setupFieldPoses(){
+    // use as example
+    /*public void setupFieldPoses(){
         if (Robot.alliance == TeamAlliance.BLUE) {
             spkrLeftPose = FieldConstants.BLUE_SPEAKER_LEFT;
             spkrCtrPose = FieldConstants.BLUE_SPEAKER_CTR;
@@ -190,6 +190,6 @@ public class PilotGamepad extends Gamepad {
             HPLeft = FieldConstants.RED_HP_LEFT;
             HPCtr = FieldConstants.RED_HP_CTR;
             HPRight =FieldConstants.RED_HP_RIGHT;
-        }
-    }
+        } 
+    }*/
 }
