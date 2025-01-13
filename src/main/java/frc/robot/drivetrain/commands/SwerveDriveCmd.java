@@ -1,6 +1,8 @@
 package frc.robot.drivetrain.commands;
 
 import java.util.function.DoubleSupplier;
+import java.lang.System;
+import java.lang.annotation.Repeatable;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -81,6 +83,7 @@ public class SwerveDriveCmd extends Command {
     }
 
 
+
     // -------------- Overloaded Constuctor -------------------
     // fieldRelative assumed true
     // openLoop assumed false, center of rotation assummed (0,0)
@@ -99,7 +102,7 @@ public class SwerveDriveCmd extends Command {
     public void execute() {
         if (Robot.pilotGamepad.configured &&
             DriverStation.isTeleop() ){
-            // Gamepad is connected and were in teleop mode 
+            // Gamepad is connected and we're in teleop mode 
             double fwdPositive = fwdPositiveSupplier.getAsDouble();
             double leftPositive = leftPositiveSupplier.getAsDouble();
             double ccwPositive = ccwPositiveSupplier.getAsDouble();

@@ -9,7 +9,7 @@ import frc.robot.RobotConfig;
 
 public class DrivetrainConfig {
     // Odometry Type
-    public static final boolean CANFDBus = false;           // Do we have a CANIvore FDBus controller
+    public static final boolean CANFDBus = true;           // Do we have a CANIvore FDBus controller
 
     // ----- Definitions for Kinematics -----
     public static final double trackWidth         = Units.inchesToMeters(23.75);  // Between Right/Left Wheel Ctrs
@@ -108,7 +108,7 @@ public class DrivetrainConfig {
     private static final InvertedValue angleInverts[] = {
         InvertedValue.Clockwise_Positive,         // FL
         InvertedValue.Clockwise_Positive,         // FR
-        InvertedValue.CounterClockwise_Positive,  // BL
+        InvertedValue.Clockwise_Positive,         // BL
         InvertedValue.Clockwise_Positive          // BR
     };
 
@@ -117,7 +117,7 @@ public class DrivetrainConfig {
         InvertedValue.CounterClockwise_Positive,  // FL
         InvertedValue.CounterClockwise_Positive,  // FR
         InvertedValue.CounterClockwise_Positive,  // BL
-        InvertedValue.Clockwise_Positive          // BR
+        InvertedValue.CounterClockwise_Positive   // BR
     };
 
     /**

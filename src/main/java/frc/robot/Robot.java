@@ -1,118 +1,264 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.util.Optional;
+
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Threads;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepad;
+import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
 import frc.robot.drivetrain.DrivetrainSubSys;
-
-/**
- * The methods in this class are called automatically corresponding to each mode, as described in
- * the TimedRobot documentation. If you change the name of this class or the package after creating
- * this project, you must also update the Main.java file in the project.
- */
-public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
-  //base robot
-  public static DrivetrainSubSys swerve;
-  public static PilotGamepad pilotGamepad;
-  //public static OperatorGamepad   operatorGamepad;
+import frc.robot.drivetrain.commands.DrivetrainCmds;
+import frc.robot.drivetrain.commands.SwerveDriveCmd;
+// import frc.robot.mechanisms.leds.LEDs;
+// import frc.robot.mechanisms.leds.LEDsCommands;
+import edu.wpi.first.wpilibj.util.Color;
+import org.littletonrobotics.junction.LogFileUtil;
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.NT4Publisher;
+import org.littletonrobotics.junction.wpilog.WPILOGReader;
+import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 
+// ------------------- Constructor -----------------
+public class Robot extends LoggedRobot  {
+    public static Timer sysTimer = new Timer();
 
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
-  public Robot() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-  }
-
-  /**
-   * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
-   * that you want ran during disabled, autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
-   * SmartDashboard integrated updating.
-   */
-  @Override
-  public void robotPeriodic() {}
-
-  /**
-   * This autonomous (along with the chooser code above) shows how to select between different
-   * autonomous modes using the dashboard. The sendable chooser code works with the Java
-   * SmartDashboard. If you prefer the LabVIEW Dashboard, remove all of the chooser code and
-   * uncomment the getString line to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional comparisons to the switch structure
-   * below with additional strings. If using the SendableChooser make sure to add them to the
-   * chooser code above as well.
-   */
-  @Override
-  public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
-  }
-
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
+    public enum RobotIdentity {
+        ROBOT_2023_SWERVE,
+        KACHOW_2024_COMPETITION,
+        KACHOW_2024_SECOND,
+        UNKNOWN;
     }
-  }
+    public static final String ROBOT_2023_SWERVE_MAC = "00-80-2F-35-B9-60";
+    public static final String KACHOW_2024_COMPETITION_MAC = "10-50-FD-C6-35-0D";
+    public static final String KACHOW_2024_SECOND_MAC = "92-9B-20-68-07-62";
 
-  /** This function is called once when teleop is enabled. */
-  @Override
-  public void teleopInit() {}
+    public enum TeamAlliance {
+        RED,
+        BLUE,
+        NONE;
+    }
+    public static TeamAlliance alliance;
 
-  /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {}
+    // Base Robot
+    public static DrivetrainSubSys  swerve;
+    public static PilotGamepad      pilotGamepad;
+    // Automation and Assists
+    // public static VisionSubSys      vision;
 
-  /** This function is called once when the robot is disabled. */
-  @Override
-  public void disabledInit() {}
+    // Game Piece Manipulation
 
-  /** This function is called periodically when disabled. */
-  @Override
-  public void disabledPeriodic() {}
+    // Misc
+    // public static RotarySwitchSubSys rotarySwitch;
 
-  /** This function is called once when test mode is enabled. */
-  @Override
-  public void testInit() {}
+    //public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
 
-  /** This function is called periodically during test mode. */
-  @Override
-  public void testPeriodic() {}
+    public static String MAC = "";
 
-  /** This function is called once when the robot is first started up. */
-  @Override
-  public void simulationInit() {}
+    // -----------------  Robot General Methods ------------------
+    @Override
+    public void robotInit() {
+        sysTimer.reset();			// System timer for Competition run
+        sysTimer.start();
+        //updateAlliance();           // Get current Alliance Color and init teleop positions
+        Timer.delay( 2.0 );         // Delay for 2 seconds for robot to come fully up
+        // getIdentity();          // Look up mac address and set robot enum
+        //MAC = Network.getMACaddress();
+       
+        intializeSubsystems();
+        
+        DataLogManager.start();
+        DriverStation.startDataLog(DataLogManager.getLog());
+        initAdvantageKitLogger();   // This logger replaces the WPI Data logger methods
+    }
 
-  /** This function is called periodically whilst in simulation. */
-  @Override
-  public void simulationPeriodic() {}
+    @Override
+    public void robotPeriodic() {
+        // Ensures that the main thread is the highest priority thread
+        Threads.setCurrentThreadPriority(true, 99);
+        CommandScheduler.getInstance().run();       // Make sure scheduled commands get run
+        Threads.setCurrentThreadPriority(true, 10); // Set the main thread back to normal priority
+    }
+
+    private void intializeSubsystems() {
+        Timer.delay(1);
+        // Automation and Assists
+        // vision =   new VisionSubSys();
+        
+        // Base Robot
+        swerve = new DrivetrainSubSys();
+
+        pilotGamepad = new PilotGamepad();
+        // rotarySwitch = new RotarySwitchSubSys(); 
+
+        // Telemetry (MUST BE LAST)
+
+        // Set Default Commands, this method should exist for each subsystem that has commands
+        DrivetrainCmds.setupDefaultCommand();
+
+        PilotGamepadCmds.setupDefaultCommand();
+        // ShooterCmds.setupDefaultCommand();
+        // LEDsCommands.setupDefaultCommand();
+        // Auto.setupSelectors();
+    }
+    
+
+    // -----------------  Robot Disabled Mode Methods ------------------
+    @Override
+    public void disabledInit() {
+        resetCommandsAndButtons();
+    }
+
+    @Override
+    public void disabledPeriodic()  { 
+        // Run LED Lights based on switch
+        // int m_rotarySwitch = rotarySwitch.GetRotaryPos();
+    
+        // if      ( m_rotarySwitch == 1) leds.solid( 0.75, Color.kRed,    2);
+        // else if ( m_rotarySwitch == 2) leds.solid( 0.75, Color.kGreen,  2);
+        // else if ( m_rotarySwitch == 3) leds.solid( 0.75, Color.kBlue,   2);
+        // else if ( m_rotarySwitch == 4) leds.solid( 0.75, Color.kOrange, 2);
+        // else if ( m_rotarySwitch == 5) leds.solid( 0.75, Color.kPurple, 2);
+        // else if ( m_rotarySwitch == 6) leds.solid( 0.75, Color.kAqua,   2);
+        // // Otherwise turn off leds
+        // else                           leds.solid( 0.75, Color.kBlack,  2);
+        /*
+        if (alliance == TeamAlliance.BLUE) {
+            leds.solid(Section.all, Color.kBlue);
+        } else if (alliance == TeamAlliance.RED) {
+            leds.solid(Section.all, Color.kRed);
+        } else {
+            leds.wave(Section.all, Color.kBlue, Color.kRed, LEDsConfig.length, LEDsConfig.waveSlowDuration);
+        }
+        */ 
+        updateAlliance();
+    }
+
+    @Override
+    public void disabledExit() {}
 
 
-  public static void print(String toPrint) {
-    System.out.println( "-----------  " + toPrint + "  ---------------  "/*+ Robot.sysTimer.get() */ );
-}
+    // -----------------  Autonomous Mode Methods ------------------
+    @Override
+    public void autonomousInit() {
+        updateAlliance();           // Get current Alliance Color and init teleop positions       
+        sysTimer.reset();			// System timer for Competition run
+    	sysTimer.start();
+        System.out.println("Starting Auto Init");
+        resetCommandsAndButtons();
+
+        // swerve.setLastAngleToCurrentAngle();
+
+        // Set Climbers to go to bottom no matter what
+        
+    }
+
+    @Override
+    public void autonomousPeriodic() {
+    }
+
+    @Override
+    public void autonomousExit() {}
+
+
+    // -----------------  TeleOp Mode Methods ------------------
+    @Override
+    public void teleopInit() {
+        updateAlliance();           // Get current Alliance Color and init teleop positions
+        pilotGamepad.setMaxSpeeds(pilotGamepad.getSelectedSpeed());
+        pilotGamepad.setupTeleopButtons();
+        resetCommandsAndButtons();
+        
+ 
+        
+        // Set Climbers to go to bottom no matter what
+    }
+
+    @Override
+    public void teleopPeriodic() {
+
+    }
+
+    @Override
+    public void teleopExit() {}
+
+
+    // -----------------  Test Mode Methods ------------------
+    @Override
+    public void testInit() {
+        updateAlliance();           // Get current Alliance Color and init teleop positions
+        resetCommandsAndButtons();
+    }
+
+    @Override
+    public void testPeriodic() {}
+
+
+    // -----------------  Simulation Mode Methods ------------------
+    public void simulationInit() {}
+
+    public void simulationPeriodic() {}
+
+    // ------------------------  Misc Methods ---------------------
+    public static void resetCommandsAndButtons() {
+
+        CommandScheduler.getInstance().cancelAll();  // Disable any currently running commands
+        CommandScheduler.getInstance().getActiveButtonLoop().clear();
+        pilotGamepad.resetConfig();  // Reset Config for all gamepads and other button bindings
+    }
+
+
+    /** This method is called once at the end of RobotInit to begin logging */
+    private void initAdvantageKitLogger(){
+        /* Set up data receivers & replay source */
+        Logger.addDataReceiver(new NT4Publisher()); // Running a physics simulator, log to NT
+        if (!Robot.isSimulation()) {
+            Logger.addDataReceiver(
+                    new WPILOGWriter("/U")); // Running on a real robot, log to a USB stick
+        }
+        Logger.recordMetadata("ProjectName", "Kachow2024Ver04");    // Set a metadata value
+        //logger.recordMetadata("Robot Name", RobotIdentity.getIdentity().toString());
+        //logger.recordMetadata("Robot MAC Address", MacAddressUtil.getMACAddress());
+        Logger.start();         // Start AdvantageKit logger
+
+
+        setUseTiming(isReal());
+        Logger.recordMetadata("ProjectName", "Kachow2024Ver04");    // Set a metadata value
+        //logger.recordMetadata("Robot Name", RobotIdentity.getIdentity().toString());
+        //logger.recordMetadata("Robot MAC Address", MacAddressUtil.getMACAddress());
+        if (isReal()) {
+            Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
+            Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
+            //new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
+        } else {
+            setUseTiming(false); // Run as fast as possible
+            String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
+            Logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log
+            Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
+        }
+        Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
+        // ----------------------------------------------------------------------------------------------------------
+    }
+
+    public void updateAlliance(){
+        // Get current Alliance Color and init teleop positions
+        Optional<Alliance> ally = DriverStation.getAlliance();
+        if (ally.isPresent()) {
+            if (ally.get() == Alliance.Red)  { alliance = TeamAlliance.RED; }
+            if (ally.get() == Alliance.Blue) { alliance = TeamAlliance.BLUE; }
+        } else {
+            alliance = TeamAlliance.NONE;
+        }
+    }
+
+    public static void print(String toPrint) {
+        System.out.println( "-----------  " + toPrint + "  ---------------  " + Robot.sysTimer.get());
+    }
+
 }

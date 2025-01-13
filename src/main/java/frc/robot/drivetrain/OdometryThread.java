@@ -56,7 +56,10 @@ public class OdometryThread extends Thread {
     double lastTime = 0;
     double currentTime = 0;
     double averageLoopTime = 0;
+
+    //TODO: figure out
     protected final boolean IsOnCANFD = true;
+
     protected SwerveDrivePoseEstimator m_odometry;
     protected ControlRequestParameters m_requestParameters = new ControlRequestParameters();
     protected Matrix<N3, N1> visionMeasurementStdDevs;
@@ -158,9 +161,9 @@ public class OdometryThread extends Thread {
             // Assume Pigeon2 is flat-and-level so latency compensation can be performed
             Measure<AngleUnit> yawDegrees =
                 BaseStatusSignal.getLatencyCompensatedValue(drive.gyro.yawGetter, drive.gyro.angularZVelGetter);
-
+            
             /* Keep track of previous and current pose to account for the carpet vector */
-            m_odometry.update(Rotation2d.fromDegrees(yawDegrees), m_modulePositions);
+            m_odometry.update(Rotation2d.fromDegrees(yawDegrees.magnitude()), m_modulePositions);
 
             /* And now that we've got the new odometry, update the controls */
             m_requestParameters.currentPose =

@@ -2,7 +2,7 @@ package frc.robot.drivetrain.config;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.MagnetSensorConfigs;
-import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+//import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 
 public class CanCoderConfig {
     /**
@@ -15,7 +15,7 @@ public class CanCoderConfig {
         CANcoderConfiguration config = new CANcoderConfiguration();
 
         MagnetSensorConfigs magnetSensor = config.MagnetSensor;
-        magnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;  // is default
+        magnetSensor.AbsoluteSensorDiscontinuityPoint = 1;  // is default
         magnetSensor.MagnetOffset = DrivetrainConfig.getModAngleOffset(modID);
 
         return config;

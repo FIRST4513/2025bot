@@ -18,6 +18,7 @@ public class PigeonGyro {
      * have to directly zero the gyro
      */
     public PigeonGyro() {
+        // REQUIRES USE OF CANIVORE - if not using canivore DONT SAY CANBUS:"CANFD" BECAUSE THEN ITS NOT A CANFD!!
         pigeon2 = new Pigeon2(Gyros.Pigeon2ID, "CANFD");
         yawGetter = pigeon2.getYaw().clone();   // Degrees +CCW
         angularZVelGetter = pigeon2.getAngularVelocityZWorld().clone();

@@ -72,7 +72,7 @@ public class AngleFalconConfig {
         CurrentLimitsConfigs currentLimits = config.CurrentLimits;
         currentLimits.SupplyCurrentLimitEnable = enableSuppCurrLimit;
         currentLimits.SupplyCurrentLimit = suppCurrent;
-        currentLimits.SupplyTimeThreshold = suppTimeThresh;
+        currentLimits.SupplyCurrentLowerTime = suppTimeThresh;
         currentLimits.StatorCurrentLimitEnable = enableStatCurrLimit;
         currentLimits.StatorCurrentLimit = statCurrent;
 
