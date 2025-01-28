@@ -21,11 +21,17 @@ import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
     //public final PilotGamepadTelemetry telemetry;
+
+    //what
     public static ExpCurve forwardSpeedCurve =
             new ExpCurve(
+
                     PilotGamepadConfig.forwardSpeedExp,
+
                     PilotGamepadConfig.forwardSpeedOffset,
+
                     PilotGamepadConfig.forwardSpeedScaler,
+
                     PilotGamepadConfig.forwardSpeedDeadband);
     public static ExpCurve sidewaysSpeedCurve =
             new ExpCurve(

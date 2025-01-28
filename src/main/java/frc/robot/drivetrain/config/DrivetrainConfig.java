@@ -1,10 +1,13 @@
 package frc.robot.drivetrain.config;
 
+import static edu.wpi.first.units.Units.Rotations;
+
 import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Angle;
 import frc.robot.RobotConfig;
 
 public class DrivetrainConfig {
@@ -82,11 +85,16 @@ public class DrivetrainConfig {
      */
     // Calculations from Degrees to Rotations: degrees / 360
     // Numbers are from [-0.5 to 0.5] and CCW+
+    // or, if you dont want to have to figure that out, set up your swerve modules in phoenix tuner(go to the mechanisms tab),
+    // and just go through their config and steal the offsets from there
+
         
-    private static final double angleOffsets[] = {       0.1955,  // FL 
-                                                        -0.4553,  // FR 
-                                                        -0.1252,  // BL 
-                                                         0.1010}; // BR
+    private static final double angleOffsets[] = {      -0.145263671875,  // FL  comp 2024 //0.1955
+                                                        -0.349365234375,  // FR  comp 2024 //-0.4553
+                                                        0.439208984375,  // BL  comp 2024 //-0.1252
+                                                        -0.1416015625}; // BR  comp 2024 //0.1010
+    
+                                                        //private static final Angle FLangle = Rotations.of(-0.145263671875);
 
 //     // Practice Bot
 //     private static final InvertedValue angleInverts[] = {
@@ -115,9 +123,9 @@ public class DrivetrainConfig {
     // Competition Bot
     private static final InvertedValue driveInverts[] = {
         InvertedValue.CounterClockwise_Positive,  // FL
-        InvertedValue.CounterClockwise_Positive,  // FR
+        InvertedValue.Clockwise_Positive,  // FR
         InvertedValue.CounterClockwise_Positive,  // BL
-        InvertedValue.CounterClockwise_Positive   // BR
+        InvertedValue.Clockwise_Positive   // BR
     };
 
     /**

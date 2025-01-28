@@ -1,6 +1,10 @@
 package frc.robot.drivetrain;
 
 import java.util.Map;
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.HttpCamera;
+import edu.wpi.first.cscore.VideoSource;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -20,13 +24,13 @@ public class DrivetrainTelemetry {
     public DrivetrainTelemetry(DrivetrainSubSys swerve) {
         this.swerve = swerve;
         tab = Shuffleboard.getTab("Swerve");
-        tab.addNumber("Heading from Pose", () -> swerve.getPoseHdgDegrees()).withPosition(7, 0).withSize(2, 1);
-        tab.addNumber("Odometry X", () -> swerve.getPose().getX()).withPosition(7, 1).withSize(2, 1);
-        tab.addNumber("Odometry Y", () -> swerve.getPose().getY()).withPosition(7, 2).withSize(2, 1);
-        tab.addNumber("Gyro Yaw", () -> Rmath.mRound(swerve.getGyroYawDegrees(), 2)).withPosition(7, 3).withSize(2, 1);
+        tab.addNumber("Heading from Pose", () -> swerve.getPoseHdgDegrees()).withPosition(9, 0).withSize(3, 2);
+        tab.addNumber("Odometry X", () -> swerve.getPose().getX()).withPosition(9, 2).withSize(3, 2);
+        tab.addNumber("Odometry Y", () -> swerve.getPose().getY()).withPosition(9, 4).withSize(3, 2);
+        tab.addNumber("Gyro Yaw", () -> Rmath.mRound(swerve.getGyroYawDegrees(), 2)).withPosition(9, 6).withSize(3,2);
 
-        tab.addNumber("Pilot Input X", () -> Robot.pilotGamepad.getDriveFwdPositive()).withPosition(9,0).withSize(2, 1);
-        tab.addNumber("Pilot Input Y", () -> Robot.pilotGamepad.getDriveLeftPositive()).withPosition(9,1).withSize(2, 1);
+        tab.addNumber("Pilot Input X", () -> Robot.pilotGamepad.getDriveFwdPositive()).withPosition(12,0).withSize(3, 2);
+        tab.addNumber("Pilot Input Y", () -> Robot.pilotGamepad.getDriveLeftPositive()).withPosition(12,2).withSize(3, 2);
         
         // tab.addBoolean("VisionValid", () -> Robot.swerve.isVisionPoseValid()).withPosition(9, 2).withSize(2, 2);
         // tab.addString("VisionPose", () -> Robot.swerve.getVisionPose().toString()).withPosition(7, 4).withSize(6, 1);
@@ -35,10 +39,14 @@ public class DrivetrainTelemetry {
         Mod2Name = swerve.swerveMods[2].modName;
         Mod3Name = swerve.swerveMods[3].modName;
 
-        moduleLayout(Mod0Name, 0, tab).withPosition(0, 0).withSize(3, 3);
-        moduleLayout(Mod1Name, 1, tab).withPosition(3, 0).withSize(3, 3);
-        moduleLayout(Mod2Name, 2, tab).withPosition(0, 3).withSize(3, 3);
-        moduleLayout(Mod3Name, 3, tab).withPosition(3, 3).withSize(3, 3);
+        moduleLayout(Mod0Name, 0, tab).withPosition(0, 0).withSize(4, 4);
+        moduleLayout(Mod1Name, 1, tab).withPosition(4, 0).withSize(4, 4);
+        moduleLayout(Mod2Name, 2, tab).withPosition(0, 4).withSize(4, 4);
+        moduleLayout(Mod3Name, 3, tab).withPosition(4, 4).withSize(4, 4);
+
+
+        
+        tab.addCamera("camera", "camera", "http://10.45.13.12:1182/stream.mjpg").withPosition(12, 4).withSize(4, 4);
     }
 
     public ShuffleboardLayout moduleLayout(String name, int moduleNum, ShuffleboardTab tab) {
@@ -53,28 +61,28 @@ public class DrivetrainTelemetry {
         modLayout.addNumber(
                 "Wheel Angle º",
                 () -> swerve.swerveMods[moduleNum].getSteerAngleRotation2d().getDegrees());
-        wheelAngle.withPosition(0, 0).withSize(1, 2);
+        wheelAngle.withPosition(0, 0).withSize(1, 1);
 
         // Wheel Velocity in Meters per Second
         SuppliedValueWidget<Double> wheelVelocity =
         modLayout.addNumber(
                 "Wheel Velocity MPS",
                 () -> swerve.swerveMods[moduleNum].getModuleVelocityMPS());
-        wheelVelocity.withPosition(2, 0).withSize(1, 2);
+        wheelVelocity.withPosition(2, 0).withSize(1, 1);
 
         // Target Angle to go to
         SuppliedValueWidget<Double> tgtAngle =
         modLayout.addNumber(
                 "Target Angle º",
                 () -> swerve.swerveMods[moduleNum].getModuleAngleDegrees());
-        tgtAngle.withPosition(0, 1).withSize(1, 2);
+        tgtAngle.withPosition(0, 1).withSize(1, 1);
 
         // CAN ABS Value
         SuppliedValueWidget<Double> canABS =
         modLayout.addNumber(
                 "Can ABS Raw",
                 () -> swerve.swerveMods[moduleNum].getSteerAngle());
-        canABS.withPosition(2, 1).withSize(1, 2);
+        canABS.withPosition(2, 1).withSize(1, 1);
 
         // // Target Velocity to go to
         // SuppliedValueWidget<Double> tgtVelocity =

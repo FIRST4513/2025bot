@@ -57,7 +57,7 @@ public class Robot extends LoggedRobot  {
     // Misc
     // public static RotarySwitchSubSys rotarySwitch;
 
-    //public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
+    public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
 
     public static String MAC = "";
 
@@ -98,7 +98,7 @@ public class Robot extends LoggedRobot  {
         // rotarySwitch = new RotarySwitchSubSys(); 
 
         // Telemetry (MUST BE LAST)
-
+        telemetry = new RobotTelemetry();
         // Set Default Commands, this method should exist for each subsystem that has commands
         DrivetrainCmds.setupDefaultCommand();
 
