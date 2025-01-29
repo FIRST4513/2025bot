@@ -13,7 +13,10 @@ public class RobotConfig {
         public final static int FRangleMotorID     =  6;  // Can ID Kraken
         public final static int BLangleMotorID     =  7;  // Can ID Kraken
         public final static int BRangleMotorID     =  8;  // Can ID Kraken
+
+        public final static int ClimberMotorID   = 14;  // Can ID Kraken
     }
+
     public final class Gamepads {
         public final static int pilotGamepadPort      = 0;  // USB PORT
         public final static int operatorGamepadPort   = 1;  // USB PORT
@@ -28,6 +31,16 @@ public class RobotConfig {
         public final static int FRcanCoderID       = 10;  // Cancoder CAN ID
         public final static int BLcanCoderID       = 11;  // Cancoder CAN ID
         public final static int BRcanCoderID       = 12;  // Cancoder CAN ID
+    }
+
+    public final class AnalogPorts {
+
+
+        //max 4 ports
+    }
+
+    public final class PWMPorts {
+        public final static int wenchLockID = 9;
     }
 
 }

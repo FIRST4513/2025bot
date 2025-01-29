@@ -9,11 +9,14 @@ import edu.wpi.first.wpilibj.Threads;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.XBoxCtrlrs.operator.OperatorGamepad;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepad;
 import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
 import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
+import frc.robot.subsystems.climber.ClimberSubSys;
+import frc.robot.subsystems.climber.commands.ClimberCmds;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
 import edu.wpi.first.wpilibj.util.Color;
@@ -49,12 +52,15 @@ public class Robot extends LoggedRobot  {
     // Base Robot
     public static DrivetrainSubSys  swerve;
     public static PilotGamepad      pilotGamepad;
+    public static OperatorGamepad operatorGamepad;
     // Automation and Assists
     // public static VisionSubSys      vision;
 
     // Game Piece Manipulation
 
+
     // Misc
+    public static ClimberSubSys climber;
     // public static RotarySwitchSubSys rotarySwitch;
 
     public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
@@ -95,13 +101,14 @@ public class Robot extends LoggedRobot  {
         swerve = new DrivetrainSubSys();
 
         pilotGamepad = new PilotGamepad();
+        operatorGamepad = new OperatorGamepad();
         // rotarySwitch = new RotarySwitchSubSys(); 
-
+        climber = new ClimberSubSys();
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();
         // Set Default Commands, this method should exist for each subsystem that has commands
         DrivetrainCmds.setupDefaultCommand();
-
+        ClimberCmds.setupDefaultCommand();
         PilotGamepadCmds.setupDefaultCommand();
         // ShooterCmds.setupDefaultCommand();
         // LEDsCommands.setupDefaultCommand();

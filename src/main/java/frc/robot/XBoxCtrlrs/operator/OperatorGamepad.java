@@ -5,8 +5,6 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
-import frc.robot.mechanisms.pivot.commands.PivotCmds;
-import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
 public class OperatorGamepad extends Gamepad {
     public static ExpCurve intakeThrottleCurve = new ExpCurve(
@@ -40,13 +38,10 @@ public class OperatorGamepad extends Gamepad {
 
         /* ----- Intaking ----- */
         gamepad.yButton.onTrue(OperatorGamepadCmds.hpIntakeUntilGamepiece());
-        gamepad.aButton.onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
 
         /* ----- Ejecting ----- */
         //         .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());   // manually spool up shooter for anticipation
-        gamepad.xButton.onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());
         gamepad.Dpad.Down.onTrue(OperatorGamepadCmds.readyForBumperShotCmd());  // shoot speaker when bumpered up or close
-        gamepad.Dpad.Up.onTrue(OperatorGamepadCmds.readyForFarShotCmd());     // shoot speaker from far at max angle
 
         /* ----- Pivot Preset Positions ----- */
         //gamepad.xButton.and(gamepad.Dpad.Down)  .onTrue(PivotCmds.setZeroAndRunCmd());  // 0º angle
