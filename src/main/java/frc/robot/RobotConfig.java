@@ -4,17 +4,20 @@ public class RobotConfig {
     
     public final class Motors {
         // ----- Swerve drive -----
-        public final static int FLdriveMotorID     =  1;  // Can ID Kraken
-        public final static int FRdriveMotorID     =  2;  // Can ID Kraken
-        public final static int BLdriveMotorID     =  3;  // Can ID Kraken
-        public final static int BRdriveMotorID     =  4;  // Can ID Kraken
+        public final static int FLdriveMotorID      =  1;  // Can ID Kraken
+        public final static int FRdriveMotorID      =  2;  // Can ID Kraken
+        public final static int BLdriveMotorID      =  3;  // Can ID Kraken
+        public final static int BRdriveMotorID      =  4;  // Can ID Kraken
 
-        public final static int FLangleMotorID     =  5;  // Can ID Kraken
-        public final static int FRangleMotorID     =  6;  // Can ID Kraken
-        public final static int BLangleMotorID     =  7;  // Can ID Kraken
-        public final static int BRangleMotorID     =  8;  // Can ID Kraken
+        public final static int FLangleMotorID      =  5;  // Can ID Kraken
+        public final static int FRangleMotorID      =  6;  // Can ID Kraken
+        public final static int BLangleMotorID      =  7;  // Can ID Kraken
+        public final static int BRangleMotorID      =  8;  // Can ID Kraken
 
-        public final static int ClimberMotorID   = 14;  // Can ID Kraken
+        public final static int ClimberMotorID      = 14;  // Can ID Kraken
+
+        public final static int IntakeBottomMotorID = 15; // 
+        public final static int IntakeTopMotorID    = 16;
     }
 
     public final class Gamepads {

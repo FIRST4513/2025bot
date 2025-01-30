@@ -9,25 +9,27 @@ import frc.robot.Robot;
 import frc.robot.RobotConfig.AnalogPorts;
 import frc.robot.RobotConfig.Motors;
 import frc.robot.RobotConfig.PWMPorts;
+import frc.robot.subsystems.climber.commands.ClimberCmds;
 
 public class ClimberSubSys extends SubsystemBase {
     public enum ClimberState {
-        SHOOTER_FEED,
+        EXTEND,
+        STOW,
         STOPPED,
-        GROUND,
-        MANUAL,
-        TRAP,
-        AMP,
     }
 
     private ClimberState state = ClimberState.STOPPED;
     
+    
     // Devices
-    public WPI_TalonSRX climberMotor = new WPI_TalonSRX(Motors.ClimberMotorID);
-    public Servo WenchLock = new Servo(PWMPorts.wenchLockID);
+    public static WPI_TalonSRX climberMotor = new WPI_TalonSRX(Motors.ClimberMotorID);
+    public static Servo WenchLock = new Servo(PWMPorts.wenchLockID);
+    
     
     /* ----- Constructor ----- */
     public ClimberSubSys() { 
+        WenchLock.setSpeed(.75);
+        WenchLock.setAngle(90); //124.08 is UNLOCKED
         configureTalonSRXControllers();
         stopMotors();
         setBrakeMode(true);
@@ -36,6 +38,17 @@ public class ClimberSubSys extends SubsystemBase {
     /* ----- Periodic ----- */
     @Override
     public void periodic() {
+         // drive motor based on the current state
+         switch (state) {
+            case EXTEND: ClimberCmds.unlockWench();
+                         climberMotor.set(ClimberConfig.EXTEND);
+                         break;
+            case STOW:   climberMotor.set(ClimberConfig.STOW);
+            // stopped included:
+
+            default: climberMotor.set(0);
+            ClimberCmds.lockWench();
+        }
     }
 
     // --------------------------------------------------------
@@ -70,11 +83,8 @@ public class ClimberSubSys extends SubsystemBase {
 
     public String getStateString() {
         switch (state) {
-            case SHOOTER_FEED: return "SHOOTER FEED";
-            case GROUND:       return "GROUND";
-            case MANUAL:       return "MANUAL";
-            case TRAP:         return "TRAP";
-            case AMP:          return "AMP";
+            case EXTEND:       return "EXTEND";
+            case STOW:       return "STOW";
             default:           return "STOPPED";
         }
     }

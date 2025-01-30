@@ -104,6 +104,7 @@ public class Robot extends LoggedRobot  {
         operatorGamepad = new OperatorGamepad();
         // rotarySwitch = new RotarySwitchSubSys(); 
         climber = new ClimberSubSys();
+
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();
         // Set Default Commands, this method should exist for each subsystem that has commands

@@ -9,9 +9,13 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 
 import frc.robot.RobotConfig;
+import frc.robot.RobotConfig.Gamepads;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 //import frc.robot.mechanisms.climber.commands.ClimberCmds;
 //import frc.robot.mechanisms.shooter.commands.ShooterCmds;
+import frc.robot.subsystems.climber.ClimberSubSys;
+import frc.robot.subsystems.climber.ClimberSubSys.ClimberState;
+import frc.robot.subsystems.climber.commands.ClimberCmds;
 
 //figure out later
 //import frc.util.FieldConstants;
@@ -22,7 +26,11 @@ import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 public class PilotGamepad extends Gamepad {
     //public final PilotGamepadTelemetry telemetry;
 
-    //what
+    public static ExpCurve climberThrottleCurve = new ExpCurve(
+        PilotGamepadConfig.climberSpeedExp,
+        PilotGamepadConfig.climberSpeedOffset,
+        PilotGamepadConfig.climberSpeedScaler,
+        PilotGamepadConfig.climberSpeedDeadband);
     public static ExpCurve forwardSpeedCurve =
             new ExpCurve(
 
@@ -63,6 +71,7 @@ public class PilotGamepad extends Gamepad {
 
     // ----- `Gamepad` Lib Required Methods for Button Assignment -----
     public void setupTeleopButtons() {
+        
         /* ----- Competition Button Assignments ----- */
         // "Start" Button - Reset Gyro to 0
         gamepad.startButton.onTrue(new InstantCommand(() -> Robot.swerve.zeroGyroHeading()));
@@ -72,6 +81,12 @@ public class PilotGamepad extends Gamepad {
 
         // "Select" Button - Reset Gyro to 180
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
+
+        gamepad.Dpad.Up.onTrue(new InstantCommand(() -> ClimberCmds.climberSetState(ClimberState.EXTEND)));
+        gamepad.Dpad.Up.onFalse(new InstantCommand(() -> ClimberCmds.climberSetState(ClimberState.STOPPED)));
+        
+        gamepad.Dpad.Down.onTrue(new InstantCommand(() -> ClimberCmds.climberSetState(ClimberState.STOW)));
+        gamepad.Dpad.Down.onFalse(new InstantCommand(() -> ClimberCmds.climberSetState(ClimberState.STOPPED)));
 
         /*
         2024 elevator cmds
@@ -174,6 +189,8 @@ public class PilotGamepad extends Gamepad {
 
     // ----- Misc. Gamepad Methods -----
 
+    
+
     public void rumble(double intensity) {
         this.gamepad.setRumble(intensity, intensity);
     }
@@ -198,4 +215,6 @@ public class PilotGamepad extends Gamepad {
             HPRight =FieldConstants.RED_HP_RIGHT;
         } 
     }*/
+    
+
 }

@@ -6,6 +6,13 @@ import edu.wpi.first.math.geometry.Translation2d;
 public class PilotGamepadConfig {
     public static enum MaxSpeeds {FAST, MEDIUM, SLOW}
 
+
+    // 
+    public static final double climberSpeedExp      = 20;
+    public static final double climberSpeedScaler   = -1.0;
+    public static final double climberSpeedDeadband = 0.05;
+    public static final double climberSpeedOffset   = 0;
+
     // Selectable speeds
     //----Fast-----//
     public static final double FastfowardVelocity       = -4.9;

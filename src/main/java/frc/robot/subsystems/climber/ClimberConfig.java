@@ -8,10 +8,8 @@ public class ClimberConfig {
     protected static final double gamepieceDetectDistance = 1;
 
     // retract/eject speeds
-    protected static final double GROUND = 1.0;
-    protected static final double AMP = 0.4;  // TODO: Remove for week 3 code
-    protected static final double TRAP = 0.4;  // TODO: Remove for week 3 code
-    protected static final double FEED = 1.2;
+    protected static final double STOW = -1; //TODO: THIS IS NOT A REAL NUMBER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    protected static final double EXTEND = 1; //TODO: THIS IS NOT A REAL NUMBER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     /* Neutral Modes */
     protected static final NeutralMode climberNeutralMode = NeutralMode.Brake;

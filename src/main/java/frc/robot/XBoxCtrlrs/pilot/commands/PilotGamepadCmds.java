@@ -6,13 +6,22 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
+import frc.robot.RobotConfig.Gamepads;
+import frc.robot.XBoxCtrlrs.operator.OperatorGamepadConfig;
 //import frc.robot.auto.Auto;
 //import frc.robot.auto.comands.AutoCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
+import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig;
+import frc.lib.gamepads.Gamepad;
+import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
+
+
 
 /** Add your docs here. */
 public class PilotGamepadCmds {
+
 
     /** Set default command to turn off the rumble */
     public static void setupDefaultCommand() {
@@ -45,7 +54,10 @@ public class PilotGamepadCmds {
                 .withName("RpvPilotSwerveCmd");
     }
 
-    
+
+
+
+
     
     // -------------------- Rumble Controller -------------
 

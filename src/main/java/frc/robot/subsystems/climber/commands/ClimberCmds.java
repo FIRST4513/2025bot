@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Robot;
+import frc.robot.subsystems.climber.ClimberSubSys;
 import frc.robot.subsystems.climber.ClimberSubSys.ClimberState;
 
 public class ClimberCmds {
@@ -26,10 +27,19 @@ public class ClimberCmds {
     }
 
     /* ----- Intake Set State Command Shortcuts ----- */
-    public static Command climberSetGroundCmd() { return climberSetState(ClimberState.GROUND); }
-    public static Command climberSetFeedCmd()   { return climberSetState(ClimberState.SHOOTER_FEED); }
-    public static Command climberSetTrapCmd()   { return climberSetState(ClimberState.TRAP); }
-    public static Command climberSetAmpCmd()    { return climberSetState(ClimberState.AMP); }
-    public static Command climberSetManualCmd() { return climberSetState(ClimberState.MANUAL); }
+    public static Command climberSetExtendcmd() 
+    {
+        return climberSetState(ClimberState.EXTEND); 
+    }
 
+    public static Command climberSetStowcmd() 
+    {
+        return climberSetState(ClimberState.STOW); 
+    }
+    public static void lockWench() {
+        ClimberSubSys.WenchLock.setAngle(90); // lock value unknown
+    }
+    public static void unlockWench() {
+        ClimberSubSys.WenchLock.setAngle(124.08); // unlock value 124.08
+    }
 }
