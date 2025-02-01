@@ -17,6 +17,8 @@ import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
 import frc.robot.subsystems.climber.ClimberSubSys;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
+import frc.robot.subsystems.intake.IntakeSubSys;
+import frc.robot.subsystems.intake.commands.IntakeCmds;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
 import edu.wpi.first.wpilibj.util.Color;
@@ -61,6 +63,7 @@ public class Robot extends LoggedRobot  {
 
     // Misc
     public static ClimberSubSys climber;
+    public static IntakeSubSys intake;
     // public static RotarySwitchSubSys rotarySwitch;
 
     public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
@@ -104,12 +107,14 @@ public class Robot extends LoggedRobot  {
         operatorGamepad = new OperatorGamepad();
         // rotarySwitch = new RotarySwitchSubSys(); 
         climber = new ClimberSubSys();
+        intake = new IntakeSubSys();
 
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();
         // Set Default Commands, this method should exist for each subsystem that has commands
         DrivetrainCmds.setupDefaultCommand();
         ClimberCmds.setupDefaultCommand();
+        IntakeCmds.setupDefaultCommand();
         PilotGamepadCmds.setupDefaultCommand();
         // ShooterCmds.setupDefaultCommand();
         // LEDsCommands.setupDefaultCommand();
