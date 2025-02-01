@@ -36,10 +36,10 @@ public class ClimberCmds {
     {
         return climberSetState(ClimberState.STOW); 
     }
-    public static void lockWench() {
-        ClimberSubSys.WenchLock.setAngle(90); // lock value unknown
+    public static void lockWinch() {
+        ClimberSubSys.WinchLock.setAngle(90); // lock value unknown
     }
-    public static void unlockWench() {
-        ClimberSubSys.WenchLock.setAngle(124.08); // unlock value 124.08
+    public static void unlockWinch() {
+        ClimberSubSys.WinchLock.setAngle(124.08); // unlock value 124.08
     }
 }

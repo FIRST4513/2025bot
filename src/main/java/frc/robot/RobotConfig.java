@@ -43,7 +43,7 @@ public class RobotConfig {
     }
 
     public final class PWMPorts {
-        public final static int wenchLockID = 9;
+        public final static int winchLockID = 9;
     }
 
 }

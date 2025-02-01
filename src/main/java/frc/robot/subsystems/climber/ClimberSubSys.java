@@ -23,13 +23,13 @@ public class ClimberSubSys extends SubsystemBase {
     
     // Devices
     public static WPI_TalonSRX climberMotor = new WPI_TalonSRX(Motors.ClimberMotorID);
-    public static Servo WenchLock = new Servo(PWMPorts.wenchLockID);
+    public static Servo WinchLock = new Servo(PWMPorts.winchLockID);
     
     
     /* ----- Constructor ----- */
     public ClimberSubSys() { 
-        WenchLock.setSpeed(.75);
-        WenchLock.setAngle(90); //124.08 is UNLOCKED
+        WinchLock.setSpeed(.75);
+        WinchLock.setAngle(90); //124.08 is UNLOCKED
         configureTalonSRXControllers();
         stopMotors();
         setBrakeMode(true);
@@ -40,14 +40,14 @@ public class ClimberSubSys extends SubsystemBase {
     public void periodic() {
          // drive motor based on the current state
          switch (state) {
-            case EXTEND: ClimberCmds.unlockWench();
+            case EXTEND: ClimberCmds.unlockWinch();
                          climberMotor.set(ClimberConfig.EXTEND);
                          break;
             case STOW:   climberMotor.set(ClimberConfig.STOW);
             // stopped included:
 
             default: climberMotor.set(0);
-            ClimberCmds.lockWench();
+            ClimberCmds.lockWinch();
         }
     }
 
