@@ -1,4 +1,4 @@
-package frc.robot.mechanisms.intake;
+package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
@@ -8,10 +8,12 @@ public class IntakeConfig {
     protected static final double gamepieceDetectDistance = 1;
 
     // retract/eject speeds
-    protected static final double GROUND = 1.0;
-    protected static final double AMP = 0.4;  // TODO: Remove for week 3 code
-    protected static final double TRAP = 0.4;  // TODO: Remove for week 3 code
     protected static final double FEED = 1.2;
+    public static final double TROPH = 0;
+    protected static final double MIDDLE = 0;
+    protected static final double TOP = 0;
+    protected static final double HOLD = 0;
+
 
     /* Neutral Modes */
     protected static final NeutralMode intakeNeutralMode = NeutralMode.Brake;

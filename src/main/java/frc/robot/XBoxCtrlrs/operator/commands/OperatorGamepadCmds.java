@@ -1,6 +1,7 @@
 package frc.robot.XBoxCtrlrs.operator.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -8,6 +9,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Robot;
+import frc.robot.subsystems.intake.IntakeSubSys;
+import frc.robot.subsystems.intake.IntakeSubSys.IntakeState;
+import frc.robot.subsystems.elevator.throwaway;
 
 /*
 import frc.robot.subsystems.intake.commands.IntakeCmds;
@@ -63,6 +67,12 @@ public class OperatorGamepadCmds {
              */
         );
     }
+
+    public static Command spit() {
+        return new InstantCommand(() -> Robot.intake.intakeBottomMotor.setPercent(throwaway.speed));
+    }
+
+
 
     public static Command readyForBumperShotCmd() {
         return new ParallelCommandGroup(

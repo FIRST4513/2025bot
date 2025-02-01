@@ -5,7 +5,9 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
-
+import frc.robot.subsystems.intake.IntakeConfig;
+import frc.robot.subsystems.intake.IntakeSubSys;
+import frc.robot.subsystems.elevator.throwaway;
 public class OperatorGamepad extends Gamepad {
     public static ExpCurve intakeThrottleCurve = new ExpCurve(
         OperatorGamepadConfig.intakeSpeedExp,
@@ -37,7 +39,9 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightBumper.onTrue(OperatorGamepadCmds.manualAllCmd()).onFalse(OperatorGamepadCmds.stopAllCmd());
 
         /* ----- Intaking ----- */
-        gamepad.yButton.onTrue(OperatorGamepadCmds.hpIntakeUntilGamepiece());
+        gamepad.leftBumper.onTrue(OperatorGamepadCmds.spit());
+
+        
 
         /* ----- Ejecting ----- */
         //         .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());   // manually spool up shooter for anticipation

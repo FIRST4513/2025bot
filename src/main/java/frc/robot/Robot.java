@@ -17,6 +17,7 @@ import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
 import frc.robot.subsystems.climber.ClimberSubSys;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
+import frc.robot.subsystems.intake.IntakeSubSys;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
 import edu.wpi.first.wpilibj.util.Color;
@@ -53,6 +54,7 @@ public class Robot extends LoggedRobot  {
     public static DrivetrainSubSys  swerve;
     public static PilotGamepad      pilotGamepad;
     public static OperatorGamepad operatorGamepad;
+    public static IntakeSubSys intake;
     // Automation and Assists
     // public static VisionSubSys      vision;
 
@@ -104,6 +106,7 @@ public class Robot extends LoggedRobot  {
         operatorGamepad = new OperatorGamepad();
         // rotarySwitch = new RotarySwitchSubSys(); 
         climber = new ClimberSubSys();
+        intake = new IntakeSubSys();
 
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();

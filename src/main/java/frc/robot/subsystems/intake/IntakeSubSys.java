@@ -1,32 +1,41 @@
 package frc.robot.subsystems.intake;
 
+import java.time.chrono.MinguoEra;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.thethriftybot.ThriftyNova;
+import com.thethriftybot.ThriftyNova.MotorType;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotConfig.AnalogPorts;
 import frc.robot.RobotConfig.Motors;
 
+
 public class IntakeSubSys extends SubsystemBase {
     public enum IntakeState {
         SHOOTER_FEED,
         STOPPED,
-        GROUND,
         MANUAL,
-        TRAP,
-        AMP,
+        TROPH, 
+        MIDDLE,
+        TOP,
+        HOLD
     }
 
-    private IntakeState state = IntakeState.STOPPED;
+    private static IntakeState state = IntakeState.STOPPED;
     
     // Devices
-    public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(Motors.intakeMotorID);
-    public AnalogInput gamepieceDetectSensor = new AnalogInput(AnalogPorts.intakeGamepieceSensor);
+    public ThriftyNova intakeBottomMotor = new ThriftyNova(Motors.IntakeBottomMotorID, MotorType.MINION);
+    public ThriftyNova intakeTopMotor = new ThriftyNova(Motors.IntakeTopMotorID, MotorType.MINION);
+
+
 
     /* ----- Constructor ----- */
     public IntakeSubSys() { 
-        configureTalonSRXControllers();
+        configureNovaControllers();
         stopMotors();
         setBrakeMode(true);
     } 
@@ -36,18 +45,26 @@ public class IntakeSubSys extends SubsystemBase {
     public void periodic() {
         // drive motor based on the current state
         switch (state) {
-            case SHOOTER_FEED: intakeMotor.set(IntakeConfig.FEED);
+            case SHOOTER_FEED: intakeBottomMotor.set(IntakeConfig.FEED);
+                               intakeTopMotor.set(IntakeConfig.FEED);
                                break;
-            case GROUND: intakeMotor.set(IntakeConfig.GROUND);
+            case MANUAL: intakeBottomMotor.set(-Robot.operatorGamepad.getTriggerTwist());
+                         intakeTopMotor.set(-Robot.operatorGamepad.getTriggerTwist());
                          break;
-            case MANUAL: intakeMotor.set(-Robot.operatorGamepad.getTriggerTwist());
-                         break;
-            case TRAP: intakeMotor.set(IntakeConfig.TRAP);
+            case TROPH: intakeBottomMotor.set(IntakeConfig.TROPH);
+                        intakeTopMotor.set(IntakeConfig.TROPH);
                        break;
-            case AMP: intakeMotor.set(IntakeConfig.AMP);
+            case MIDDLE: intakeBottomMotor.set(IntakeConfig.MIDDLE);
+                         intakeTopMotor.set(IntakeConfig.MIDDLE);
                       break;
+            case TOP: intakeBottomMotor.set(IntakeConfig.TOP);
+                      intakeTopMotor.set(IntakeConfig.TOP);
+                    break;
+            case HOLD: intakeBottomMotor.set(IntakeConfig.HOLD);
+                       intakeTopMotor.set(IntakeConfig.HOLD);
             // stopped included:
-            default: intakeMotor.set(0);
+            default: intakeBottomMotor.set(0);
+                     intakeTopMotor.set(0);
         }
     }
 
@@ -63,68 +80,46 @@ public class IntakeSubSys extends SubsystemBase {
 
     public void stopMotors() {
         setBrakeMode(true);
-        intakeMotor.stopMotor();
+        intakeBottomMotor.stopMotor();
+        intakeTopMotor.stopMotor();
         state = IntakeState.STOPPED;
     }
     
     // ------ Set Brake Modes ---------
     public void setBrakeMode(Boolean enabled) {
         if (enabled) {
-            intakeMotor.setNeutralMode(NeutralMode.Brake);
+            intakeBottomMotor.setBrakeMode(true);
+            intakeTopMotor.setBrakeMode(true);
         } else {
-            intakeMotor.setNeutralMode(NeutralMode.Coast);
+            intakeBottomMotor.setBrakeMode(false);
+            intakeTopMotor.setBrakeMode(false);
         }
     }
 
     /* ----- Getters ---- */
 
-    public double getMotorSpeed() { return intakeMotor.get(); }
-    public IntakeState getState() { return state; }
+    //public double getMotorSpeed() { return intakeMotor.get(); }
+    public static IntakeState getState() { return state; }
 
     public String getStateString() {
         switch (state) {
             case SHOOTER_FEED: return "SHOOTER FEED";
-            case GROUND:       return "GROUND";
             case MANUAL:       return "MANUAL";
-            case TRAP:         return "TRAP";
-            case AMP:          return "AMP";
+            case TROPH:        return "TROPH";
+            case MIDDLE:       return "MIDDLE";
+            case TOP:          return "TOP";
+            case HOLD:         return "HOLD";
+
             default:           return "STOPPED";
         }
     }
 
-    // ----------------------------------------------------------------
-    // ---------------- Intake Detect Methods -------------------------
-    // ----------------------------------------------------------------
-
-    // ---------- General Gamepiece Detects ----------
-    public double getSensorVal() {
-        return gamepieceDetectSensor.getAverageVoltage();
-    }
-
-    public boolean getGamepieceDetected() {
-        if (getSensorVal() > IntakeConfig.gamepieceDetectDistance) { return true; }
-        return false;
-    }
-
-    public boolean getGamepieceNotDetected() {
-        return !getGamepieceDetected();
-    }
-
-    public String isGamepieceDetected() {
-        if(getGamepieceDetected()) { 
-            return "Detected"; } 
-        return "Not Detected";
-    }
 
     // ----------------------------------------------------------
     // ---------------- Configure Intake Motor ------------------
     // ----------------------------------------------------------
-    public void configureTalonSRXControllers(){
-        // Config the only Talon SRX motor
-        intakeMotor.configFactoryDefault();
-        intakeMotor.configAllSettings(IntakeConfig.getConfig());
-        intakeMotor.setInverted(IntakeConfig.intakeMotorInvert);
-        intakeMotor.setNeutralMode(IntakeConfig.intakeNeutralMode);
-        intakeMotor.setSelectedSensorPosition(0);
+    public void configureNovaControllers(){
+        intakeTopMotor.setInverted(true);
+        
     }
 }
