@@ -21,7 +21,7 @@ public class IntakeSubSys extends SubsystemBase {
     private IntakeState state = IntakeState.STOPPED;
     
     // Devices
-    public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(Motors.intakeMotorID);
+    public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(Motors.IntakeMotorID);
     public AnalogInput gamepieceDetectSensor = new AnalogInput(AnalogPorts.intakeGamepieceSensor);
 
     /* ----- Constructor ----- */
