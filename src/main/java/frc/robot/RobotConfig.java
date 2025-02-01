@@ -5,21 +5,21 @@ public class RobotConfig {
     public final class Motors {
         // ----- Swerve drive -----
         public final static int FLdriveMotorID      =  1;  // Can ID Kraken
-        public final static int FRdriveMotorID      =  2;  // Can ID Kraken
-        public final static int BLdriveMotorID      =  3;  // Can ID Kraken
-        public final static int BRdriveMotorID      =  4;  // Can ID Kraken
+        public final static int FRdriveMotorID      =  3;  // Can ID Kraken
+        public final static int BLdriveMotorID      =  7;  // Can ID Kraken
+        public final static int BRdriveMotorID      =  5;  // Can ID Kraken
 
-        public final static int FLangleMotorID      =  5;  // Can ID Kraken
-        public final static int FRangleMotorID      =  6;  // Can ID Kraken
-        public final static int BLangleMotorID      =  7;  // Can ID Kraken
-        public final static int BRangleMotorID      =  8;  // Can ID Kraken
+        public final static int FLangleMotorID      =  2;  // Can ID Kraken
+        public final static int FRangleMotorID      =  4;  // Can ID Kraken
+        public final static int BLangleMotorID      =  8;  // Can ID Kraken
+        public final static int BRangleMotorID      =  6;  // Can ID Kraken
 
         public final static int ClimberMotorID      = 14;  // Can ID Kraken
 
-        public final static int IntakeBottomMotorID = 15; // 
-        public final static int IntakeTopMotorID    = 16;
+        public final static int IntakeBottomMotorID = 2; // 
+        public final static int IntakeTopMotorID    = 3;
 
-        public final static int ElevatorMotorID     = 17;
+        public final static int ElevatorMotorID     = 15;
     }
 
     public final class Gamepads {
@@ -34,8 +34,8 @@ public class RobotConfig {
         // Swerve Angles
         public final static int FLcanCoderID       =  9;  // Cancoder CAN ID
         public final static int FRcanCoderID       = 10;  // Cancoder CAN ID
-        public final static int BLcanCoderID       = 11;  // Cancoder CAN ID
-        public final static int BRcanCoderID       = 12;  // Cancoder CAN ID
+        public final static int BLcanCoderID       = 12;  // Cancoder CAN ID
+        public final static int BRcanCoderID       = 11;  // Cancoder CAN ID
     }
 
     public final class AnalogPorts {

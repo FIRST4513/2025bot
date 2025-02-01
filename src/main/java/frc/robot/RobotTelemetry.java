@@ -117,9 +117,9 @@ public class RobotTelemetry extends TelemetrySubsystem {
         return (int) Timer.getFPGATimestamp() % 2 == 0;
     }
 
-    public static void print(String output) {
-        if (!disablePrints) {
-            System.out.println(output);
-        }
-    }
+    //public static void print(String output) {
+    //    if (!disablePrints) {
+    //        System.out.println(output);
+    //    }
+    //}
 }
