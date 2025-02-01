@@ -18,6 +18,8 @@ public class RobotConfig {
 
         public final static int IntakeBottomMotorID = 15; // 
         public final static int IntakeTopMotorID    = 16;
+
+        public final static int ElevatorMotorID     = 17;
     }
 
     public final class Gamepads {

@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
 public class ClimberConfig {
     // IR Prox distance value for detection of a gamepiece
-    protected static final double gamepieceDetectDistance = 1;
 
     // retract/eject speeds
     protected static final double STOW = -1; //TODO: THIS IS NOT A REAL NUMBER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -21,10 +20,10 @@ public class ClimberConfig {
     protected static final int climberAllowableError = 0;
 
     /* climber Motor Current Limiting */
-    protected static final int     climberContinuousCurrentLimit = 30;
-    protected static final int     climberPeakCurrentLimit       = 30;
-    protected static final int     climberPeakCurrentDuration    = 100;
-    protected static final boolean climberEnableCurrentLimit     = true;
+    protected static final int     climberContinuousCurrentLimit = 30; //TODO: find real number
+    protected static final int     climberPeakCurrentLimit       = 30; //TODO: find real number
+    protected static final int     climberPeakCurrentDuration    = 100;//TODO: find real number
+    protected static final boolean climberEnableCurrentLimit     = true;//TODO: find real number1
 
     /* Ramp Rate */
     protected static final double openLoopRamp = 0;
