@@ -55,6 +55,7 @@ public class Robot extends LoggedRobot  {
     public static PilotGamepad      pilotGamepad;
     public static OperatorGamepad operatorGamepad;
     public static IntakeSubSys intake;
+    public static ClimberSubSys climber;
     // Automation and Assists
     // public static VisionSubSys      vision;
 
@@ -62,7 +63,7 @@ public class Robot extends LoggedRobot  {
 
 
     // Misc
-    public static ClimberSubSys climber;
+    
     // public static RotarySwitchSubSys rotarySwitch;
 
     public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
@@ -106,7 +107,7 @@ public class Robot extends LoggedRobot  {
         operatorGamepad = new OperatorGamepad();
         // rotarySwitch = new RotarySwitchSubSys(); 
         climber = new ClimberSubSys();
-        intake = new IntakeSubSys();
+        //intake = new IntakeSubSys();
 
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();

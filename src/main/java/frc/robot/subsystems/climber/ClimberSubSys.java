@@ -1,7 +1,9 @@
 package frc.robot.subsystems.climber;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.pathplanner.lib.config.RobotConfig;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -9,6 +11,7 @@ import frc.robot.Robot;
 import frc.robot.RobotConfig.AnalogPorts;
 import frc.robot.RobotConfig.Motors;
 import frc.robot.RobotConfig.PWMPorts;
+import frc.robot.canbus.canfd;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
 
 public class ClimberSubSys extends SubsystemBase {
@@ -22,17 +25,16 @@ public class ClimberSubSys extends SubsystemBase {
     
     
     // Devices
-    public static WPI_TalonSRX climberMotor = new WPI_TalonSRX(Motors.ClimberMotorID);
+    public static TalonFX climberMotor = new TalonFX(Motors.ClimberMotorID, "CANFD");
     public static Servo WinchLock = new Servo(PWMPorts.winchLockID);
     
     
     /* ----- Constructor ----- */
     public ClimberSubSys() { 
         WinchLock.setSpeed(.75);
-        WinchLock.setAngle(90); //124.08 is UNLOCKED
-        configureTalonSRXControllers();
+        WinchLock.setAngle(113); //113 is UNLOCKED
+        configureTalonFXControllers();
         stopMotors();
-        setBrakeMode(true);
     } 
 
     /* ----- Periodic ----- */
@@ -43,7 +45,10 @@ public class ClimberSubSys extends SubsystemBase {
             case EXTEND: ClimberCmds.unlockWinch();
                          climberMotor.set(ClimberConfig.EXTEND);
                          break;
-            case STOW:   climberMotor.set(ClimberConfig.STOW);
+            case STOW:   ClimberCmds.lockWinch();
+                         climberMotor.set(ClimberConfig.STOW);
+                         break;
+            
             // stopped included:
 
             default: climberMotor.set(0);
@@ -62,19 +67,10 @@ public class ClimberSubSys extends SubsystemBase {
     }
 
     public void stopMotors() {
-        setBrakeMode(true);
         climberMotor.stopMotor();
         state = ClimberState.STOPPED;
     }
     
-    // ------ Set Brake Modes ---------
-    public void setBrakeMode(Boolean enabled) {
-        if (enabled) {
-            climberMotor.setNeutralMode(NeutralMode.Brake);
-        } else {
-            climberMotor.setNeutralMode(NeutralMode.Coast);
-        }
-    }
 
     /* ----- Getters ---- */
 
@@ -99,12 +95,8 @@ public class ClimberSubSys extends SubsystemBase {
     // ----------------------------------------------------------
     // ---------------- Configure Climber Motor ------------------
     // ----------------------------------------------------------
-    public void configureTalonSRXControllers(){
+    public void configureTalonFXControllers(){
         // Config the only Talon SRX motor
-        climberMotor.configFactoryDefault();
-        climberMotor.configAllSettings(ClimberConfig.getConfig());
-        climberMotor.setInverted(ClimberConfig.climberMotorInvert);
-        climberMotor.setNeutralMode(ClimberConfig.climberNeutralMode);
-        climberMotor.setSelectedSensorPosition(0);
+        climberMotor.getConfigurator().apply(ClimberConfig.getConfig());
     }
 }

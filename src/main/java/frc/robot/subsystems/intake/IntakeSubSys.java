@@ -2,8 +2,6 @@ package frc.robot.subsystems.intake;
 
 import java.time.chrono.MinguoEra;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.thethriftybot.ThriftyNova;
 import com.thethriftybot.ThriftyNova.MotorType;
 
@@ -75,7 +73,7 @@ public class IntakeSubSys extends SubsystemBase {
     /* ----- Setters ----- */
 
     public void setNewState(IntakeState newState) {
-        state = newState;
+       state = newState;
     }
 
     public void stopMotors() {

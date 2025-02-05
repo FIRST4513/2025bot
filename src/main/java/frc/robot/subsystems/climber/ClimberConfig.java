@@ -1,17 +1,16 @@
 package frc.robot.subsystems.climber;
-
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class ClimberConfig {
     // IR Prox distance value for detection of a gamepiece
 
     // retract/eject speeds
-    protected static final double STOW = -1; //TODO: THIS IS NOT A REAL NUMBER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    protected static final double EXTEND = 1; //TODO: THIS IS NOT A REAL NUMBER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    /* Neutral Modes */
-    protected static final NeutralMode climberNeutralMode = NeutralMode.Brake;
+    protected static final double STOW = -0.25; //TODO: THIS IS NOT A REAL NUMBER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    protected static final double EXTEND = 0.25; //TODO: THIS IS NOT A REAL NUMBER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     /* Inverts */
     protected static final boolean climberMotorInvert = false;
@@ -29,22 +28,65 @@ public class ClimberConfig {
     protected static final double openLoopRamp = 0;
     protected static final double closedLoopRamp = 0;
 
+
+        /* constants for height definitions */
+        public static final double MAX_ROTATIONS = 55;
+
+        public static final double posTop       = 50;
+        public static final double posOnChain   = 28;
+        public static final double posMidClimb  = 11.37;
+        public static final double posFullClimb = 0;
+    
+        /* configuration constants */
+        private static final double mmCruiseVelocity = 50;  // 5 rpm cruise
+        private static final double mmAcceleration   = 30;  // ~0.5 seconds to max vel.
+        private static final double mmJerk           = 75;  // ~0.2 seconds to max accel.
+    
+        private static final double nonload_kP = 1.0;   // (P)roportional value
+        private static final double nonload_kI = 0.0;   // (I)ntegral Value
+        private static final double nonload_kD = 0.0;   // (D)erivative Value
+        private static final double nonload_kV = 0.12;  // Volts/100 (?)
+        private static final double nonload_kS = 0.05;  // (S)tiction Value:
+    
+        private static final boolean enableCurrentLimitting = true;
+        private static final double  suppCurrent = 40;      // Max Amps allowed in Supply
+        private static final double  suppTimeThresh = 0.1;  // How long to allow unlimited Supply (s)
+        private static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
+
+
     // --------------- Constuctor Setting Up Motor Config values -------------
-    protected static TalonSRXConfiguration getConfig() {
-        /* climber Motor Configurations */
-        TalonSRXConfiguration climberSRXConfig = new TalonSRXConfiguration();
+    protected static TalonFXConfiguration getConfig() {
+        /* Declare Configuration Object */
+        TalonFXConfiguration config = new TalonFXConfiguration();
 
-        climberSRXConfig.slot0.kP = 0;
-        climberSRXConfig.slot0.kI = 0;
-        climberSRXConfig.slot0.kD = 0;
-        climberSRXConfig.slot0.kF = 0;
-        climberSRXConfig.slot0.allowableClosedloopError = climberAllowableError;
-        climberSRXConfig.openloopRamp                   = openLoopRamp;
-        climberSRXConfig.closedloopRamp                 = closedLoopRamp;
-        climberSRXConfig.continuousCurrentLimit         = climberContinuousCurrentLimit;
-        climberSRXConfig.peakCurrentLimit               = climberPeakCurrentLimit;         
-        climberSRXConfig.peakCurrentDuration            = climberPeakCurrentDuration;
+        // Configure Motion Magic Values
+        MotionMagicConfigs mm = config.MotionMagic;
+        mm.MotionMagicCruiseVelocity = mmCruiseVelocity;
+        mm.MotionMagicAcceleration = mmAcceleration;
+        mm.MotionMagicJerk = mmJerk;
 
-        return climberSRXConfig;
+        // Configure PID Slot0 Values (PIDVS)
+        Slot0Configs slot0Configs = config.Slot0;
+        slot0Configs.kP = nonload_kP;
+        slot0Configs.kI = nonload_kI;
+        slot0Configs.kD = nonload_kD;
+        slot0Configs.kV = nonload_kV;
+        slot0Configs.kS = nonload_kS;
+
+        // Configure Current Limits
+        CurrentLimitsConfigs currentLimits = config.CurrentLimits;
+        currentLimits.SupplyCurrentLimitEnable = enableCurrentLimitting;
+        currentLimits.SupplyCurrentLimit = suppCurrent;
+
+        // Configure Soft Limits
+        config.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+        config.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_ROTATIONS;
+
+        // Configure neutral mode
+        config.MotorOutput.NeutralMode = neutralMode;
+
+
+        // finally return an object that will represent the configs we would like to 
+        return config;
     }
 }

@@ -89,10 +89,10 @@ public class DrivetrainConfig {
     // and just go through their config and steal the offsets from there
 
         
-    private static final double angleOffsets[] = {      -0.145263671875,  // FL  comp 2024 //0.1955
-                                                        -0.349365234375,  // FR  comp 2024 //-0.4553
-                                                        0.439208984375,  // BL  comp 2024 //-0.1252
-                                                        -0.1416015625}; // BR  comp 2024 //0.1010
+    private static final double angleOffsets[] = {      -0.37890625,  // FL  comp 2024 //0.1955  | pratice bot 25 -0.145263671875
+                                                        0.44775390625,  // FR  comp 2024 //-0.4553 | practice bot 25 -0.349365234375
+                                                        0.048583984375,  // BL  comp 2024 //-0.1252 | practice bot 25
+                                                        -0.411376953125}; // BR  comp 2024 //0.1010 | practice bot 25 -0.1416015625
     
                                                         //private static final Angle FLangle = Rotations.of(-0.145263671875);
 

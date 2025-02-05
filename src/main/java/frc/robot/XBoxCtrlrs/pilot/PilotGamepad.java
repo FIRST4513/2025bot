@@ -82,11 +82,14 @@ public class PilotGamepad extends Gamepad {
         // "Select" Button - Reset Gyro to 180
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
-        gamepad.Dpad.Up.onTrue(new InstantCommand(() -> ClimberCmds.climberSetState(ClimberState.EXTEND)));
-        gamepad.Dpad.Up.onFalse(new InstantCommand(() -> ClimberCmds.climberSetState(ClimberState.STOPPED)));
+        gamepad.Dpad.Up.whileTrue(ClimberCmds.climberSetExtend());
+        gamepad.Dpad.Up.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
         
-        gamepad.Dpad.Down.onTrue(new InstantCommand(() -> ClimberCmds.climberSetState(ClimberState.STOW)));
-        gamepad.Dpad.Down.onFalse(new InstantCommand(() -> ClimberCmds.climberSetState(ClimberState.STOPPED)));
+        gamepad.Dpad.Down.whileTrue(ClimberCmds.climberSetStow());
+        gamepad.Dpad.Down.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
+        
+        gamepad.Dpad.Left.whileTrue(ClimberCmds.lockWinch());
+        gamepad.Dpad.Right.whileTrue(ClimberCmds.unlockWinch());
 
         /*
         2024 elevator cmds

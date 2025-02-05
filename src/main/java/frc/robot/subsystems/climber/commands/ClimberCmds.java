@@ -27,19 +27,20 @@ public class ClimberCmds {
     }
 
     /* ----- Intake Set State Command Shortcuts ----- */
-    public static Command climberSetExtendcmd() 
+    public static Command climberSetExtend() 
     {
         return climberSetState(ClimberState.EXTEND); 
     }
 
-    public static Command climberSetStowcmd() 
+    public static Command climberSetStow() 
     {
         return climberSetState(ClimberState.STOW); 
     }
-    public static void lockWinch() {
-        ClimberSubSys.WinchLock.setAngle(90); // lock value unknown
+    
+    public static Command lockWinch() {
+        return new InstantCommand(() -> ClimberSubSys.WinchLock.setAngle(90)); // lock value unknown
     }
-    public static void unlockWinch() {
-        ClimberSubSys.WinchLock.setAngle(124.08); // unlock value 124.08
+    public static Command unlockWinch() {
+        return new InstantCommand(() -> ClimberSubSys.WinchLock.setAngle(113)); // unlock value 124.08
     }
 }

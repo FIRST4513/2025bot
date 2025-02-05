@@ -14,7 +14,7 @@ public class RobotConfig {
         public final static int BLangleMotorID      =  8;  // Can ID Kraken
         public final static int BRangleMotorID      =  6;  // Can ID Kraken
 
-        public final static int ClimberMotorID      = 14;  // Can ID Kraken
+        public final static int ClimberMotorID      = 20;  // Can ID Kraken
 
         public final static int IntakeBottomMotorID = 2; // 
         public final static int IntakeTopMotorID    = 3;
