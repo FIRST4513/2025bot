@@ -18,6 +18,7 @@ public class ClimberSubSys extends SubsystemBase {
     public enum ClimberState {
         EXTEND,
         STOW,
+        STARTUP,
         STOPPED,
     }
 
@@ -48,6 +49,9 @@ public class ClimberSubSys extends SubsystemBase {
             case STOW:   ClimberCmds.lockWinch();
                          climberMotor.set(ClimberConfig.STOW);
                          break;
+            case STARTUP: ClimberCmds.unlockWinch();
+                          climberMotor.setPosition(ClimberConfig.STARTUP);
+                          ClimberCmds.lockWinch();
             
             // stopped included:
 

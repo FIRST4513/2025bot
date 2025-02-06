@@ -36,7 +36,7 @@ public class ElevatorConfig {
 
 
         /* constants for height definitions */
-        public static final double MAX_ROTATIONS = 35;
+        public static final double MAX_ROTATIONS = 48.5;
         /* configuration constants */
         private static final double mmCruiseVelocity = 120;  // 12 rpm cruise
         private static final double mmAcceleration   = 30;  // ~0.5 seconds to max vel.
@@ -81,7 +81,7 @@ public class ElevatorConfig {
         currentLimits.SupplyCurrentLimit = suppCurrent;
         
         // Configure Soft Limits
-        config.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+        config.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
         config.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_ROTATIONS;
 
         // Configure neutral mode

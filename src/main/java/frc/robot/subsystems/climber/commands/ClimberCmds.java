@@ -36,6 +36,10 @@ public class ClimberCmds {
     {
         return climberSetState(ClimberState.STOW); 
     }
+    public static Command climberSetStartup() 
+    {
+        return climberSetState(ClimberState.STARTUP); 
+    }
     
     public static Command lockWinch() {
         return new InstantCommand(() -> ClimberSubSys.WinchLock.setAngle(90)); // lock value unknown

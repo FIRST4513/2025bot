@@ -95,41 +95,8 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Right.whileTrue(ClimberCmds.unlockWinch());
 
 
-        /*gamepad.yButton.whileTrue(ElevatorCmds.elevatorSetManual());
-        gamepad.yButton.onFalse(ElevatorCmds.elevatorSetStopped());
 
-        gamepad.aButton.whileTrue(ElevatorCmds.elevatorSetManual2());
-        gamepad.aButton.onFalse(ElevatorCmds.elevatorSetStopped());
-
-        gamepad.xButton.onTrue(ElevatorCmds.elevatorSetLevelOne());*/
-
-        /*gamepad.aButton.onTrue(ElevatorCmds.elevatorSetLevelOne());
-
-        gamepad.bButton.onTrue(ElevatorCmds.elevatorSetLevelTwo());
-
-        gamepad.xButton.onTrue(ElevatorCmds.elevatorSetLevelThree());
-
-        gamepad.yButton.onTrue(ElevatorCmds.elevatorSetLevelFour());
-
-        gamepad.Dpad.Up.whileTrue(ElevatorCmds.elevatorSetManual());
-        gamepad.Dpad.Up.onFalse(ElevatorCmds.elevatorSetStopped());
-
-        gamepad.Dpad.Down.onTrue(ElevatorCmds.elevatorSetBottom());*/
-
-
-
-
-        /*
-        2024 elevator cmds
-        gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
-        gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
-        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
-        gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
-        */
-
-        // Possible climber control for Corbin:
-        // Left D-pad: control left with right stick
-        // Right D-pad: control right with right stick
+        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetStartup());
 
         /* ----- Example Ways to use Buttons in different ways ---- */
 
