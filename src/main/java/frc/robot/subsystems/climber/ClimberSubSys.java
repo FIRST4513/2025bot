@@ -32,7 +32,7 @@ public class ClimberSubSys extends SubsystemBase {
     /* ----- Constructor ----- */
     public ClimberSubSys() { 
         WinchLock.setSpeed(.75);
-        WinchLock.setAngle(113); //113 is UNLOCKED
+        WinchLock.setAngle(90); //113 is UNLOCKED
         configureTalonFXControllers();
         //stopMotors();
     } 

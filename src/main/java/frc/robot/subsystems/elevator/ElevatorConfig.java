@@ -9,16 +9,17 @@ public class ElevatorConfig {
     // IR Prox distance value for detection of a gamepiece
 
     // retract/eject speeds
-    protected static final double LEVELONE    = 0.1;
-    protected static final double LEVELTWO    = 0.1;
-    protected static final double LEVELTHREE  = 0.1;
-    protected static final double LEVELFOUR   = 0.1;
-    protected static final double BOTTOM      = 0.1;
-    protected static final double MANUAL      = -0.1;
+    protected static final double LEVELONE    = 7;
+    protected static final double LEVELTWO    = 13;
+    protected static final double LEVELTHREE  = 26.5;
+    protected static final double LEVELFOUR   = 12;
+    protected static final double BOTTOM      = 0;
+    protected static final double MANUAL      = 0.1;
+    protected static final double MANUAL2     = -0.1;
 
     
     /* Inverts */
-    protected static final boolean climberMotorInvert = false;
+    protected static final boolean climberMotorInvert = true;
 
     // increase to reduce jitter
     //protected static final int climberAllowableError = 0;   
@@ -35,18 +36,18 @@ public class ElevatorConfig {
 
 
         /* constants for height definitions */
-        public static final double MAX_ROTATIONS = 55;
+        public static final double MAX_ROTATIONS = 35;
         /* configuration constants */
-        private static final double mmCruiseVelocity = 50;  // 5 rpm cruise
+        private static final double mmCruiseVelocity = 120;  // 12 rpm cruise
         private static final double mmAcceleration   = 30;  // ~0.5 seconds to max vel.
-        private static final double mmJerk           = 0;  // ~0.2 seconds to max accel.
+        private static final double mmJerk           = 75;  // ~0.2 seconds to max accel.
     
         private static final double nonload_kP = 0.0;   // (P)roportional value
         private static final double nonload_kI = 0.0;   // (I)ntegral Value
-        private static final double nonload_kD = 0.0;   // (D)erivative Value
+        private static final double nonload_kD = 0.1;   // (D)erivative Value
         private static final double nonload_kV = 0.12;  // Volts/100 (?)
         private static final double nonload_kS = 0.05;  // (S)tiction Value:
-        private static final double nonload_kG = 0.05;
+        private static final double nonload_kG = 0.25;
     
         private static final boolean enableCurrentLimitting = true;
         private static final double  suppCurrent = 40;      // Max Amps allowed in Supply
@@ -85,7 +86,6 @@ public class ElevatorConfig {
 
         // Configure neutral mode
         config.MotorOutput.NeutralMode = neutralMode;
-
 
         // finally return an object that will represent the configs we would like to 
         return config;

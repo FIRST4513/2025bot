@@ -94,9 +94,30 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Left.whileTrue(ClimberCmds.lockWinch());
         gamepad.Dpad.Right.whileTrue(ClimberCmds.unlockWinch());
 
-        gamepad.aButton.whileTrue(ElevatorCmds.elevatorSetManual());
-        gamepad.aButton.whileTrue(ElevatorSubSys.setElevatorSpeed(this.gamepad.rightStick.getY()));
-        gamepad.aButton.onFalse(ElevatorCmds.elevatorSetState(ElevatorState.STOPPED));
+
+        /*gamepad.yButton.whileTrue(ElevatorCmds.elevatorSetManual());
+        gamepad.yButton.onFalse(ElevatorCmds.elevatorSetStopped());
+
+        gamepad.aButton.whileTrue(ElevatorCmds.elevatorSetManual2());
+        gamepad.aButton.onFalse(ElevatorCmds.elevatorSetStopped());
+
+        gamepad.xButton.onTrue(ElevatorCmds.elevatorSetLevelOne());*/
+
+        /*gamepad.aButton.onTrue(ElevatorCmds.elevatorSetLevelOne());
+
+        gamepad.bButton.onTrue(ElevatorCmds.elevatorSetLevelTwo());
+
+        gamepad.xButton.onTrue(ElevatorCmds.elevatorSetLevelThree());
+
+        gamepad.yButton.onTrue(ElevatorCmds.elevatorSetLevelFour());
+
+        gamepad.Dpad.Up.whileTrue(ElevatorCmds.elevatorSetManual());
+        gamepad.Dpad.Up.onFalse(ElevatorCmds.elevatorSetStopped());
+
+        gamepad.Dpad.Down.onTrue(ElevatorCmds.elevatorSetBottom());*/
+
+
+
 
         /*
         2024 elevator cmds
@@ -131,6 +152,7 @@ public class PilotGamepad extends Gamepad {
     public double getDriveFwdPositive() {
         return forwardSpeedCurve.calculateMappedVal(this.gamepad.leftStick.getY());
     }
+
 
     // side-to-side across the field
     public double getDriveLeftPositive() {

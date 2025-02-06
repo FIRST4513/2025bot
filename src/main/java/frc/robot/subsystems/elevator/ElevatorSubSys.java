@@ -1,6 +1,7 @@
 package frc.robot.subsystems.elevator;
 
 import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.pathplanner.lib.config.RobotConfig;
 
@@ -13,6 +14,8 @@ import frc.robot.Robot;
 import frc.robot.RobotConfig.AnalogPorts;
 import frc.robot.RobotConfig.Motors;
 import frc.robot.RobotConfig.PWMPorts;
+import frc.robot.XBoxCtrlrs.pilot.PilotGamepad;
+import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
 import frc.robot.canbus.canfd;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 
@@ -24,12 +27,13 @@ public class ElevatorSubSys extends SubsystemBase {
         LEVELFOUR,
         BOTTOM,
         MANUAL,
+        MANUAL2,
         STOPPED
 
     }
 
     private ElevatorState state = ElevatorState.STOPPED;
-    
+    final MotionMagicVoltage mr = new MotionMagicVoltage(0);
     
     // Devices
     public static TalonFX elevatorMotor = new TalonFX(Motors.ElevatorMotorID, "CANFD");
@@ -47,23 +51,24 @@ public class ElevatorSubSys extends SubsystemBase {
          // drive motor based on the current state
          switch (state) {
             case LEVELONE:
-                         elevatorMotor.setPosition(ElevatorConfig.LEVELONE);
+                         elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELONE));
                          break;
             case LEVELTWO:
-                         elevatorMotor.setPosition(ElevatorConfig.LEVELTWO);
+                         elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELTWO));
                          break;
             case LEVELTHREE:
-                         elevatorMotor.setPosition(ElevatorConfig.LEVELTHREE);
+                         elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELTHREE));
                          break;            
             case LEVELFOUR:
-                         elevatorMotor.setPosition(ElevatorConfig.LEVELFOUR);
+                         elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELFOUR));
                          break;
             case BOTTOM:
-                         elevatorMotor.setPosition(ElevatorConfig.BOTTOM);
+                         elevatorMotor.setControl(mr.withPosition(ElevatorConfig.BOTTOM));
                          break;
-            case MANUAL:
-                         
+            case MANUAL: elevatorMotor.set(ElevatorConfig.MANUAL);
                          break;
+            case MANUAL2: elevatorMotor.set(ElevatorConfig.MANUAL2);
+                          break;
 
             
             // stopped included:
@@ -113,7 +118,7 @@ public class ElevatorSubSys extends SubsystemBase {
     // ---------------- Configure elevator Motor ------------------
     // ----------------------------------------------------------
     public void configureTalonFXControllers(){
-        // Config the only Talon SRX motor
+        // Config the only Talon FX motor
         elevatorMotor.getConfigurator().apply(ElevatorConfig.getConfig());
         elevatorMotor.setInverted(true);
     }

@@ -5,6 +5,7 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
+import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 import frc.robot.subsystems.intake.IntakeConfig;
 import frc.robot.subsystems.intake.IntakeSubSys;
 public class OperatorGamepad extends Gamepad {
@@ -37,18 +38,19 @@ public class OperatorGamepad extends Gamepad {
         gamepad.leftBumper.onTrue(OperatorGamepadCmds.stopAllCmd());
         gamepad.rightBumper.onTrue(OperatorGamepadCmds.manualAllCmd()).onFalse(OperatorGamepadCmds.stopAllCmd());
 
-        /* ----- Intaking ----- */
+        gamepad.aButton.onTrue(ElevatorCmds.elevatorSetLevelOne());
 
+        gamepad.bButton.onTrue(ElevatorCmds.elevatorSetLevelTwo());
+
+        gamepad.xButton.onTrue(ElevatorCmds.elevatorSetLevelThree());
+
+        gamepad.yButton.onTrue(ElevatorCmds.elevatorSetLevelFour());
+
+        gamepad.Dpad.Up.whileTrue(ElevatorCmds.elevatorSetManual());
+        gamepad.Dpad.Up.onFalse(ElevatorCmds.elevatorSetStopped());
+
+        gamepad.Dpad.Down.onTrue(ElevatorCmds.elevatorSetBottom());
         
-
-        /* ----- Ejecting ----- */
-        //         .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());   // manually spool up shooter for anticipation
-        gamepad.Dpad.Down.onTrue(OperatorGamepadCmds.readyForBumperShotCmd());  // shoot speaker when bumpered up or close
-
-        /* ----- Pivot Preset Positions ----- */
-        //gamepad.xButton.and(gamepad.Dpad.Down)  .onTrue(PivotCmds.setZeroAndRunCmd());  // 0º angle
-        //gamepad.xButton.and(gamepad.Dpad.Left)  .onTrue(PivotCmds.setLowAndRunCmd());   // 45º angle
-        //gamepad.xButton.and(gamepad.Dpad.Up)    .onTrue(PivotCmds.setHighAndRunCmd());  // 195º angle
     }
 
     @Override

@@ -45,6 +45,9 @@ public class ElevatorCmds {
     public static Command elevatorSetManual() {
         return elevatorSetState(ElevatorState.MANUAL);
     }
+    public static Command elevatorSetManual2() {
+        return elevatorSetState(ElevatorState.MANUAL2);
+    }
     public static Command elevatorSetStopped() {
         return elevatorSetState(ElevatorState.STOPPED);
     }

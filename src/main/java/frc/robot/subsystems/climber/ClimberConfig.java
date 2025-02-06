@@ -9,9 +9,9 @@ public class ClimberConfig {
     // IR Prox distance value for detection of a gamepiece
 
     // retract/eject speeds
-    protected static final double STOW = -0.1;
-    protected static final double EXTEND = 0.1;
-    
+    protected static final double STOW = -0.3;
+    protected static final double EXTEND = 0.2;
+
     /* Inverts */
     protected static final boolean climberMotorInvert = false;
 
