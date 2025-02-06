@@ -16,6 +16,9 @@ import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 import frc.robot.subsystems.climber.ClimberSubSys;
 import frc.robot.subsystems.climber.ClimberSubSys.ClimberState;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
+import frc.robot.subsystems.elevator.ElevatorSubSys;
+import frc.robot.subsystems.elevator.ElevatorSubSys.ElevatorState;
+import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 
 //figure out later
 //import frc.util.FieldConstants;
@@ -90,6 +93,10 @@ public class PilotGamepad extends Gamepad {
         
         gamepad.Dpad.Left.whileTrue(ClimberCmds.lockWinch());
         gamepad.Dpad.Right.whileTrue(ClimberCmds.unlockWinch());
+
+        gamepad.aButton.whileTrue(ElevatorCmds.elevatorSetManual());
+        gamepad.aButton.whileTrue(ElevatorSubSys.setElevatorSpeed(this.gamepad.rightStick.getY()));
+        gamepad.aButton.onFalse(ElevatorCmds.elevatorSetState(ElevatorState.STOPPED));
 
         /*
         2024 elevator cmds

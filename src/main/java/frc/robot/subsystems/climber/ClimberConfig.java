@@ -9,14 +9,14 @@ public class ClimberConfig {
     // IR Prox distance value for detection of a gamepiece
 
     // retract/eject speeds
-    protected static final double STOW = -0.25; //TODO: THIS IS NOT A REAL NUMBER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    protected static final double EXTEND = 0.25; //TODO: THIS IS NOT A REAL NUMBER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+    protected static final double STOW = -0.1;
+    protected static final double EXTEND = 0.1;
+    
     /* Inverts */
     protected static final boolean climberMotorInvert = false;
 
     // increase to reduce jitter
-    protected static final int climberAllowableError = 0;
+    //protected static final int climberAllowableError = 0;   
 
     /* climber Motor Current Limiting */
     protected static final int     climberContinuousCurrentLimit = 30; //TODO: find real number
@@ -31,18 +31,12 @@ public class ClimberConfig {
 
         /* constants for height definitions */
         public static final double MAX_ROTATIONS = 55;
-
-        public static final double posTop       = 50;
-        public static final double posOnChain   = 28;
-        public static final double posMidClimb  = 11.37;
-        public static final double posFullClimb = 0;
-    
         /* configuration constants */
         private static final double mmCruiseVelocity = 50;  // 5 rpm cruise
         private static final double mmAcceleration   = 30;  // ~0.5 seconds to max vel.
-        private static final double mmJerk           = 75;  // ~0.2 seconds to max accel.
+        private static final double mmJerk           = 0;  // ~0.2 seconds to max accel.
     
-        private static final double nonload_kP = 1.0;   // (P)roportional value
+        private static final double nonload_kP = 0.0;   // (P)roportional value
         private static final double nonload_kI = 0.0;   // (I)ntegral Value
         private static final double nonload_kD = 0.0;   // (D)erivative Value
         private static final double nonload_kV = 0.12;  // Volts/100 (?)
@@ -72,12 +66,12 @@ public class ClimberConfig {
         slot0Configs.kD = nonload_kD;
         slot0Configs.kV = nonload_kV;
         slot0Configs.kS = nonload_kS;
-
+        
         // Configure Current Limits
         CurrentLimitsConfigs currentLimits = config.CurrentLimits;
         currentLimits.SupplyCurrentLimitEnable = enableCurrentLimitting;
         currentLimits.SupplyCurrentLimit = suppCurrent;
-
+        
         // Configure Soft Limits
         config.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
         config.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_ROTATIONS;

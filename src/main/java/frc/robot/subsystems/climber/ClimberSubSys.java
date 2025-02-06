@@ -34,7 +34,7 @@ public class ClimberSubSys extends SubsystemBase {
         WinchLock.setSpeed(.75);
         WinchLock.setAngle(113); //113 is UNLOCKED
         configureTalonFXControllers();
-        stopMotors();
+        //stopMotors();
     } 
 
     /* ----- Periodic ----- */
@@ -51,7 +51,7 @@ public class ClimberSubSys extends SubsystemBase {
             
             // stopped included:
 
-            default: climberMotor.set(0);
+            default: climberMotor.set(0.0);
             ClimberCmds.lockWinch();
         }
     }
@@ -80,7 +80,7 @@ public class ClimberSubSys extends SubsystemBase {
     public String getStateString() {
         switch (state) {
             case EXTEND:       return "EXTEND";
-            case STOW:       return "STOW";
+            case STOW:         return "STOW";
             default:           return "STOPPED";
         }
     }

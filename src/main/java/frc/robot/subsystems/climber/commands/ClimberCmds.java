@@ -13,7 +13,7 @@ public class ClimberCmds {
     public static final double TIMEOUT = 10;
 
     public static void setupDefaultCommand() {
-        Robot.climber.setDefaultCommand(intakeStopCmd());
+    //    Robot.climber.setDefaultCommand(intakeStopCmd());
     }
 
     /* ----- climber Stop Command ----- */

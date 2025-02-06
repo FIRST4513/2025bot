@@ -35,21 +35,5 @@ public class IntakeConfig {
     protected static final double closedLoopRamp = 0;
 
     // --------------- Constuctor Setting Up Motor Config values -------------
-    protected static TalonSRXConfiguration getConfig() {
-        /* Intake Motor Configurations */
-        TalonSRXConfiguration intakeSRXConfig = new TalonSRXConfiguration();
 
-        intakeSRXConfig.slot0.kP = 0;
-        intakeSRXConfig.slot0.kI = 0;
-        intakeSRXConfig.slot0.kD = 0;
-        intakeSRXConfig.slot0.kF = 0;
-        intakeSRXConfig.slot0.allowableClosedloopError = intakeAllowableError;
-        intakeSRXConfig.openloopRamp                   = openLoopRamp;
-        intakeSRXConfig.closedloopRamp                 = closedLoopRamp;
-        intakeSRXConfig.continuousCurrentLimit         = intakeContinuousCurrentLimit;
-        intakeSRXConfig.peakCurrentLimit               = intakePeakCurrentLimit;         
-        intakeSRXConfig.peakCurrentDuration            = intakePeakCurrentDuration;
-
-        return intakeSRXConfig;
-    }
 }

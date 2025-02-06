@@ -11,7 +11,7 @@ public class IntakeCmds {
     public static final double TIMEOUT = 10;
 
     public static void setupDefaultCommand() {
-        Robot.intake.setDefaultCommand(intakeStopCmd());
+        //Robot.intake.setDefaultCommand(intakeStopCmd());
     }
 
     /* ----- Intake Stop Command ----- */

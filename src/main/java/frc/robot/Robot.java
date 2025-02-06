@@ -17,6 +17,7 @@ import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
 import frc.robot.subsystems.climber.ClimberSubSys;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
+import frc.robot.subsystems.elevator.ElevatorSubSys;
 import frc.robot.subsystems.intake.IntakeSubSys;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
@@ -56,6 +57,7 @@ public class Robot extends LoggedRobot  {
     public static OperatorGamepad operatorGamepad;
     public static IntakeSubSys intake;
     public static ClimberSubSys climber;
+    public static ElevatorSubSys elevator;
     // Automation and Assists
     // public static VisionSubSys      vision;
 
@@ -108,6 +110,7 @@ public class Robot extends LoggedRobot  {
         // rotarySwitch = new RotarySwitchSubSys(); 
         climber = new ClimberSubSys();
         //intake = new IntakeSubSys();
+        elevator = new ElevatorSubSys();
 
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();
