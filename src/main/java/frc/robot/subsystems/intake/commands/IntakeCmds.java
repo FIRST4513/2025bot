@@ -31,6 +31,7 @@ public class IntakeCmds {
     public static Command intakeSetMiddleCmd() { return intakeSetState(IntakeState.MIDDLE); }
     public static Command intakeSetTopCmd() { return intakeSetState(IntakeState.TOP); }
     public static Command intakeSetHoldCmd() { return intakeSetState(IntakeState.HOLD); }
+    public static Command intakeSetStoppedCmd() { return intakeSetState(IntakeState.STOPPED); }
 
 
     /* ----- Intake Command with Until Conditions */

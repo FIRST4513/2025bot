@@ -19,6 +19,7 @@ import frc.robot.subsystems.climber.commands.ClimberCmds;
 import frc.robot.subsystems.elevator.ElevatorSubSys;
 import frc.robot.subsystems.elevator.ElevatorSubSys.ElevatorState;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
+import frc.robot.subsystems.intake.commands.IntakeCmds;
 
 //figure out later
 //import frc.util.FieldConstants;
@@ -94,9 +95,10 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Left.whileTrue(ClimberCmds.lockWinch());
         gamepad.Dpad.Right.whileTrue(ClimberCmds.unlockWinch());
 
-
-
         gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetStartup());
+
+        gamepad.aButton.whileTrue(IntakeCmds.intakeSetFeedCmd());
+        gamepad.aButton.onFalse(IntakeCmds.intakeSetStoppedCmd());
 
         /* ----- Example Ways to use Buttons in different ways ---- */
 
