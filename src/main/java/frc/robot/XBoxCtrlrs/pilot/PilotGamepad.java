@@ -86,7 +86,7 @@ public class PilotGamepad extends Gamepad {
         // "Select" Button - Reset Gyro to 180
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
-        gamepad.Dpad.Up.whileTrue(ClimberCmds.climberSetExtend());
+        /*gamepad.Dpad.Up.whileTrue(ClimberCmds.climberSetExtend());
         gamepad.Dpad.Up.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
         
         gamepad.Dpad.Down.whileTrue(ClimberCmds.climberSetStow());
@@ -95,10 +95,26 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Left.whileTrue(ClimberCmds.lockWinch());
         gamepad.Dpad.Right.whileTrue(ClimberCmds.unlockWinch());
 
-        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetStartup());
+        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetStartup());*/
 
-        gamepad.aButton.whileTrue(IntakeCmds.intakeSetFeedCmd());
-        gamepad.aButton.onFalse(IntakeCmds.intakeSetStoppedCmd());
+        gamepad.Dpad.Up.whileTrue(IntakeCmds.intakeSetFeedCmd());
+        gamepad.Dpad.Up.onFalse(IntakeCmds.intakeSetStoppedCmd());
+
+        gamepad.Dpad.Down.whileTrue(IntakeCmds.intakeSetTrophCmd());
+        gamepad.Dpad.Down.onFalse(IntakeCmds.intakeSetStoppedCmd());
+
+        gamepad.aButton.onTrue(ElevatorCmds.elevatorSetLevelOne());
+
+        gamepad.bButton.onTrue(ElevatorCmds.elevatorSetLevelTwo());
+
+        gamepad.xButton.onTrue(ElevatorCmds.elevatorSetLevelThree());
+
+        gamepad.yButton.onTrue(ElevatorCmds.elevatorSetLevelFour());
+
+        gamepad.leftBumper.onTrue(ElevatorCmds.elevatorSetIntake());
+
+        gamepad.rightBumper.whileTrue(ElevatorCmds.elevatorSetManual());
+        gamepad.rightBumper.onFalse(ElevatorCmds.elevatorSetStopped());
 
         /* ----- Example Ways to use Buttons in different ways ---- */
 

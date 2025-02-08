@@ -2,10 +2,13 @@ package frc.robot.subsystems.intake;
 
 import java.time.chrono.MinguoEra;
 
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.thethriftybot.ThriftyNova;
-import com.thethriftybot.ThriftyNova.MotorType;
+//import com.thethriftybot.ThriftyNova.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotConfig.AnalogPorts;
@@ -26,16 +29,16 @@ public class IntakeSubSys extends SubsystemBase {
     private static IntakeState state = IntakeState.STOPPED;
     
     // Devices
-    public ThriftyNova intakeBottomMotor = new ThriftyNova(Motors.IntakeBottomMotorID, MotorType.MINION);
-    public ThriftyNova intakeTopMotor = new ThriftyNova(Motors.IntakeTopMotorID, MotorType.MINION);
-
+    //public ThriftyNova intakeBottomMotor = new ThriftyNova(Motors.IntakeBottomMotorID, MotorType.MINION);
+    //public ThriftyNova intakeTopMotor = new ThriftyNova(Motors.IntakeTopMotorID, MotorType.MINION);
+    public SparkMax intakeBottomMotor = new SparkMax(Motors.IntakeBottomMotorID, MotorType.kBrushless);
+    public SparkMax intakeTopMotor = new SparkMax(Motors.IntakeTopMotorID, MotorType.kBrushless);
 
 
     /* ----- Constructor ----- */
     public IntakeSubSys() { 
-        configureNovaControllers();
         stopMotors();
-        setBrakeMode(true);
+        //setBrakeMode(false);
     } 
 
     /* ----- Periodic ----- */
@@ -43,13 +46,13 @@ public class IntakeSubSys extends SubsystemBase {
     public void periodic() {
         // drive motor based on the current state
         switch (state) {
-            case SHOOTER_FEED: intakeBottomMotor.set(IntakeConfig.FEED);
+            case SHOOTER_FEED: intakeBottomMotor.set(IntakeConfig.FEED + 0.1);
                                intakeTopMotor.set(IntakeConfig.FEED);
                                break;
             case MANUAL: intakeBottomMotor.set(-Robot.operatorGamepad.getTriggerTwist());
                          intakeTopMotor.set(-Robot.operatorGamepad.getTriggerTwist());
                          break;
-            case TROPH: intakeBottomMotor.set(IntakeConfig.TROPH);
+            case TROPH: intakeBottomMotor.set(IntakeConfig.TROPH + 0.1);
                         intakeTopMotor.set(IntakeConfig.TROPH);
                        break;
             case MIDDLE: intakeBottomMotor.set(IntakeConfig.MIDDLE);
@@ -77,14 +80,14 @@ public class IntakeSubSys extends SubsystemBase {
     }
 
     public void stopMotors() {
-        setBrakeMode(true);
+        //setBrakeMode(true);
         intakeBottomMotor.stopMotor();
         intakeTopMotor.stopMotor();
         state = IntakeState.STOPPED;
     }
     
     // ------ Set Brake Modes ---------
-    public void setBrakeMode(Boolean enabled) {
+    /*public void setBrakeMode(Boolean enabled) {
         if (enabled) {
             intakeBottomMotor.setBrakeMode(true);
             intakeTopMotor.setBrakeMode(true);
@@ -92,7 +95,7 @@ public class IntakeSubSys extends SubsystemBase {
             intakeBottomMotor.setBrakeMode(false);
             intakeTopMotor.setBrakeMode(false);
         }
-    }
+    }*/
 
     /* ----- Getters ---- */
 
@@ -117,7 +120,7 @@ public class IntakeSubSys extends SubsystemBase {
     // ---------------- Configure Intake Motor ------------------
     // ----------------------------------------------------------
     public void configureNovaControllers(){
-        intakeTopMotor.setInverted(true);
+        //intakeTopMotor.setInverted(true);
         
     }
 }

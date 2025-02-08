@@ -8,8 +8,8 @@ public class IntakeConfig {
     protected static final double gamepieceDetectDistance = 1;
 
     // retract/eject speeds
-    protected static final double FEED = 0.1;
-    public static final double TROPH = 0;
+    protected static final double FEED = 0.4;
+    public static final double TROPH = -0.4;
     protected static final double MIDDLE = 0;
     protected static final double TOP = 0;
     protected static final double HOLD = 0;
@@ -19,7 +19,7 @@ public class IntakeConfig {
     protected static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
 
     /* Inverts */
-    protected static final boolean intakeMotorInvert = false;
+    //protected static final boolean intakeMotorInvert = false;
 
     // increase to reduce jitter
     protected static final int intakeAllowableError = 0;

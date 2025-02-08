@@ -8,6 +8,7 @@ import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 import frc.robot.subsystems.intake.IntakeConfig;
 import frc.robot.subsystems.intake.IntakeSubSys;
+
 public class OperatorGamepad extends Gamepad {
     public static ExpCurve intakeThrottleCurve = new ExpCurve(
         OperatorGamepadConfig.intakeSpeedExp,

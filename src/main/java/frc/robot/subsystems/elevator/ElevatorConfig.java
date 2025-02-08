@@ -14,6 +14,7 @@ public class ElevatorConfig {
     protected static final double LEVELTHREE  = 26.5;
     protected static final double LEVELFOUR   = 12;
     protected static final double BOTTOM      = 0;
+    protected static final double INTAKE      = 13;
     protected static final double MANUAL      = 0.1;
     protected static final double MANUAL2     = -0.1;
 

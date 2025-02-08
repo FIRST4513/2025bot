@@ -42,6 +42,9 @@ public class ElevatorCmds {
     public static Command elevatorSetBottom() {
         return elevatorSetState(ElevatorState.BOTTOM);
     }
+    public static Command elevatorSetIntake() {
+        return elevatorSetState(ElevatorState.INTAKE);
+    }
     public static Command elevatorSetManual() {
         return elevatorSetState(ElevatorState.MANUAL);
     }

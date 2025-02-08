@@ -26,6 +26,7 @@ public class ElevatorSubSys extends SubsystemBase {
         LEVELTHREE,
         LEVELFOUR,
         BOTTOM,
+        INTAKE,
         MANUAL,
         MANUAL2,
         STOPPED
@@ -64,6 +65,9 @@ public class ElevatorSubSys extends SubsystemBase {
                          break;
             case BOTTOM:
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.BOTTOM));
+                         break;
+            case INTAKE:
+                         elevatorMotor.setControl(mr.withPosition(ElevatorConfig.INTAKE));
                          break;
             case MANUAL: elevatorMotor.set(ElevatorConfig.MANUAL);
                          break;

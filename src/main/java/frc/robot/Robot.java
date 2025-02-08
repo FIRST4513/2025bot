@@ -109,7 +109,7 @@ public class Robot extends LoggedRobot  {
         operatorGamepad = new OperatorGamepad();
         // rotarySwitch = new RotarySwitchSubSys(); 
         climber = new ClimberSubSys();
-        //intake = new IntakeSubSys();
+        intake = new IntakeSubSys();
         elevator = new ElevatorSubSys();
 
         // Telemetry (MUST BE LAST)
