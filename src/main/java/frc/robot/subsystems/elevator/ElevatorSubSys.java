@@ -1,10 +1,14 @@
 package frc.robot.subsystems.elevator;
 
+import java.io.ObjectInputFilter.Status;
+
 import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.pathplanner.lib.config.RobotConfig;
 
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -52,15 +56,19 @@ public class ElevatorSubSys extends SubsystemBase {
          // drive motor based on the current state
          switch (state) {
             case LEVELONE:
+            Robot.print(Double.toString(getRotations()));
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELONE));
                          break;
             case LEVELTWO:
+                         Robot.print(Double.toString(getRotations()));
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELTWO));
                          break;
             case LEVELTHREE:
+            Robot.print(Double.toString(getRotations()));
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELTHREE));
                          break;            
             case LEVELFOUR:
+            Robot.print(Double.toString(getRotations()));
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELFOUR));
                          break;
             case BOTTOM:
@@ -103,6 +111,8 @@ public class ElevatorSubSys extends SubsystemBase {
     /* ----- Getters ---- */
 
     public double getMotorSpeed() { return elevatorMotor.get(); }
+    public double getRotations() { return elevatorMotor.getPosition().getValueAsDouble(); }
+    
     public ElevatorState getState() { return state; }
 
     public String getStateString() {

@@ -21,8 +21,7 @@ public class IntakeSubSys extends SubsystemBase {
         STOPPED,
         MANUAL,
         TROPH, 
-        MIDDLE,
-        TOP,
+        TREE,
         HOLD
     }
 
@@ -49,18 +48,15 @@ public class IntakeSubSys extends SubsystemBase {
             case SHOOTER_FEED: intakeBottomMotor.set(IntakeConfig.FEED + 0.1);
                                intakeTopMotor.set(IntakeConfig.FEED);
                                break;
-            case MANUAL: intakeBottomMotor.set(-Robot.operatorGamepad.getTriggerTwist());
-                         intakeTopMotor.set(-Robot.operatorGamepad.getTriggerTwist());
+            case MANUAL: //intakeBottomMotor.set(-Robot.operatorGamepad.getTriggerTwist());
+                         //intakeTopMotor.set(-Robot.operatorGamepad.getTriggerTwist());
                          break;
-            case TROPH: intakeBottomMotor.set(IntakeConfig.TROPH + 0.1);
-                        intakeTopMotor.set(IntakeConfig.TROPH);
+            case TROPH: intakeTopMotor.set(IntakeConfig.TROPH - 0.25); //- 0.25
+                        intakeBottomMotor.set(IntakeConfig.TROPH - 0.03); //- 0.125
                        break;
-            case MIDDLE: intakeBottomMotor.set(IntakeConfig.MIDDLE);
-                         intakeTopMotor.set(IntakeConfig.MIDDLE);
+            case TREE: intakeBottomMotor.set(IntakeConfig.TREE);
+                         intakeTopMotor.set(IntakeConfig.TREE);
                       break;
-            case TOP: intakeBottomMotor.set(IntakeConfig.TOP);
-                      intakeTopMotor.set(IntakeConfig.TOP);
-                    break;
             case HOLD: intakeBottomMotor.set(IntakeConfig.HOLD);
                        intakeTopMotor.set(IntakeConfig.HOLD);
             // stopped included:
@@ -107,8 +103,6 @@ public class IntakeSubSys extends SubsystemBase {
             case SHOOTER_FEED: return "SHOOTER FEED";
             case MANUAL:       return "MANUAL";
             case TROPH:        return "TROPH";
-            case MIDDLE:       return "MIDDLE";
-            case TOP:          return "TOP";
             case HOLD:         return "HOLD";
 
             default:           return "STOPPED";

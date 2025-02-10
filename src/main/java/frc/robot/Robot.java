@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.XBoxCtrlrs.operator.OperatorGamepad;
+import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepad;
 import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
 import frc.robot.drivetrain.DrivetrainSubSys;
@@ -54,7 +55,7 @@ public class Robot extends LoggedRobot  {
     // Base Robot
     public static DrivetrainSubSys  swerve;
     public static PilotGamepad      pilotGamepad;
-    public static OperatorGamepad operatorGamepad;
+    public static OperatorGamepad   operatorGamepad;
     public static IntakeSubSys intake;
     public static ClimberSubSys climber;
     public static ElevatorSubSys elevator;
@@ -118,6 +119,7 @@ public class Robot extends LoggedRobot  {
         DrivetrainCmds.setupDefaultCommand();
         ClimberCmds.setupDefaultCommand();
         PilotGamepadCmds.setupDefaultCommand();
+        OperatorGamepadCmds.setupDefaultCommand();
         // ShooterCmds.setupDefaultCommand();
         // LEDsCommands.setupDefaultCommand();
         // Auto.setupSelectors();
@@ -225,7 +227,8 @@ public class Robot extends LoggedRobot  {
 
         CommandScheduler.getInstance().cancelAll();  // Disable any currently running commands
         CommandScheduler.getInstance().getActiveButtonLoop().clear();
-        pilotGamepad.resetConfig();  // Reset Config for all gamepads and other button bindings
+        pilotGamepad.resetConfig();  // Reset Config for all gamepads and other button bindings 
+        operatorGamepad.resetConfig();
     }
 
 

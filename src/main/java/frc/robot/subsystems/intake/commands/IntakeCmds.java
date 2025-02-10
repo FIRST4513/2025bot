@@ -28,8 +28,7 @@ public class IntakeCmds {
     public static Command intakeSetFeedCmd()   { return intakeSetState(IntakeState.SHOOTER_FEED); }
     public static Command intakeSetManualCmd() { return intakeSetState(IntakeState.MANUAL); }
     public static Command intakeSetTrophCmd() { return intakeSetState(IntakeState.TROPH); }
-    public static Command intakeSetMiddleCmd() { return intakeSetState(IntakeState.MIDDLE); }
-    public static Command intakeSetTopCmd() { return intakeSetState(IntakeState.TOP); }
+    public static Command intakeSetTreeCmd() { return intakeSetState(IntakeState.TREE); }
     public static Command intakeSetHoldCmd() { return intakeSetState(IntakeState.HOLD); }
     public static Command intakeSetStoppedCmd() { return intakeSetState(IntakeState.STOPPED); }
 

@@ -9,14 +9,15 @@ public class ElevatorConfig {
     // IR Prox distance value for detection of a gamepiece
 
     // retract/eject speeds
-    protected static final double LEVELONE    = 7;
-    protected static final double LEVELTWO    = 13;
-    protected static final double LEVELTHREE  = 26.5;
-    protected static final double LEVELFOUR   = 12;
+    protected static final double LEVELONE    = 2;
+    protected static final double LEVELTWO    = 11.2; //h
+    protected static final double LEVELTHREE  = 24.5;
+    protected static final double LEVELFOUR   = 45;
     protected static final double BOTTOM      = 0;
     protected static final double INTAKE      = 13;
     protected static final double MANUAL      = 0.1;
     protected static final double MANUAL2     = -0.1;
+    protected static final double RESET       = 0.03;
 
     
     /* Inverts */
@@ -39,16 +40,16 @@ public class ElevatorConfig {
         /* constants for height definitions */
         public static final double MAX_ROTATIONS = 48.5;
         /* configuration constants */
-        private static final double mmCruiseVelocity = 120;  // 12 rpm cruise
-        private static final double mmAcceleration   = 30;  // ~0.5 seconds to max vel.
-        private static final double mmJerk           = 75;  // ~0.2 seconds to max accel.
+        private static final double mmCruiseVelocity = 200;  // 12 rpm cruise
+        private static final double mmAcceleration   = 200;  // ~0.5 seconds to max vel.
+        private static final double mmJerk           = 0;  // ~0.2 seconds to max accel.
     
         private static final double nonload_kP = 0.0;   // (P)roportional value
         private static final double nonload_kI = 0.0;   // (I)ntegral Value
         private static final double nonload_kD = 0.1;   // (D)erivative Value
         private static final double nonload_kV = 0.12;  // Volts/100 (?)
         private static final double nonload_kS = 0.05;  // (S)tiction Value:
-        private static final double nonload_kG = 0.25;
+        private static final double nonload_kG = 0.37;
     
         private static final boolean enableCurrentLimitting = true;
         private static final double  suppCurrent = 40;      // Max Amps allowed in Supply

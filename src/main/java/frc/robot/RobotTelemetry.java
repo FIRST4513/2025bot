@@ -9,6 +9,8 @@ import frc.lib.telemetry.TelemetrySubsystem;
 import frc.lib.util.Util;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadTelemetry;
 import frc.robot.drivetrain.DrivetrainTelemetry;
+import frc.robot.subsystems.elevator.ElevatorTelemetry;
+
 // import frc.robot.vision.VisionTelemetry;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
     // public static RotarySwitchTelemetry    m_RotarySwitchTelemetry;
     // public static VisionTelemetry           m_VisionTelemetry;
     public static PilotGamepadTelemetry     m_PilotTelemetry;
+    public static ElevatorTelemetry         m_ElevatorTelemtry;
     // public static OperatorGamepadTelemetry m_OperatorTelemetry;
     
     // Telemetry for Gamepiece Manipulation and Climbing
@@ -47,6 +50,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
         // Subsystem-Specific Tabs Setup
         m_SwerveTelemetry =         new DrivetrainTelemetry(Robot.swerve);
         m_PilotTelemetry =          new PilotGamepadTelemetry(Robot.pilotGamepad);
+        m_ElevatorTelemtry =        new ElevatorTelemetry(Robot.elevator);
         // m_OperatorTelemetry =       new OperatorGamepadTelemetry(Robot.operatorGamepad);
         // m_VisionTelemetry =         new VisionTelemetry(Robot.vision);
 

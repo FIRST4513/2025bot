@@ -59,14 +59,6 @@ public class PilotGamepad extends Gamepad {
                     PilotGamepadConfig.rotationSpeedDeadband);
     public SendableChooser<String> speedChooser = new SendableChooser<String>();
 
-    private Pose2d spkrLeftPose;
-    private Pose2d spkrCtrPose;
-    private Pose2d spkrRightPose;
-    private Pose2d ampPose;
-    private Pose2d HPLeft;
-    private Pose2d HPCtr;
-    private Pose2d HPRight;
-    
     // ----- Constructor -----
     public PilotGamepad() {
         super("Pilot", RobotConfig.Gamepads.pilotGamepadPort);
@@ -97,24 +89,29 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetStartup());*/
 
-        gamepad.Dpad.Up.whileTrue(IntakeCmds.intakeSetFeedCmd());
-        gamepad.Dpad.Up.onFalse(IntakeCmds.intakeSetStoppedCmd());
 
-        gamepad.Dpad.Down.whileTrue(IntakeCmds.intakeSetTrophCmd());
-        gamepad.Dpad.Down.onFalse(IntakeCmds.intakeSetStoppedCmd());
 
-        gamepad.aButton.onTrue(ElevatorCmds.elevatorSetLevelOne());
+        gamepad.rightBumper.and(gamepad.aButton).onTrue(ElevatorCmds.levelone);
 
-        gamepad.bButton.onTrue(ElevatorCmds.elevatorSetLevelTwo());
+        gamepad.rightBumper.and(gamepad.bButton).onTrue(ElevatorCmds.leveltwo);
 
-        gamepad.xButton.onTrue(ElevatorCmds.elevatorSetLevelThree());
+        gamepad.rightBumper.and(gamepad.xButton).onTrue(ElevatorCmds.levelthree);
 
-        gamepad.yButton.onTrue(ElevatorCmds.elevatorSetLevelFour());
+        gamepad.rightBumper.and(gamepad.yButton).onTrue(ElevatorCmds.levelfour);
 
-        gamepad.leftBumper.onTrue(ElevatorCmds.elevatorSetIntake());
+        gamepad.Dpad.Up.whileTrue(ElevatorCmds.elevatorSetManual());
+        gamepad.Dpad.Up.onFalse(ElevatorCmds.elevatorSetStopped());
 
-        gamepad.rightBumper.whileTrue(ElevatorCmds.elevatorSetManual());
-        gamepad.rightBumper.onFalse(ElevatorCmds.elevatorSetStopped());
+
+        gamepad.leftBumper.and(gamepad.aButton).onTrue(IntakeCmds.intakeSetTrophCmd());
+
+        gamepad.leftBumper.and(gamepad.yButton).whileTrue(IntakeCmds.intakeSetFeedCmd());
+
+        gamepad.leftBumper.and(gamepad.xButton).whileTrue(IntakeCmds.intakeSetTreeCmd());
+
+        gamepad.leftBumper.onFalse(IntakeCmds.intakeSetStoppedCmd());
+
+
 
         /* ----- Example Ways to use Buttons in different ways ---- */
 

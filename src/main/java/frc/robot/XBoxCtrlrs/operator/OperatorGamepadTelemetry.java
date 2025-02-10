@@ -1,6 +1,6 @@
 //Created by Spectrum3847
 
-package frc.robot.XBoxCtrlrs.pilot;
+package frc.robot.XBoxCtrlrs.operator;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -11,8 +11,8 @@ import frc.lib.telemetry.CustomLayout;
 import frc.robot.Robot;
 import frc.robot.subsystems.elevator.ElevatorSubSys;
 
-public class PilotGamepadTelemetry {
-    public final PilotGamepad gamepad; 
+public class OperatorGamepadTelemetry {
+    public final OperatorGamepad gamepad; 
 
     // Tab & Layouts  //
     private static ShuffleboardTab m_tab;
@@ -23,7 +23,7 @@ public class PilotGamepadTelemetry {
 
 
     // -------------  Constructor     ---------------
-    public PilotGamepadTelemetry(PilotGamepad gp) {
+    public OperatorGamepadTelemetry(OperatorGamepad gp) {
         m_tab = Shuffleboard.getTab("Gamepad Pilot");
         gamepad = gp;
 
@@ -35,7 +35,7 @@ public class PilotGamepadTelemetry {
     }
 
     public void initialize() {
-        driver = new gamepadLayout("Driver 0", m_tab, Robot.pilotGamepad);
+        driver = new gamepadLayout("Driver 0", m_tab, Robot.operatorGamepad);
         driver.initialize();
         m_EnableWidget = m_tab.add("Update Enable", false)
                             .withWidget(BuiltInWidgets.kToggleButton).withPosition(5, 0);
@@ -62,9 +62,9 @@ public class PilotGamepadTelemetry {
         public GenericEntry xLeftScalarValEntry;
         public GenericEntry yRightScalarValEntry;
         public GenericEntry xRightScalarValEntry;
-        private PilotGamepad gamepad;
+        private OperatorGamepad gamepad;
 
-        public gamepadLayout(String name, ShuffleboardTab tab, PilotGamepad gamepad){
+        public gamepadLayout(String name, ShuffleboardTab tab, OperatorGamepad gamepad){
             super(name, tab);
             this.gamepad = gamepad;
             setColumnsAndRows(2, 6);

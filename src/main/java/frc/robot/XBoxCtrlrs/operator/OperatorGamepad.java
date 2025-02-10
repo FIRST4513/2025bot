@@ -1,78 +1,234 @@
 package frc.robot.XBoxCtrlrs.operator;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.lib.gamepads.Gamepad;
 import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
+
 import frc.robot.RobotConfig;
-import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
+import frc.robot.RobotConfig.Gamepads;
+import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
+//import frc.robot.mechanisms.climber.commands.ClimberCmds;
+//import frc.robot.mechanisms.shooter.commands.ShooterCmds;
+import frc.robot.subsystems.climber.ClimberSubSys;
+import frc.robot.subsystems.climber.ClimberSubSys.ClimberState;
+import frc.robot.subsystems.climber.commands.ClimberCmds;
+import frc.robot.subsystems.elevator.ElevatorSubSys;
+import frc.robot.subsystems.elevator.ElevatorSubSys.ElevatorState;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
-import frc.robot.subsystems.intake.IntakeConfig;
-import frc.robot.subsystems.intake.IntakeSubSys;
+import frc.robot.subsystems.intake.commands.IntakeCmds;
 
+//figure out later
+//import frc.util.FieldConstants;
+//import frc.robot.Robot.TeamAlliance;
+
+
+/** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
-    public static ExpCurve intakeThrottleCurve = new ExpCurve(
-        OperatorGamepadConfig.intakeSpeedExp,
-        OperatorGamepadConfig.intakeSpeedOffset,
-        OperatorGamepadConfig.intakeSpeedScaler,
-        OperatorGamepadConfig.intakeSpeedDeadband);
+    //public final PilotGamepadTelemetry telemetry;
 
-    public static ExpCurve elevThrottleCurve = new ExpCurve(
-        OperatorGamepadConfig.elevSpeedExp,
-        OperatorGamepadConfig.elevSpeedOffset,
-        OperatorGamepadConfig.elevSpeedScaler,
-        OperatorGamepadConfig.elevSpeedDeadband);
+    public static ExpCurve climberThrottleCurve = new ExpCurve(
+        OperatorGamepadConfig.climberSpeedExp,
+        OperatorGamepadConfig.climberSpeedOffset,
+        OperatorGamepadConfig.climberSpeedScaler,
+        OperatorGamepadConfig.climberSpeedDeadband);
+    public static ExpCurve forwardSpeedCurve =
+            new ExpCurve(
 
-    public static ExpCurve armThrottleCurve = new ExpCurve(
-        OperatorGamepadConfig.armSpeedExp,
-        OperatorGamepadConfig.armSpeedOffset,
-        OperatorGamepadConfig.armSpeedScaler,
-        OperatorGamepadConfig.armSpeedDeadband);
+                    OperatorGamepadConfig.forwardSpeedExp,
 
-    /* Contstructor */
+                    OperatorGamepadConfig.forwardSpeedOffset,
+
+                    OperatorGamepadConfig.forwardSpeedScaler,
+
+                    OperatorGamepadConfig.forwardSpeedDeadband);
+    public static ExpCurve sidewaysSpeedCurve =
+            new ExpCurve(
+                    OperatorGamepadConfig.sidewaysSpeedExp,
+                    OperatorGamepadConfig.sidewaysSpeedOffset,
+                    OperatorGamepadConfig.sidewaysSpeedScaler,
+                    OperatorGamepadConfig.sidewaysSpeedDeadband);
+    public static ExpCurve rotationCurve =
+            new ExpCurve(
+                    OperatorGamepadConfig.rotationSpeedExp,
+                    OperatorGamepadConfig.rotationSpeedOffset,
+                    OperatorGamepadConfig.rotationSpeedScaler,
+                    OperatorGamepadConfig.rotationSpeedDeadband);
+    public SendableChooser<String> speedChooser = new SendableChooser<String>();
+
+    // ----- Constructor -----
     public OperatorGamepad() {
-        super("Operator", RobotConfig.Gamepads.operatorGamepadPort);
+        super("Pilot", RobotConfig.Gamepads.operatorGamepadPort);
+        setupSpeedMenu();
     }
-    
-    // ----- Gamepad specific methods for button assignments -----
+
+    // ----- `Gamepad` Lib Required Methods for Button Assignment -----
     public void setupTeleopButtons() {
-        /* ----- Overrides ----- */
-        gamepad.leftBumper.onTrue(OperatorGamepadCmds.stopAllCmd());
-        gamepad.rightBumper.onTrue(OperatorGamepadCmds.manualAllCmd()).onFalse(OperatorGamepadCmds.stopAllCmd());
+        
+        /* ----- Competition Button Assignments ----- */
+        // "Start" Button - Reset Gyro to 0
+        gamepad.startButton.onTrue(new InstantCommand(() -> Robot.swerve.zeroGyroHeading()));
+        
+        // "Select" Button - Reset Odometry to (0, 0) & 0º [FOR TESTING, DON'T USE IN COMP]
+        // gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.resetPose()));
 
-        gamepad.aButton.onTrue(ElevatorCmds.elevatorSetLevelOne());
+        // "Select" Button - Reset Gyro to 180
+        gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
-        gamepad.bButton.onTrue(ElevatorCmds.elevatorSetLevelTwo());
+        /*gamepad.Dpad.Up.whileTrue(ClimberCmds.climberSetExtend());
+        gamepad.Dpad.Up.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
+        
+        gamepad.Dpad.Down.whileTrue(ClimberCmds.climberSetStow());
+        gamepad.Dpad.Down.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
+        
+        gamepad.Dpad.Left.whileTrue(ClimberCmds.lockWinch());
+        gamepad.Dpad.Right.whileTrue(ClimberCmds.unlockWinch());
 
-        gamepad.xButton.onTrue(ElevatorCmds.elevatorSetLevelThree());
+        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetStartup());*/
 
-        gamepad.yButton.onTrue(ElevatorCmds.elevatorSetLevelFour());
+
+
+        gamepad.rightBumper.and(gamepad.aButton).onTrue(ElevatorCmds.levelone);
+
+        gamepad.rightBumper.and(gamepad.bButton).onTrue(ElevatorCmds.leveltwo);
+
+        gamepad.rightBumper.and(gamepad.xButton).onTrue(ElevatorCmds.levelthree);
+
+        gamepad.rightBumper.and(gamepad.yButton).onTrue(ElevatorCmds.levelfour);
 
         gamepad.Dpad.Up.whileTrue(ElevatorCmds.elevatorSetManual());
         gamepad.Dpad.Up.onFalse(ElevatorCmds.elevatorSetStopped());
 
-        gamepad.Dpad.Down.onTrue(ElevatorCmds.elevatorSetBottom());
-        
-    }
 
-    @Override
-    public void setupTestButtons() {}
+        gamepad.leftBumper.and(gamepad.aButton).onTrue(IntakeCmds.intakeSetTrophCmd());
+
+        gamepad.leftBumper.and(gamepad.yButton).whileTrue(IntakeCmds.intakeSetFeedCmd());
+
+        gamepad.leftBumper.and(gamepad.xButton).whileTrue(IntakeCmds.intakeSetTreeCmd());
+
+        gamepad.leftBumper.onFalse(IntakeCmds.intakeSetStoppedCmd());
+
+
+
+        /* ----- Example Ways to use Buttons in different ways ---- */
+
+        // example combo button functionality:
+        // gamepad.rightBumper.and(gamepad.aButton).whileTrue(new RunCommand(() -> Robot.print("Going to Toggling Angle")));
+
+        // example go-while-held button functionality:
+        
+        // or:
+        // gamepad.Dpad.Left.onTrue(IntakeCmds.intakeSetAmpCmd());
+    }
 
     public void setupDisabledButtons() {}
 
-    // ---- value getters -----
-    public double getTriggerTwist() {
-        return intakeThrottleCurve.calculateMappedVal(gamepad.triggers.getTwist());
+    public void setupTestButtons() {}
+
+    // ----- Custom Methods for Getting Gamepad Values and Inputs -----
+
+    // forward/backward down the field
+    public double getDriveFwdPositive() {
+        return forwardSpeedCurve.calculateMappedVal(this.gamepad.leftStick.getY());
     }
 
-    public double getPivotAdjust() {
-        return gamepad.rightStick.getY();
+
+    // side-to-side across the field
+    public double getDriveLeftPositive() {
+        return sidewaysSpeedCurve.calculateMappedVal(this.gamepad.leftStick.getX());
     }
 
-    // ---- rumble method -----
+    //Positive is counter-clockwise, left Trigger is positive
+    public double getDriveRotationCCWPositive() {
+		double value = this.gamepad.triggers.getTwist();
+		value = rotationCurve.calculateMappedVal(value);
+		return value;        
+    }
+
+    public double getClimberAdjustInput() {
+        return gamepad.rightStick.getY() / 1.5;
+    }
+
+    // ----- Getters and Setters for Speed Selections -----
+
+    public MaxSpeeds getSelectedSpeed(){
+        String speed = speedChooser.getSelected();;
+        if ( speed == "Fast")    return MaxSpeeds.FAST;
+        if ( speed == "Medium") return MaxSpeeds.MEDIUM;
+        return MaxSpeeds.SLOW;
+    }
+
+    public void setupSpeedMenu(){
+            // Setup Speed Selector
+            speedChooser.addOption        ("1. Slow",      "Slow");
+            speedChooser.addOption        ("2. Medium", "Medium");
+            speedChooser.setDefaultOption ("4. Fast", 	   "Fast");
+            SmartDashboard.putData(speedChooser);
+    }
+    
+    public void setMaxSpeeds(MaxSpeeds speed){
+        switch (speed) { 
+            case FAST:
+                System.out.println("Driver Speeds set to FAST !!!");
+                forwardSpeedCurve.setScalar(OperatorGamepadConfig.FastfowardVelocity);
+                sidewaysSpeedCurve.setScalar(OperatorGamepadConfig.FastsidewaysVelocity);
+                rotationCurve.setScalar(OperatorGamepadConfig.FastrotationVelocity);
+                // forwardSpeedCurve.setExpVal(PilotGamepadConfig.FastForwardExp);
+                // sidewaysSpeedCurve.setExpVal(PilotGamepadConfig.FastSidewaysExp);
+                // rotationCurve.setExpVal(PilotGamepadConfig.FastRotationExp);
+                break;
+            case MEDIUM:
+                System.out.println("Driver Speeds set to MEDIUM !!!");
+                forwardSpeedCurve.setScalar(OperatorGamepadConfig.MediumForwardVelocity);
+                sidewaysSpeedCurve.setScalar(OperatorGamepadConfig.MediumSidewaysVelocity);
+                rotationCurve.setScalar(OperatorGamepadConfig.MediumSidewaysVelocity);
+                // forwardSpeedCurve.setExpVal(PilotGamepadConfig.MedSlowForwardExp);
+                // sidewaysSpeedCurve.setExpVal(PilotGamepadConfig.MedSlowSidewaysExp);
+                // rotationCurve.setExpVal(PilotGamepadConfig.FastRotationExp);
+                break;
+            default:
+                System.out.println("Driver Speeds set to SLOW !!!");
+                forwardSpeedCurve.setScalar(OperatorGamepadConfig.SlowforwardVelocity);
+                sidewaysSpeedCurve.setScalar(OperatorGamepadConfig.SlowsidewaysVelocity);
+                rotationCurve.setScalar(OperatorGamepadConfig.SlowsidewaysVelocity);
+                // forwardSpeedCurve.setExpVal(PilotGamepadConfig.SlowForwardExp);
+                // sidewaysSpeedCurve.setExpVal(PilotGamepadConfig.SlowSidewaysExp);
+                // rotationCurve.setExpVal(PilotGamepadConfig.SlowRotationExp);
+                break;
+        }
+    }
+
+    // ----- Misc. Gamepad Methods -----
+
+    
 
     public void rumble(double intensity) {
         this.gamepad.setRumble(intensity, intensity);
     }
 
-    /*   "the sparkle" -madi   */
+    // use as example
+    /*public void setupFieldPoses(){
+        if (Robot.alliance == TeamAlliance.BLUE) {
+            spkrLeftPose = FieldConstants.BLUE_SPEAKER_LEFT;
+            spkrCtrPose = FieldConstants.BLUE_SPEAKER_CTR;
+            spkrRightPose =FieldConstants.BLUE_SPEAKER_RIGHT;
+            ampPose =FieldConstants.BLUE_AMP;
+            HPLeft = FieldConstants.BLUE_HP_LEFT;
+            HPCtr = FieldConstants.BLUE_HP_CTR;
+            HPRight =FieldConstants.BLUE_HP_RIGHT;
+        } else {
+            spkrLeftPose = FieldConstants.RED_SPEAKER_LEFT;
+            spkrCtrPose = FieldConstants.RED_SPEAKER_CTR;
+            spkrRightPose =FieldConstants.RED_SPEAKER_RIGHT;
+            ampPose =FieldConstants.RED_AMP;
+            HPLeft = FieldConstants.RED_HP_LEFT;
+            HPCtr = FieldConstants.RED_HP_CTR;
+            HPRight =FieldConstants.RED_HP_RIGHT;
+        } 
+    }*/
+    
+
 }
