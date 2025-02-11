@@ -160,8 +160,7 @@ public class DrivetrainSubSys extends SubsystemBase {
      
     public SwerveModuleState[]    getModStates()    { return getDriveState().ModuleStates; }
     public SwerveModulePosition[] getModPositions() { return getDriveState().ModulePositions; }
-    public ChassisSpeeds         getChassisSpeeds() { return DrivetrainConfig.getKinematics()
-                                                                        .toChassisSpeeds(getModStates());}
+    public ChassisSpeeds         getChassisSpeeds() { return DrivetrainConfig.getKinematics().toChassisSpeeds(getModStates());}
     public Pose2d       getPose()                   { return getDriveState().Pose; }
     public double       getPoseHdgDegrees()         { return getDriveState().Pose.getRotation().getDegrees(); }
     public Rotation2d   getRotation()               { return getPose().getRotation(); }

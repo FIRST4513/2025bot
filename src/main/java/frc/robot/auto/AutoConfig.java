@@ -2,6 +2,7 @@ package frc.robot.auto;
 
 
 import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.auto.AutoBuilder;
 
 import frc.robot.drivetrain.config.DrivetrainConfig;
 
@@ -14,7 +15,7 @@ public class AutoConfig {
 
     // Auto menu Action selectors
     public static final String kActionDoNothing         = "Do Nothing";
-    public static final String kCrossOnlySelect         = "Cross Only";
+    public static final String kCrossOnlySelect         = "Crossline";
     public static final String kActionIntakeToCL        = "Intake To CL";
 
     // variables for tuning
@@ -31,18 +32,7 @@ public class AutoConfig {
     public static final double kMaxAccel = 2.4;     // 2 worked but took too long
     public static final double kGenPathMaxSpeed = 3.0;
     public static final double kGenPathMaxAceel = 3.0;
-    public static double driveBaseRadius = Math.hypot(
-                                                (DrivetrainConfig.trackWidth / 2.0),
-                                                (DrivetrainConfig.wheelBase/2.0));
-
-    public static HolonomicPathFollowerConfig AutoPathFollowerConfig =
-        new HolonomicPathFollowerConfig(   // HolonomicPathFollowerConfig, for configuring path commands
-            new PIDConstants(translationkP, translationkI, translationkD),  // Translation PID constants
-            new PIDConstants(rotationkP, rotationkI, rotationkD),           // Rotation PID constants
-            kMaxSpeed,                // Max module speed, in m/s
-            driveBaseRadius,               // Drive base radius in meters. Distance from robot center to furthest module.
-            new ReplanningConfig()         // Default path replanning config. See the API for the options here <https://pathplanner.dev/api/java/com/pathplanner/lib/util/ReplanningConfig.html>
-        );
+    public static double driveBaseRadius = Math.hypot((DrivetrainConfig.trackWidth / 2.0), (DrivetrainConfig.wheelBase/2.0));
 
 
 }

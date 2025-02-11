@@ -4,12 +4,16 @@ import java.lang.reflect.Field;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Robot;
@@ -37,23 +41,25 @@ public class Auto {
         positionChooser.setDefaultOption("Left",        AutoConfig.kLeft);
         positionChooser.addOption(       "Center",      AutoConfig.kCenter);
         positionChooser.addOption(       "Right",       AutoConfig.kRight);
+        SmartDashboard.putData(positionChooser);
         // Selector for Autonomous Desired Action
         actionChooser.setDefaultOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
         actionChooser.addOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
         actionChooser.addOption(         "Intake To CL",            AutoConfig.kActionIntakeToCL);
+        SmartDashboard.putData(actionChooser);
     }
 
     // ------ Get operator selected responses from shuffleboard -----
     public static void getAutoSelections() {
         actionSelect =     actionChooser.getSelected();
         positionSelect =  positionChooser.getSelected();
-        Robot.print("Action Select = " +     actionSelect);
-        Robot.print("Position Select = " +     positionSelect);
+        //Robot.print("Action Select = " +     actionSelect);
+        //Robot.print("Position Select = " +     positionSelect);
     }
     
     public static Command getAutonomousCommand() {
-        getAutoSelections();
-        setStartPose();                 // Initialize Robot Pose on Field
+        //getAutoSelections();
+        //setStartPose();                 // Initialize Robot Pose on Field
 
         // ------------------------------- Do Nothing ---------------------------
         if (doNothing()) {
@@ -61,7 +67,7 @@ public class Auto {
             return AutoCmds.DoNothingCmd();
         }
         if (crossOnly()) { 
-            return AutoCmds.CrossLineOnlyCmd("Cross Only");
+            return AutoCmds.followPath("Crossline"); //AutoCmds.CrossLineOnlyCmd("Crossline");
         }
 
 
@@ -88,15 +94,28 @@ public class Auto {
 
     // ----- Configuration and Setup Methods -----
 
+    static RobotConfig config;{
+    try{
+      config = RobotConfig.fromGUISettings();
+    } catch (Exception e) {
+      // Handle exception as needed
+      e.printStackTrace();
+    }
+}
+
     // Configures the auto builder to use to run paths in autonomous and in teleop
     public static void configureAutoBuilder() {
         // Configure the AutoBuilder settings
-        AutoBuilder.configureHolonomic(
+        AutoBuilder.configure(
             Robot.swerve::getPose,                // Supplier<Pose2d> ------------> Robot pose supplier
             Robot.swerve::resetPose,              // Consumer<Pose2d> ------------> Method to reset odometry (will be called if your auto has a starting pose)
             Robot.swerve::getChassisSpeeds,       // Supplier<ChassisSpeeds> -----> MUST BE ROBOT RELATIVE
             Robot.swerve::driveByChassisSpeeds,   // Consumer<ChassisSpeeds> -----> Set robot relative speeds (drive)
-            AutoConfig.AutoPathFollowerConfig,    // HolonomicPathFollowerConfig -> config for configuring path commands
+            new PPHolonomicDriveController(
+                 new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
+                 new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+            ),    // HolonomicPathFollowerConfig -> config for configuring path commands
+            config,
             // ()->getAllianceFlip(),                // BooleanSupplier -------------> Should mirror/flip path
             () -> false,                        // BooleanSupplier -------------> Should mirror/flip path
             Robot.swerve                          // Subsystem: ------------------> required subsystem (usually swerve)
@@ -174,17 +193,17 @@ public class Auto {
     //            Simple Checks to make above routines cleaner
     // ------------------------------------------------------------------------
     private static boolean doNothing() {
-        if (actionSelect.equals(AutoConfig.kActionDoNothing)) { return true; }
+        //if (actionSelect.equals(AutoConfig.kActionDoNothing)) { return true; }
         return false;
     }
     private static boolean intakeToCL() {
-        if (actionSelect.equals(AutoConfig.kActionIntakeToCL)) { return true; }
+        //if (actionSelect.equals(AutoConfig.kActionIntakeToCL)) { return true; }
         return false;
     }
    
     private static boolean crossOnly() {
-        if (actionSelect.equals(AutoConfig.kCrossOnlySelect)) { return true; }
-        return false;
+        //if (actionSelect.equals(AutoConfig.kCrossOnlySelect)) { return true; }
+        return true;
     }
     
     private static boolean red() {
@@ -198,15 +217,15 @@ public class Auto {
     // }
 
     private static boolean Left() {
-        if (positionSelect.equals(AutoConfig.kLeft)) { return true; }
+        //if (positionSelect.equals(AutoConfig.kLeft)) { return true; }
         return false;
     }
     private static boolean Center() {
-        if (positionSelect.equals(AutoConfig.kCenter)) { return true; }
+        //if (positionSelect.equals(AutoConfig.kCenter)) { return true; }
         return false;
     }
     private static boolean Right() {
-        if (positionSelect.equals(AutoConfig.kRight)) { return true; }
+        //if (positionSelect.equals(AutoConfig.kRight)) { return true; }
         return false;
     }
 

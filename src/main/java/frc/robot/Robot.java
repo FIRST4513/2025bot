@@ -7,12 +7,15 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Threads;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.XBoxCtrlrs.operator.OperatorGamepad;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepad;
 import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
+import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
@@ -59,6 +62,7 @@ public class Robot extends LoggedRobot  {
     public static IntakeSubSys intake;
     public static ClimberSubSys climber;
     public static ElevatorSubSys elevator;
+    public static Auto auto;
     // Automation and Assists
     // public static VisionSubSys      vision;
 
@@ -108,6 +112,7 @@ public class Robot extends LoggedRobot  {
 
         pilotGamepad = new PilotGamepad();
         operatorGamepad = new OperatorGamepad();
+        auto = new Auto();
         // rotarySwitch = new RotarySwitchSubSys(); 
         climber = new ClimberSubSys();
         intake = new IntakeSubSys();
@@ -169,6 +174,13 @@ public class Robot extends LoggedRobot  {
     	sysTimer.start();
         System.out.println("Starting Auto Init");
         resetCommandsAndButtons();
+        Command autoCommand = Auto.getAutonomousCommand();
+        if (autoCommand != null) {
+            System.out.println("Auto Command Not null");
+            autoCommand.schedule();
+        } else {
+            System.out.println("********** Auto Command NULL ************");
+        }
 
         // swerve.setLastAngleToCurrentAngle();
 

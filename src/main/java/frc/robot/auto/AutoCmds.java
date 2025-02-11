@@ -9,7 +9,9 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -41,7 +43,7 @@ public class AutoCmds {
 
 
     // ----------------------------------- Two Note ------------------------------------------
-    public static Command TwoNoteCmd( String pos, String pathName, String pathNameBack ) {
+    /*public static Command TwoNoteCmd( String pos, String pathName, String pathNameBack ) {
         return new SequentialCommandGroup(  
             new InstantCommand( ()-> Robot.print( "Two Note Cmd ")),
             // Shoot pre-loaded note
@@ -61,7 +63,7 @@ public class AutoCmds {
             ),
             OperatorGamepadCmds.noAutoPosSpeakerShot()
         );
-    }
+    }*/
 
     // ----- PathPlanning-Interfacing Methods -----
 
@@ -71,8 +73,15 @@ public class AutoCmds {
 
     // Get a Command that Follows a Path
     public static Command followPath(String name) {
-        PathPlannerPath path = PathPlannerPath.fromPathFile(name);              // Get Path
-        return followPath(path);                                                // Return Cmd controller to run Path
+        try{
+        PathPlannerPath path = PathPlannerPath.fromPathFile("Crossline");
+
+        // Create a path following command using AutoBuilder. This will also trigger event markers.
+        return AutoBuilder.followPath(path);
+        } catch (Exception e) {
+        DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+        return DoNothingCmd();
+    }
     }
 
     public static Command initAndFollowPath(String name) {
