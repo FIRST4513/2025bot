@@ -186,6 +186,8 @@ public class OdometryThread extends Thread {
             for (int i = 0; i < drive.swerveMods.length; ++i) {
                 m_cachedState.ModuleStates[i] = drive.swerveMods[i].getState();
                 m_cachedState.ModulePositions[i] = m_modulePositions[i];
+                Robot.print(String.valueOf(i));
+                Robot.print(String.valueOf(m_cachedState.ModuleStates.length));
             }
             
             m_cachedState.Pose = m_odometry.getEstimatedPosition();
