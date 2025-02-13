@@ -57,7 +57,7 @@ public class OdometryThread extends Thread {
     double currentTime = 0;
     double averageLoopTime = 0;
 
-    //TODO: figure out
+    // TODO: figure out
     protected final boolean IsOnCANFD = true;
 
     protected SwerveDrivePoseEstimator m_odometry;
@@ -84,16 +84,23 @@ public class OdometryThread extends Thread {
         this.drive = drive;
 
         // 4 signals for each module + 2 for Pigeon2
-        m_allSignals = new BaseStatusSignal[(ModuleCount * 4) + 2];
+        m_allSignals = new BaseStatusSignal[(ModuleCount * 4) + 2];//[(ModuleCount * 4) + 2]
         for (int i = 0; i < ModuleCount; ++i) {
             BaseStatusSignal[] signals = drive.swerveMods[i].getSignals();
             m_allSignals[(i * 4) + 0] = signals[0];
             m_allSignals[(i * 4) + 1] = signals[1];
             m_allSignals[(i * 4) + 2] = signals[2];
             m_allSignals[(i * 4) + 3] = signals[3];
+            Robot.print(String.valueOf(signals[0]));
+            Robot.print(String.valueOf(signals[1]));
+            Robot.print(String.valueOf(signals[2]));
+            Robot.print(String.valueOf(signals[3]));
+            Robot.print(String.valueOf(drive.swerveMods[i].getSignals()));
         }
         m_allSignals[m_allSignals.length - 2] = drive.gyro.yawGetter;
         m_allSignals[m_allSignals.length - 1] = drive.gyro.angularZVelGetter;
+
+        Robot.print(String.valueOf(m_allSignals.length));
 
         for (int i = 0; i < ModuleCount; ++i) {
             m_modulePositions[i] = drive.swerveMods[i].getPosition();

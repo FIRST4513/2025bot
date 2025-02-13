@@ -262,7 +262,7 @@ public class SwerveModule {
 
         /* TODO: leave out StatusSignals<Double> for motor positions and velocities
          used by odometry (Spectrum file `Module.java` lines 40-43 and 189-192)
-
+        
         m_drivePosition = mDriveMotor.getPosition().clone();
         m_driveVelocity = mDriveMotor.getVelocity().clone();
         m_steerPosition = mAngleMotor.getPosition().clone();
