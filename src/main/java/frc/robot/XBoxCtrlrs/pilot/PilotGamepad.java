@@ -104,10 +104,12 @@ public class PilotGamepad extends Gamepad {
 
 
         gamepad.leftBumper.and(gamepad.aButton).onTrue(IntakeCmds.intakeSetTrophCmd());
+        gamepad.leftBumper.and(gamepad.bButton).onTrue(ElevatorCmds.elevatorSetIntake());
 
         gamepad.leftBumper.and(gamepad.yButton).whileTrue(IntakeCmds.intakeSetFeedCmd());
 
         gamepad.leftBumper.and(gamepad.xButton).whileTrue(IntakeCmds.intakeSetTreeCmd());
+
 
         gamepad.leftBumper.onFalse(IntakeCmds.intakeSetStoppedCmd());
 
