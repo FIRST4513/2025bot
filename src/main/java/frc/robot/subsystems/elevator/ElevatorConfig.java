@@ -10,11 +10,11 @@ public class ElevatorConfig {
 
     // retract/eject speeds
     protected static final double LEVELONE    = 2;
-    protected static final double LEVELTWO    = 11.2; //h
-    protected static final double LEVELTHREE  = 24.5;
-    protected static final double LEVELFOUR   = 45;
+    protected static final double LEVELTWO    = 10; //h
+    protected static final double LEVELTHREE  = 23.5;
+    protected static final double LEVELFOUR   = 43;
     protected static final double BOTTOM      = 0;
-    protected static final double INTAKE      = 13;
+    protected static final double INTAKE      = 11.5;
     protected static final double MANUAL      = 0.1;
     protected static final double MANUAL2     = -0.1;
     protected static final double RESET       = 0.03;
