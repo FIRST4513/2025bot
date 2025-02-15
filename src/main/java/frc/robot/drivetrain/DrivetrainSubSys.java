@@ -224,7 +224,7 @@ ChassisSpeeds chassisSpeeds;
     
 
     // Odometry Methods
-    public void         resetPose(Pose2d pose)      { 
+    public void resetPose(Pose2d pose)      { 
         
         OdometryThread.m_odometry.resetPosition(getRotation(),   new SwerveModulePosition[] {
             swerveMods[0].getPosition(),
@@ -232,6 +232,7 @@ ChassisSpeeds chassisSpeeds;
             swerveMods[2].getPosition(),
             swerveMods[3].getPosition()
           }, pose);
+          getDriveState().Pose = OdometryThread.m_odometry.getEstimatedPosition();
 
         //odometry.resetOdometryPose(pose);
      }
