@@ -57,7 +57,7 @@ public class DrivetrainTelemetry {
         modLayout.withProperties(Map.of("Label position", "TOP"));
 
         // Wheel Angle in Degrees
-        SuppliedValueWidget<Double> wheelAngle =
+       /*  SuppliedValueWidget<Double> wheelAngle =
         modLayout.addNumber(
                 "Wheel Angle º",
                 () -> swerve.swerveMods[moduleNum].getSteerAngleRotation2d().getDegrees());
@@ -69,21 +69,21 @@ public class DrivetrainTelemetry {
                 "Wheel Velocity MPS",
                 () -> swerve.swerveMods[moduleNum].getModuleVelocityMPS());
         wheelVelocity.withPosition(2, 0).withSize(1, 1);
-
+        
         // Target Angle to go to
         SuppliedValueWidget<Double> tgtAngle =
         modLayout.addNumber(
                 "Target Angle º",
                 () -> swerve.swerveMods[moduleNum].getModuleAngleDegrees());
         tgtAngle.withPosition(0, 1).withSize(1, 1);
-
+        
         // CAN ABS Value
         SuppliedValueWidget<Double> canABS =
         modLayout.addNumber(
                 "Can ABS Raw",
                 () -> swerve.swerveMods[moduleNum].getSteerAngle());
         canABS.withPosition(2, 1).withSize(1, 1);
-
+        */
         // // Target Velocity to go to
         // SuppliedValueWidget<Double> tgtVelocity =
         // modLayout.addNumber(

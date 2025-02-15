@@ -37,7 +37,7 @@ import frc.robot.drivetrain.config.DrivetrainConfig;
 
 public class DrivetrainSubSys extends SubsystemBase {
 
-    public static SwerveModule   swerveMods[] = new SwerveModule[4];
+    public SwerveModule swerveMods[] = new SwerveModule[4];
     public static PigeonGyro gyro;
     protected OdometryThread odometry;
     private final RotationController rotationController;
@@ -47,6 +47,7 @@ public class DrivetrainSubSys extends SubsystemBase {
     public SwerveModuleState frontRightState;
     public SwerveModuleState BackLeftState;
     public SwerveModuleState BackRightState;
+
     
 
 ChassisSpeeds chassisSpeeds;
@@ -55,16 +56,9 @@ ChassisSpeeds chassisSpeeds;
     public DrivetrainSubSys() {
         
         // Instantiate all the Swerve Drive Modules
-        SwerveModule frontLeftModule = new SwerveModule(0);
-        SwerveModule frontRightModule = new SwerveModule(0);
-        SwerveModule backLeftModule = new SwerveModule(0);
-        SwerveModule backRightModule = new SwerveModule(0);
-
-        swerveMods[0] = frontLeftModule;
-        swerveMods[1] = frontRightModule;
-        swerveMods[2] = backLeftModule;
-        swerveMods[3] = backRightModule;
-
+        for (int i = 0; i < 4; i++) {
+            swerveMods[i] = new SwerveModule(i);
+        }
 
         gyro = new PigeonGyro();            // Instantiate Gyro
         odometry = new OdometryThread( this );
@@ -103,13 +97,13 @@ ChassisSpeeds chassisSpeeds;
         Logger.recordOutput("Drive/ModuleStates", getModStates());                      // Log each Module's States (Vel.)
 
          // Get the rotation of the robot from the gyro.
-            var gyroAngle = gyro.getYawRotation2d();
+            /*var gyroAngle = gyro.getYawRotation2d();
             // Update the pose
             DriveState.Pose = OdometryThread.m_odometry.update(gyroAngle,
             new SwerveModulePosition[] {
                 swerveMods[0].getPosition(), swerveMods[1].getPosition(),
-                swerveMods[2].getPosition(), swerveMods[4].getPosition()
-            });
+                swerveMods[2].getPosition(), swerveMods[3].getPosition()
+            });*/
             
     }
 
@@ -232,12 +226,17 @@ ChassisSpeeds chassisSpeeds;
     // Odometry Methods
     public void         resetPose(Pose2d pose)      { 
         
-        odometry.m_odometry.resetPosition(getRotation(), getModPositions(), pose);
+        OdometryThread.m_odometry.resetPosition(getRotation(),   new SwerveModulePosition[] {
+            swerveMods[0].getPosition(),
+            swerveMods[1].getPosition(),
+            swerveMods[2].getPosition(),
+            swerveMods[3].getPosition()
+          }, pose);
 
         //odometry.resetOdometryPose(pose);
      }
     public void         resetPose()                 { resetPose(new Pose2d()); }
-        //public void         zeroOdoemtry()              { odometry.zeroEverything(); }
+    public void         zeroOdoemtry()              { odometry.zeroEverything(); }
     //public void         reorientPose(double angle)  { odometry.reorientPose(angle); }
     public synchronized void updateOdometryVisionPose (Pose2d pose, double timestamp) { 
                                                     // odometry.addVisionMeasurement( pose, timestamp); }

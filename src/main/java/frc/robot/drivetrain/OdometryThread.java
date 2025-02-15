@@ -119,18 +119,18 @@ public class OdometryThread extends Thread {
                                                 DrivetrainConfig.kVisionStdDevTheta);
 
 
-        /*m_odometry =
+        m_odometry =
             new SwerveDrivePoseEstimator(
-                    DrivetrainConfig.getKinematics(), new Rotation2d(), m_modulePositions, new Pose2d());*/
+                    DrivetrainConfig.getKinematics(), new Rotation2d(), m_modulePositions, new Pose2d());
 
-        SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
+        /*SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
             DrivetrainConfig.getKinematics(), DrivetrainSubSys.gyro.getYawRotation2d(),
             new SwerveModulePosition[] {
                 DrivetrainSubSys.swerveMods[0].getPosition(),
                 DrivetrainSubSys.swerveMods[1].getPosition(),
                 DrivetrainSubSys.swerveMods[2].getPosition(),
                 DrivetrainSubSys.swerveMods[3].getPosition()
-            }, new Pose2d(5.0, 13.5, new Rotation2d()));
+            }, new Pose2d(5.0, 13.5, new Rotation2d()));*/
     }
 
     // ------------------- Thread Run Method ---------------------------
