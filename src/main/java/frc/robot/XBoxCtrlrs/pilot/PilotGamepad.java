@@ -89,29 +89,16 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetStartup());*/
 
+        gamepad.Dpad.Up.whileTrue(ClimberCmds.climberSetStow());
+        gamepad.Dpad.Up.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
 
+        gamepad.Dpad.Down.whileTrue(ClimberCmds.climberSetExtend());
+        gamepad.Dpad.Down.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
 
-        gamepad.rightBumper.and(gamepad.aButton).onTrue(ElevatorCmds.levelone);
+        gamepad.xButton.onTrue(ClimberCmds.unlockWinch());
+        gamepad.bButton.onTrue(ClimberCmds.lockWinch());
 
-        gamepad.rightBumper.and(gamepad.bButton).onTrue(ElevatorCmds.leveltwo);
-
-        gamepad.rightBumper.and(gamepad.xButton).onTrue(ElevatorCmds.levelthree);
-
-        gamepad.rightBumper.and(gamepad.yButton).onTrue(ElevatorCmds.levelfour);
-
-        gamepad.Dpad.Up.whileTrue(ElevatorCmds.elevatorSetManual());
-        gamepad.Dpad.Up.onFalse(ElevatorCmds.elevatorSetStopped());
-
-
-        gamepad.leftBumper.and(gamepad.aButton).onTrue(IntakeCmds.intakeSetTrophCmd());
-        gamepad.leftBumper.and(gamepad.bButton).onTrue(ElevatorCmds.elevatorSetIntake());
-
-        gamepad.leftBumper.and(gamepad.yButton).whileTrue(IntakeCmds.intakeSetFeedCmd());
-
-        gamepad.leftBumper.and(gamepad.xButton).whileTrue(IntakeCmds.intakeSetTreeCmd());
-
-
-        gamepad.leftBumper.onFalse(IntakeCmds.intakeSetStoppedCmd());
+        
 
 
 

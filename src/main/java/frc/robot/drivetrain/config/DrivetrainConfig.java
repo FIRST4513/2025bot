@@ -177,6 +177,9 @@ public class DrivetrainConfig {
                 backLeftLocation,
                 backRightLocation);
     }
+    public static SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
+  frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation
+);
 
     // ----- Misc Getters -----
     public static double getWheelCircumference() { return wheelCircumference; }

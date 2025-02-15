@@ -23,6 +23,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.swerve.Request;
@@ -39,9 +40,19 @@ public class DrivetrainSubSys extends SubsystemBase {
     public PigeonGyro        gyro;
     protected OdometryThread odometry;
     private final RotationController rotationController;
+
+
+    public SwerveModuleState frontLeftState;
+    public SwerveModuleState frontRightState;
+    public SwerveModuleState BackLeftState;
+    public SwerveModuleState BackRightState;
+    
+
+ChassisSpeeds chassisSpeeds;
+
     // ----- Constructor -----
     public DrivetrainSubSys() {
-
+        
         // Instantiate all the Swerve Drive Modules
         for (int i = 0; i < 4; i++) {
             swerveMods[i] = new SwerveModule(i);
@@ -52,7 +63,27 @@ public class DrivetrainSubSys extends SubsystemBase {
         odometry.start();
 
         rotationController = new RotationController(this);
+
+
+        /*double flVelocity = swerveMods[0].getModuleVelocityMPS();
+        double flAngleDouble = swerveMods[0].getModuleAngleDegrees();
+        Rotation2d flAngleAngle = Rotation2d.fromDegrees(flAngleDouble);
+        var frontLeftState = new SwerveModuleState(flVelocity, flAngleAngle);
+
+        double frVelocity = swerveMods[1].getModuleVelocityMPS();
+        double frAngle = swerveMods[1].getModuleAngleDegrees();
+        Rotation2d rotation = Rotation2d.fromDegrees(frAngle);
+        var frontRightState = new SwerveModuleState(frVelocity, rotation);*/
+
+        frontLeftState = new SwerveModuleState(swerveMods[0].getModuleVelocityMPS(), swerveMods[0].getSteerAngleRotation2d());
+        frontRightState = new SwerveModuleState(swerveMods[1].getModuleVelocityMPS(), swerveMods[1].getSteerAngleRotation2d());
+        BackLeftState = new SwerveModuleState(swerveMods[2].getModuleVelocityMPS(), swerveMods[2].getSteerAngleRotation2d());
+        BackRightState = new SwerveModuleState(swerveMods[3].getModuleVelocityMPS(), swerveMods[3].getSteerAngleRotation2d());
+
+  
     }
+
+    
 
     // ----- Periodic Method -----
     @Override
@@ -155,12 +186,22 @@ public class DrivetrainSubSys extends SubsystemBase {
 
     // -------------- Odometry Getters/Setters ---------------------------------
 
+    
+
+
     // DriveState Class methods
     public DriveState   getDriveState()             { return odometry.getDriveState(); } // Get All the odometry data
      
     public SwerveModuleState[]    getModStates()    { return getDriveState().ModuleStates; }
     public SwerveModulePosition[] getModPositions() { return getDriveState().ModulePositions; }
-    public ChassisSpeeds         getChassisSpeeds() { return DrivetrainConfig.getKinematics().toChassisSpeeds(getModStates());}
+    public ChassisSpeeds         getChassisSpeeds() { 
+        ChassisSpeeds chassisSpeeds = DrivetrainConfig.m_kinematics.toChassisSpeeds(
+        frontLeftState, frontRightState, BackLeftState, BackRightState
+        );
+        return chassisSpeeds;
+    }
+
+
     public Pose2d       getPose()                   { return getDriveState().Pose; }
     public double       getPoseHdgDegrees()         { return getDriveState().Pose.getRotation().getDegrees(); }
     public Rotation2d   getRotation()               { return getPose().getRotation(); }

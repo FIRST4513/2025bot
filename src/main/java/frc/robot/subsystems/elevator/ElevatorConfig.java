@@ -9,7 +9,7 @@ public class ElevatorConfig {
     // IR Prox distance value for detection of a gamepiece
 
     // retract/eject speeds
-    protected static final double LEVELONE    = 2;
+    protected static final double LEVELONE    = 1;
     protected static final double LEVELTWO    = 10; //h
     protected static final double LEVELTHREE  = 23.5;
     protected static final double LEVELFOUR   = 43;
