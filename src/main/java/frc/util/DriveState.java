@@ -12,7 +12,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 public class DriveState {
         public int SuccessfulDaqs;
         public int FailedDaqs;
-        public static Pose2d Pose = new Pose2d();
+        public Pose2d Pose = new Pose2d();
         public SwerveModuleState[] ModuleStates = new SwerveModuleState[] {};
         public SwerveModulePosition[] ModulePositions = new SwerveModulePosition[] {};
         public double OdometryPeriod;

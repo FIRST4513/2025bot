@@ -38,7 +38,7 @@ import frc.robot.drivetrain.config.DrivetrainConfig;
 public class DrivetrainSubSys extends SubsystemBase {
 
     public SwerveModule swerveMods[] = new SwerveModule[4];
-    public static PigeonGyro gyro;
+    public PigeonGyro gyro;
     protected OdometryThread odometry;
     private final RotationController rotationController;
 
