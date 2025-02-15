@@ -74,7 +74,7 @@ public class AutoCmds {
     // Get a Command that Follows a Path
     public static Command followPath(String name) {
         try{
-        PathPlannerPath path = PathPlannerPath.fromPathFile("Crossline");
+        PathPlannerPath path = PathPlannerPath.fromPathFile(name); 
 
         // Create a path following command using AutoBuilder. This will also trigger event markers.
         return AutoBuilder.followPath(path);
