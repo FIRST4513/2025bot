@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
@@ -36,8 +37,8 @@ import frc.robot.drivetrain.config.DrivetrainConfig;
 
 public class DrivetrainSubSys extends SubsystemBase {
 
-    public SwerveModule   swerveMods[] = new SwerveModule[4];
-    public PigeonGyro        gyro;
+    public static SwerveModule   swerveMods[] = new SwerveModule[4];
+    public static PigeonGyro gyro;
     protected OdometryThread odometry;
     private final RotationController rotationController;
 
@@ -54,9 +55,16 @@ ChassisSpeeds chassisSpeeds;
     public DrivetrainSubSys() {
         
         // Instantiate all the Swerve Drive Modules
-        for (int i = 0; i < 4; i++) {
-            swerveMods[i] = new SwerveModule(i);
-        }
+        SwerveModule frontLeftModule = new SwerveModule(0);
+        SwerveModule frontRightModule = new SwerveModule(0);
+        SwerveModule backLeftModule = new SwerveModule(0);
+        SwerveModule backRightModule = new SwerveModule(0);
+
+        swerveMods[0] = frontLeftModule;
+        swerveMods[1] = frontRightModule;
+        swerveMods[2] = backLeftModule;
+        swerveMods[3] = backRightModule;
+
 
         gyro = new PigeonGyro();            // Instantiate Gyro
         odometry = new OdometryThread( this );
@@ -80,6 +88,7 @@ ChassisSpeeds chassisSpeeds;
         BackLeftState = new SwerveModuleState(swerveMods[2].getModuleVelocityMPS(), swerveMods[2].getSteerAngleRotation2d());
         BackRightState = new SwerveModuleState(swerveMods[3].getModuleVelocityMPS(), swerveMods[3].getSteerAngleRotation2d());
 
+        
   
     }
 
@@ -92,6 +101,16 @@ ChassisSpeeds chassisSpeeds;
         Logger.recordOutput("Gyro/Angle", getGyroYawDegrees());                         // Log Gyro Heading
         Logger.recordOutput("Robot Pose", getPose());                                   // Log robot Pose
         Logger.recordOutput("Drive/ModuleStates", getModStates());                      // Log each Module's States (Vel.)
+
+         // Get the rotation of the robot from the gyro.
+            var gyroAngle = gyro.getYawRotation2d();
+            // Update the pose
+            DriveState.Pose = OdometryThread.m_odometry.update(gyroAngle,
+            new SwerveModulePosition[] {
+                swerveMods[0].getPosition(), swerveMods[1].getPosition(),
+                swerveMods[2].getPosition(), swerveMods[4].getPosition()
+            });
+            
     }
 
     // ----- Driving Methods -----
@@ -175,8 +194,8 @@ ChassisSpeeds chassisSpeeds;
 
      public void resetOdometryAndGyroFromPose(Pose2d pose, double gyroHeading) {
         Robot.print("3. Resetting odometry to Pose: x(" + pose.getX() + ") y(" + pose.getY() + ") & r(" + pose.getRotation().getDegrees() + ").");
-        zeroOdoemtry();
-        Robot.print("4. Zero'd odometry");
+        /*zeroOdoemtry();
+        Robot.print("4. Zero'd odometry");*/
         setGyroHeading(gyroHeading);    // Init gyroHeading
         Robot.print("5. Set Gyro heading, new heading: " + Robot.swerve.getGyroYawDegrees());
         resetPose(pose);                                    // Set Odometry Pose
@@ -198,6 +217,7 @@ ChassisSpeeds chassisSpeeds;
         ChassisSpeeds chassisSpeeds = DrivetrainConfig.m_kinematics.toChassisSpeeds(
         frontLeftState, frontRightState, BackLeftState, BackRightState
         );
+
         return chassisSpeeds;
     }
 
@@ -207,10 +227,17 @@ ChassisSpeeds chassisSpeeds;
     public Rotation2d   getRotation()               { return getPose().getRotation(); }
     
 
+    
+
     // Odometry Methods
-    public void         resetPose(Pose2d pose)      { odometry.resetOdometryPose(pose); }
+    public void         resetPose(Pose2d pose)      { 
+        
+        odometry.m_odometry.resetPosition(getRotation(), getModPositions(), pose);
+
+        //odometry.resetOdometryPose(pose);
+     }
     public void         resetPose()                 { resetPose(new Pose2d()); }
-    public void         zeroOdoemtry()              { odometry.zeroEverything(); }
+        //public void         zeroOdoemtry()              { odometry.zeroEverything(); }
     //public void         reorientPose(double angle)  { odometry.reorientPose(angle); }
     public synchronized void updateOdometryVisionPose (Pose2d pose, double timestamp) { 
                                                     // odometry.addVisionMeasurement( pose, timestamp); }

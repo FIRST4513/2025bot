@@ -53,13 +53,13 @@ public class Auto {
     public static void getAutoSelections() {
         actionSelect =     actionChooser.getSelected();
         positionSelect =  positionChooser.getSelected();
-        //Robot.print("Action Select = " +     actionSelect);
-        //Robot.print("Position Select = " +     positionSelect);
+        Robot.print("Action Select = " +     actionSelect);
+        Robot.print("Position Select = " +     positionSelect);
     }
     
     public static Command getAutonomousCommand() {
-        //getAutoSelections();
-        //setStartPose();                 // Initialize Robot Pose on Field
+        getAutoSelections();
+        setStartPose();                 // Initialize Robot Pose on Field
 
         // ------------------------------- Do Nothing ---------------------------
         if (doNothing()) {
@@ -148,7 +148,7 @@ public class Auto {
 
     public static void setStartPose() {
         // Set Robot position (Odometry) and Heading (Gyro) based on selected autonomous starting position
-        startPose = new Pose2d(new Translation2d(0,0), new Rotation2d(0)); // Should never use
+        //startPose = new Pose2d(new Translation2d(0,0), new Rotation2d(0)); // Should never use
         double gyroHeading = 0;
         if (red()) {
             Robot.print("1. We are red");
@@ -217,15 +217,15 @@ public class Auto {
     // }
 
     private static boolean Left() {
-        //if (positionSelect.equals(AutoConfig.kLeft)) { return true; }
+        if (positionSelect.equals(AutoConfig.kLeft)) { return true; }
         return false;
     }
     private static boolean Center() {
-        //if (positionSelect.equals(AutoConfig.kCenter)) { return true; }
+        if (positionSelect.equals(AutoConfig.kCenter)) { return true; }
         return false;
     }
     private static boolean Right() {
-        //if (positionSelect.equals(AutoConfig.kRight)) { return true; }
+        if (positionSelect.equals(AutoConfig.kRight)) { return true; }
         return false;
     }
 

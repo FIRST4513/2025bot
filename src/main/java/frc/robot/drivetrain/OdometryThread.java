@@ -21,6 +21,7 @@ import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.filter.MedianFilter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
@@ -60,7 +61,7 @@ public class OdometryThread extends Thread {
     // TODO: figure out
     protected final boolean IsOnCANFD = true;
 
-    protected SwerveDrivePoseEstimator m_odometry;
+    protected static SwerveDrivePoseEstimator m_odometry;
     protected ControlRequestParameters m_requestParameters = new ControlRequestParameters();
     protected Matrix<N3, N1> visionMeasurementStdDevs;
 
@@ -91,11 +92,11 @@ public class OdometryThread extends Thread {
             m_allSignals[(i * 4) + 1] = signals[1];
             m_allSignals[(i * 4) + 2] = signals[2];
             m_allSignals[(i * 4) + 3] = signals[3];
-            Robot.print(String.valueOf(signals[0]));
+            /*Robot.print(String.valueOf(signals[0]));
             Robot.print(String.valueOf(signals[1]));
             Robot.print(String.valueOf(signals[2]));
             Robot.print(String.valueOf(signals[3]));
-            Robot.print(String.valueOf(drive.swerveMods[i].getSignals()));
+            Robot.print(String.valueOf(drive.swerveMods[i].getSignals()));*/
         }
         m_allSignals[m_allSignals.length - 2] = drive.gyro.yawGetter;
         m_allSignals[m_allSignals.length - 1] = drive.gyro.angularZVelGetter;
@@ -105,6 +106,8 @@ public class OdometryThread extends Thread {
         for (int i = 0; i < ModuleCount; ++i) {
             m_modulePositions[i] = drive.swerveMods[i].getPosition();
         }
+
+
 
         // createStateStdDevs(
         //     DrivetrainConfig.kPositionStdDevX,
@@ -116,9 +119,18 @@ public class OdometryThread extends Thread {
                                                 DrivetrainConfig.kVisionStdDevTheta);
 
 
-        m_odometry =
+        /*m_odometry =
             new SwerveDrivePoseEstimator(
-                    DrivetrainConfig.getKinematics(), new Rotation2d(), m_modulePositions, new Pose2d());
+                    DrivetrainConfig.getKinematics(), new Rotation2d(), m_modulePositions, new Pose2d());*/
+
+        SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
+            DrivetrainConfig.getKinematics(), DrivetrainSubSys.gyro.getYawRotation2d(),
+            new SwerveModulePosition[] {
+                DrivetrainSubSys.swerveMods[0].getPosition(),
+                DrivetrainSubSys.swerveMods[1].getPosition(),
+                DrivetrainSubSys.swerveMods[2].getPosition(),
+                DrivetrainSubSys.swerveMods[3].getPosition()
+            }, new Pose2d(5.0, 13.5, new Rotation2d()));
     }
 
     // ------------------- Thread Run Method ---------------------------
