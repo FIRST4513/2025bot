@@ -11,6 +11,7 @@ public class ClimberConfig {
     // retract/eject speeds
     protected static final double STOW = -0.3;
     protected static final double EXTEND = 0.2;
+    protected static final double TWOROTATIONS = -32;
     protected static final double STARTUP = 0;
 
     /* Inverts */

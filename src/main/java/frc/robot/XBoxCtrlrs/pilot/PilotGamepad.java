@@ -89,14 +89,18 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetStartup());*/
 
-        gamepad.Dpad.Up.whileTrue(ClimberCmds.climberSetStow());
-        gamepad.Dpad.Up.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
-
-        gamepad.Dpad.Down.whileTrue(ClimberCmds.climberSetExtend());
+        gamepad.Dpad.Down.whileTrue(ClimberCmds.climberSetStow());
         gamepad.Dpad.Down.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
+
+        gamepad.Dpad.Up.whileTrue(ClimberCmds.climberSetExtend());
+        gamepad.Dpad.Up.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
 
         gamepad.xButton.onTrue(ClimberCmds.unlockWinch());
         gamepad.bButton.onTrue(ClimberCmds.lockWinch());
+
+        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetState(ClimberState.TWOROTATIONS));
+
+        gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetStartup());
 
         
 

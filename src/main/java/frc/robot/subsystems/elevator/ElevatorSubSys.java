@@ -3,6 +3,7 @@ package frc.robot.subsystems.elevator;
 import java.io.ObjectInputFilter.Status;
 
 import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -36,7 +37,7 @@ public class ElevatorSubSys extends SubsystemBase {
         STOPPED
 
     }
-
+    public Orchestra m_Orchestra;
     private ElevatorState state = ElevatorState.STOPPED;
     final MotionMagicVoltage mr = new MotionMagicVoltage(0);
     

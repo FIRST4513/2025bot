@@ -299,16 +299,16 @@ public class OdometryThread extends Thread {
      * <p>This will zero the entire odometry, and place the robot at 0,0
      */
     public void zeroEverything() {
-        try {
-            m_stateLock.writeLock().lock();
+        /*try {
+            m_stateLock.writeLock().lock();*/
             for (int i = 0; i < ModuleCount; ++i) {
                 drive.swerveMods[i].resetModulePostion();                       // Resets the Drive Motor position to zero
                 m_modulePositions[i] = drive.swerveMods[i].getPosition(true);   // Reloads the cached state to current zero pos
             }
             m_odometry.resetPosition(drive.gyro.getYawRotation2d(), m_modulePositions, new Pose2d());
-        } finally {
-            m_stateLock.writeLock().unlock();
-        }
+        //} finally {
+        //    m_stateLock.writeLock().unlock();
+        //}
 
     }
 

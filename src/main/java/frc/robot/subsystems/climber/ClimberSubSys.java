@@ -1,6 +1,7 @@
 package frc.robot.subsystems.climber;
 
 import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.pathplanner.lib.config.RobotConfig;
 
@@ -13,11 +14,13 @@ import frc.robot.RobotConfig.Motors;
 import frc.robot.RobotConfig.PWMPorts;
 import frc.robot.canbus.canfd;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
+import frc.robot.subsystems.elevator.ElevatorConfig;
 
 public class ClimberSubSys extends SubsystemBase {
     public enum ClimberState {
         EXTEND,
         STOW,
+        TWOROTATIONS,
         STARTUP,
         STOPPED,
     }
@@ -28,7 +31,8 @@ public class ClimberSubSys extends SubsystemBase {
     // Devices
     public static TalonFX climberMotor = new TalonFX(Motors.ClimberMotorID, "CANFD");
     public static Servo WinchLock = new Servo(PWMPorts.winchLockID);
-    
+    final MotionMagicVoltage mr = new MotionMagicVoltage(0);
+
     
     /* ----- Constructor ----- */
     public ClimberSubSys() { 
@@ -36,6 +40,7 @@ public class ClimberSubSys extends SubsystemBase {
         WinchLock.setAngle(90); //113 is UNLOCKED
         configureTalonFXControllers();
         //stopMotors();
+        
     } 
 
     /* ----- Periodic ----- */
@@ -49,6 +54,8 @@ public class ClimberSubSys extends SubsystemBase {
             case STOW:   ClimberCmds.lockWinch();
                          climberMotor.set(ClimberConfig.STOW);
                          break;
+            case TWOROTATIONS: climberMotor.setControl(mr.withPosition(ClimberConfig.TWOROTATIONS));
+                               break;
             case STARTUP: ClimberCmds.unlockWinch();
                           climberMotor.setPosition(ClimberConfig.STARTUP);
                           ClimberCmds.lockWinch();

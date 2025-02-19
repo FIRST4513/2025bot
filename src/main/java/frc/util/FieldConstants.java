@@ -5,11 +5,11 @@ import edu.wpi.first.math.geometry.Rotation2d;
 
 public class FieldConstants {
     /* Blue Field Positions */
-    public static final Pose2d BLUE_SPEAKER_LEFT  = new Pose2d(0.72, 6.67, Rotation2d.fromDegrees(-120));
+    public static final Pose2d BLUE_CAGE_BLUE  = new Pose2d(7.55, 6.14, Rotation2d.fromDegrees(0));
     public static final Pose2d BLUE_SPEAKER_CTR   = new Pose2d(1.37, 5.53, Rotation2d.fromDegrees(-180));
     public static final Pose2d BLUE_SPEAKER_RIGHT = new Pose2d(0.72, 4.41, Rotation2d.fromDegrees(120));
     
-    public static final double BLUE_SPEAKER_LEFT_GYRO  = -134.5;
+    public static final double BLUE_CAGE_BLUE_GYRO  = 0;
     public static final double BLUE_SPEAKER_CTR_GYRO   = -180;
     public static final double BLUE_SPEAKER_RIGHT_GYRO = 134.6;
 

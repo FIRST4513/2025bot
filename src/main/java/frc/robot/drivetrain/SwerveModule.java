@@ -283,7 +283,7 @@ public class SwerveModule {
      * @param refresh True if the signals should be refreshed
      * @return SwerveModulePosition containing this module's state.
      */
-    public SwerveModulePosition getPosition(boolean refresh) {
+    public SwerveModulePosition     getPosition(boolean refresh) {
         if (refresh) {
             /* Refresh all signals */
             m_drivePosition.refresh();

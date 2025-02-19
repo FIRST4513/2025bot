@@ -112,8 +112,8 @@ public class Auto {
             Robot.swerve::getChassisSpeeds,       // Supplier<ChassisSpeeds> -----> MUST BE ROBOT RELATIVE
             Robot.swerve::driveByChassisSpeeds,   // Consumer<ChassisSpeeds> -----> Set robot relative speeds (drive)
             new PPHolonomicDriveController(
-                 new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                 new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+                 new PIDConstants(1.0, 0.0, 0.0), // Translation PID constants
+                 new PIDConstants(1.0, 0.0, 0.0) // Rotation PID constants
             ),    // HolonomicPathFollowerConfig -> config for configuring path commands
             config,
             // ()->getAllianceFlip(),                // BooleanSupplier -------------> Should mirror/flip path
@@ -170,8 +170,8 @@ public class Auto {
         } else {
             Robot.print("1. We are Blue");
             if (Left())         {
-                 startPose = FieldConstants.BLUE_SPEAKER_LEFT;  
-                 gyroHeading = FieldConstants.BLUE_SPEAKER_LEFT_GYRO;
+                 startPose = FieldConstants.BLUE_CAGE_BLUE;  
+                 gyroHeading = FieldConstants.BLUE_CAGE_BLUE_GYRO;
                  Robot.print("2. We are Speaker Left"); }
             
              if (Center())          { 
