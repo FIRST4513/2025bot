@@ -67,7 +67,7 @@ public class Auto {
             return AutoCmds.DoNothingCmd();
         }
         if (crossOnly()) { 
-            return AutoCmds.initAndFollowPath("Crossline"); //AutoCmds.CrossLineOnlyCmd("Crossline");
+            return AutoCmds.followPath("Crossline"); //AutoCmds.CrossLineOnlyCmd("Crossline");
         }
 
 

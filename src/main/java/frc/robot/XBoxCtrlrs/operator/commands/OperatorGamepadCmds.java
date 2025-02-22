@@ -13,6 +13,9 @@ import frc.robot.XBoxCtrlrs.operator.OperatorGamepadConfig;
 //import frc.robot.auto.Auto;
 //import frc.robot.auto.comands.AutoCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
+import frc.robot.subsystems.elevator.commands.ElevatorCmds;
+import frc.robot.subsystems.intake.commands.IntakeCmds;
+import frc.robot.subsystems.orchestra.orchestraCmds;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig;
 import frc.lib.gamepads.Gamepad;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
@@ -26,6 +29,17 @@ public class OperatorGamepadCmds {
     /** Set default command to turn off the rumble */
     public static void setupDefaultCommand() {
     }
+
+
+    public static Command stopAllCmd() {
+        return new SequentialCommandGroup(
+            IntakeCmds.intakeStopCmd(),
+            //ElevatorCmds.elevatorStopCmd(),
+            orchestraCmds.stop()
+        );
+    }
+
+
 
     // ------------- Drive by TeleOp Commands ---------------
 

@@ -10,6 +10,7 @@ import frc.robot.Robot;
 
 import frc.robot.RobotConfig;
 import frc.robot.RobotConfig.Gamepads;
+import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 //import frc.robot.mechanisms.climber.commands.ClimberCmds;
 //import frc.robot.mechanisms.shooter.commands.ShooterCmds;
@@ -20,6 +21,7 @@ import frc.robot.subsystems.elevator.ElevatorSubSys;
 import frc.robot.subsystems.elevator.ElevatorSubSys.ElevatorState;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 import frc.robot.subsystems.intake.commands.IntakeCmds;
+import frc.robot.subsystems.orchestra.orchestraCmds;
 import frc.robot.subsystems.orchestra.orchestraSubSys;
 
 //figure out later
@@ -90,30 +92,30 @@ public class OperatorGamepad extends Gamepad {
 
         gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetStartup());*/
 
+        
+        gamepad.Dpad.Down.onTrue(OperatorGamepadCmds.stopAllCmd());
+        
+        gamepad.aButton.onTrue(ElevatorCmds.levelone);
 
+        gamepad.bButton.onTrue(ElevatorCmds.leveltwo);
 
-        gamepad.rightBumper.and(gamepad.aButton).onTrue(ElevatorCmds.levelone);
+        gamepad.xButton.onTrue(ElevatorCmds.levelthree);
 
-        gamepad.rightBumper.and(gamepad.bButton).onTrue(ElevatorCmds.leveltwo);
-
-        gamepad.rightBumper.and(gamepad.xButton).onTrue(ElevatorCmds.levelthree);
-
-        gamepad.rightBumper.and(gamepad.yButton).onTrue(ElevatorCmds.levelfour);
+        gamepad.yButton.onTrue(ElevatorCmds.levelfour);
 
         gamepad.Dpad.Up.whileTrue(ElevatorCmds.elevatorSetManual());
         gamepad.Dpad.Up.onFalse(ElevatorCmds.elevatorSetStopped());
 
 
-        gamepad.leftBumper.and(gamepad.aButton).onTrue(IntakeCmds.intakeSetTrophCmd());
-        gamepad.leftBumper.and(gamepad.bButton).onTrue(ElevatorCmds.elevatorSetIntake());
+        gamepad.rightBumper.whileTrue(IntakeCmds.intakeSetTreeCmd()); 
+        gamepad.rightBumper.onFalse(IntakeCmds.intakeSetStoppedCmd());
 
-        gamepad.leftBumper.and(gamepad.yButton).whileTrue(IntakeCmds.intakeSetFeedCmd());
-
-        gamepad.leftBumper.and(gamepad.xButton).whileTrue(IntakeCmds.intakeSetTreeCmd());
+        gamepad.leftBumper.onTrue(IntakeCmds.intakeGroundUntilGamepieceCmd());
 
 
-        gamepad.leftBumper.onFalse(IntakeCmds.intakeSetStoppedCmd());
-
+        
+        
+        gamepad.Dpad.Left.onTrue(orchestraCmds.playTetris());
 
 
         /* ----- Example Ways to use Buttons in different ways ---- */

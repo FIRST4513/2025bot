@@ -8,11 +8,13 @@ import com.thethriftybot.ThriftyNova;
 //import com.thethriftybot.ThriftyNova.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotConfig.AnalogPorts;
 import frc.robot.RobotConfig.Motors;
+import frc.robot.subsystems.intake.commands.IntakeCmds;
 
 
 public class IntakeSubSys extends SubsystemBase {
@@ -33,6 +35,7 @@ public class IntakeSubSys extends SubsystemBase {
     public SparkMax intakeBottomMotor = new SparkMax(Motors.IntakeBottomMotorID, MotorType.kBrushless);
     public SparkMax intakeTopMotor = new SparkMax(Motors.IntakeTopMotorID, MotorType.kBrushless);
 
+    public AnalogInput gamepieceDetectSensor = new AnalogInput(AnalogPorts.intakeGamepieceSensor);
 
     /* ----- Constructor ----- */
     public IntakeSubSys() { 
@@ -45,20 +48,21 @@ public class IntakeSubSys extends SubsystemBase {
     public void periodic() {
         // drive motor based on the current state
         switch (state) {
-            case SHOOTER_FEED: intakeBottomMotor.set(IntakeConfig.FEED + 0.1);
-                               intakeTopMotor.set(IntakeConfig.FEED);
-                               break;
+            case SHOOTER_FEED:  intakeBottomMotor.set(IntakeConfig.FEED + 0.1);
+                                intakeTopMotor.set(IntakeConfig.FEED);
+                                break;
             case MANUAL: //intakeBottomMotor.set(-Robot.operatorGamepad.getTriggerTwist());
                          //intakeTopMotor.set(-Robot.operatorGamepad.getTriggerTwist());
                          break;
             case TROPH: intakeTopMotor.set(IntakeConfig.TROPH - 0.25); //- 0.25
                         intakeBottomMotor.set(IntakeConfig.TROPH - 0.03); //- 0.125
-                       break;
-            case TREE: intakeBottomMotor.set(IntakeConfig.TREE);
-                         intakeTopMotor.set(IntakeConfig.TREE);
-                      break;
-            case HOLD: intakeBottomMotor.set(IntakeConfig.HOLD);
-                       intakeTopMotor.set(IntakeConfig.HOLD);
+                         break;
+            case TREE:  intakeBottomMotor.set(IntakeConfig.TREE);
+                        intakeTopMotor.set(IntakeConfig.TREE);
+                         break;
+            case HOLD:  intakeBottomMotor.set(IntakeConfig.HOLD);
+                        intakeTopMotor.set(IntakeConfig.HOLD);
+                         break;
             // stopped included:
             default: intakeBottomMotor.set(0);
                      intakeTopMotor.set(0);
@@ -107,6 +111,14 @@ public class IntakeSubSys extends SubsystemBase {
 
             default:           return "STOPPED";
         }
+    }
+
+    public double getSensorVal() {
+        return gamepieceDetectSensor.getAverageVoltage();    }
+
+    public boolean getGamepieceDetected() {
+        if (getSensorVal() > IntakeConfig.gamepieceDetectDistance) { return true; }
+        return false;
     }
 
 

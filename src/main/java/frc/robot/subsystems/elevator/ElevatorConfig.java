@@ -12,7 +12,7 @@ public class ElevatorConfig {
     protected static final double LEVELONE    = 1;
     protected static final double LEVELTWO    = 10; //h
     protected static final double LEVELTHREE  = 23.5;
-    protected static final double LEVELFOUR   = 43;
+    protected static final double LEVELFOUR   = 44.5;
     protected static final double BOTTOM      = 0;
     protected static final double INTAKE      = 11.5;
     protected static final double MANUAL      = 0.1;
@@ -49,7 +49,7 @@ public class ElevatorConfig {
         private static final double nonload_kD = 0.1;   // (D)erivative Value
         private static final double nonload_kV = 0.12;  // Volts/100 (?)
         private static final double nonload_kS = 0.05;  // (S)tiction Value:
-        private static final double nonload_kG = 0.37;
+        private static final double nonload_kG = 0.4;
     
         private static final boolean enableCurrentLimitting = true;
         private static final double  suppCurrent = 40;      // Max Amps allowed in Supply

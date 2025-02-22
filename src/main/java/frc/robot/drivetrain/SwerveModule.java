@@ -108,7 +108,7 @@ public class SwerveModule {
         // Tell Steer motor to go to the required rotation angle from desired state
         double angleRotation = desiredState.angle.getRotations();
         
-        if (( Math.abs(desiredState.speedMetersPerSecond) < (DrivetrainConfig.maxVelocity * 0.01))) {
+        if (( Math.abs(desiredState.speedMetersPerSecond) < (DrivetrainConfig.maxVelocity * 0.005))) {
             // Prevent rotating module if speed is less than 1% of max speed. (Jitter prevention)
             angleRotation = getSteerAngle();
         }

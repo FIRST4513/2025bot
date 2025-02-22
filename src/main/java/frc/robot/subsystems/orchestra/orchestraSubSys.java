@@ -7,22 +7,29 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.drivetrain.DrivetrainSubSys;
+import frc.robot.drivetrain.config.DrivetrainConfig;
+import frc.robot.subsystems.climber.ClimberSubSys;
 import frc.robot.subsystems.elevator.ElevatorSubSys;
 
 public class orchestraSubSys {
-    public static Orchestra m_orchestra;
+    public static Orchestra m_orchestra = new Orchestra();
     public orchestraSubSys() {
-        Orchestra m_orchestra = new Orchestra();
-
-        // Add a single device to the orchestra
         m_orchestra.addInstrument(ElevatorSubSys.elevatorMotor);
+        //m_orchestra.addInstrument(ClimberSubSys.climberMotor, 1);
 
-        // Attempt to load the chrp
         var status = m_orchestra.loadMusic("output.chrp");
-        withAllowMusicDurDisable();
+        //withAllowMusicDurDisable();
         
         
     }
+
+
+    // Add a single device to the orchestra
+
+
+    // Attempt to load the chrp
+    
 
     public AudioConfigs withAllowMusicDurDisable() {
          //TalonFXConfiguration config = new TalonFXConfiguration();
@@ -31,7 +38,4 @@ public class orchestraSubSys {
          return config;
     }
 
-    public static void playSong() {
-        m_orchestra.play();
-    }
 }

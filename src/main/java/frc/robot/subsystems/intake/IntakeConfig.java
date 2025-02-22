@@ -11,7 +11,7 @@ public class IntakeConfig {
     protected static final double FEED = 0.4;
     public static final double TROPH = 0;
     protected static final double TREE = -0.4;
-    protected static final double HOLD = 0;
+    protected static final double HOLD = 0.05;
 
 
 

@@ -38,7 +38,7 @@ import frc.robot.drivetrain.config.DrivetrainConfig;
 
 public class DrivetrainSubSys extends SubsystemBase {
 
-    public SwerveModule swerveMods[] = new SwerveModule[4];
+    public static SwerveModule swerveMods[] = new SwerveModule[4];
     public PigeonGyro gyro;
     protected OdometryThread odometry;
     private final RotationController rotationController;
@@ -260,7 +260,7 @@ ChassisSpeeds chassisSpeeds;
     *                       Control - Request - Processing   
     ************************************************************************/
     
-    // Use this to control the swerve drive, set motors, etc.
+    // Use this to control the swerve drive, setN motors, etc.
     public void setControlMode(Request mode) {
         setControl(mode);
     }

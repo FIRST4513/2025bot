@@ -37,7 +37,6 @@ public class ElevatorSubSys extends SubsystemBase {
         STOPPED
 
     }
-    public Orchestra m_Orchestra;
     private ElevatorState state = ElevatorState.STOPPED;
     final MotionMagicVoltage mr = new MotionMagicVoltage(0);
     
@@ -57,19 +56,19 @@ public class ElevatorSubSys extends SubsystemBase {
          // drive motor based on the current state
          switch (state) {
             case LEVELONE:
-            Robot.print(Double.toString(getRotations()));
+            //Robot.print(Double.toString(getRotations()));
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELONE));
                          break;
             case LEVELTWO:
-                         Robot.print(Double.toString(getRotations()));
+                         //Robot.print(Double.toString(getRotations()));
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELTWO));
                          break;
             case LEVELTHREE:
-            Robot.print(Double.toString(getRotations()));
+            //Robot.print(Double.toString(getRotations()));
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELTHREE));
                          break;            
             case LEVELFOUR:
-            Robot.print(Double.toString(getRotations()));
+            //Robot.print(Double.toString(getRotations()));
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELFOUR));
                          break;
             case BOTTOM:

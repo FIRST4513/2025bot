@@ -23,6 +23,7 @@ import frc.robot.subsystems.climber.ClimberSubSys;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
 import frc.robot.subsystems.elevator.ElevatorSubSys;
 import frc.robot.subsystems.intake.IntakeSubSys;
+import frc.robot.subsystems.orchestra.orchestraSubSys;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
 import edu.wpi.first.wpilibj.util.Color;
@@ -65,7 +66,7 @@ public class Robot extends LoggedRobot  {
     public static ClimberSubSys climber;
     public static ElevatorSubSys elevator;
     public static Auto auto;
-    public static Orchestra orchestra;
+    public static orchestraSubSys orchestra;
     // Automation and Assists
     // public static VisionSubSys      vision;
 
@@ -120,7 +121,7 @@ public class Robot extends LoggedRobot  {
         climber = new ClimberSubSys();
         intake = new IntakeSubSys();
         elevator = new ElevatorSubSys();
-        orchestra = new Orchestra();
+        orchestra = new orchestraSubSys();
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();
         // Set Default Commands, this method should exist for each subsystem that has commands
@@ -130,7 +131,7 @@ public class Robot extends LoggedRobot  {
         OperatorGamepadCmds.setupDefaultCommand();
         // ShooterCmds.setupDefaultCommand();
         // LEDsCommands.setupDefaultCommand();
-        // Auto.setupSelectors();
+        //Auto.setupSelectors();
     }
     
 
@@ -185,7 +186,7 @@ public class Robot extends LoggedRobot  {
             System.out.println("********** Auto Command NULL ************");
         }
 
-        // swerve.setLastAngleToCurrentAngle();
+        //swerve.setLastAngleToCurrentAngle();
 
         // Set Climbers to go to bottom no matter what
         

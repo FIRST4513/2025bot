@@ -38,8 +38,10 @@ public class RobotConfig {
         public final static int BRcanCoderID       = 11;  // Cancoder CAN ID
     }
 
-    public final class AnalogPorts {
+    
 
+    public final class AnalogPorts {
+        public final static int intakeGamepieceSensor = 0;
 
         //max 4 ports
     }
