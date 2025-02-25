@@ -73,13 +73,13 @@ public class OperatorGamepad extends Gamepad {
         
         /* ----- Competition Button Assignments ----- */
         // "Start" Button - Reset Gyro to 0
-        gamepad.startButton.onTrue(new InstantCommand(() -> Robot.swerve.zeroGyroHeading()));
+        //gamepad.startButton.onTrue(new InstantCommand(() -> Robot.swerve.zeroGyroHeading()));
         
         // "Select" Button - Reset Odometry to (0, 0) & 0º [FOR TESTING, DON'T USE IN COMP]
         // gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.resetPose()));
 
         // "Select" Button - Reset Gyro to 180
-        gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
+        //gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
         /*gamepad.Dpad.Up.whileTrue(ClimberCmds.climberSetExtend());
         gamepad.Dpad.Up.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
@@ -114,8 +114,12 @@ public class OperatorGamepad extends Gamepad {
 
 
         
-        
-        gamepad.Dpad.Left.onTrue(orchestraCmds.playTetris());
+        gamepad.Dpad.Left.onTrue(orchestraSubSys.songDown());
+        gamepad.Dpad.Right.onTrue(orchestraSubSys.songUp());
+
+        //gamepad.startButton.onTrue(orchestraSubSys.playsong())
+        gamepad.selectButton.onTrue(orchestraSubSys.playsong());
+        //gamepad.Dpad.Left.onTrue(orchestraCmds.playTetris());
 
 
         /* ----- Example Ways to use Buttons in different ways ---- */

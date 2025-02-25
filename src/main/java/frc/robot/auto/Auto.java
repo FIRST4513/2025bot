@@ -16,9 +16,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.Robot.TeamAlliance;
 import frc.robot.auto.AutoCmds;
+import frc.robot.subsystems.elevator.commands.ElevatorCmds;
+import frc.robot.subsystems.intake.commands.IntakeCmds;
 import frc.util.FieldConstants;
 
 public class Auto {
@@ -45,7 +49,7 @@ public class Auto {
         // Selector for Autonomous Desired Action
         actionChooser.setDefaultOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
         actionChooser.addOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
-        actionChooser.addOption(         "Intake To CL",            AutoConfig.kActionIntakeToCL);
+        actionChooser.addOption(         "Line To Reef",            AutoConfig.kActionLineToReef);
         SmartDashboard.putData(actionChooser);
     }
 
@@ -67,7 +71,40 @@ public class Auto {
             return AutoCmds.DoNothingCmd();
         }
         if (crossOnly()) { 
-            return AutoCmds.followPath("Crossline"); //AutoCmds.CrossLineOnlyCmd("Crossline");
+            if(Left()) {
+                return AutoCmds.followPath("CrossLeft");
+            }
+            if(Center()) {
+                return AutoCmds.followPath("CrossCenter");
+            }
+            if(Right()) {
+                return AutoCmds.followPath("CrossRight");
+            }
+            else {
+                return AutoCmds.DoNothingCmd();
+            }
+        }
+        if (LineToReef()) {
+            if(Center()) {
+
+            }
+            if(Right()) {
+                return new SequentialCommandGroup(
+                AutoCmds.followPath("RightToFR"),
+                ElevatorCmds.elevatorSetLevelOne(),
+                new WaitCommand(.2),
+                IntakeCmds.intakeSetTreeCmd(),
+                new WaitCommand(1),
+                IntakeCmds.intakeSetStoppedCmd(),
+                ElevatorCmds.elevatorSetManual(),
+                new WaitCommand(.05),
+                ElevatorCmds.elevatorSetStopped()
+                );
+                //return AutoCmds.followPath("LineToDS");
+            }
+            else {
+                return AutoCmds.DoNothingCmd();
+            }
         }
 
 
@@ -112,7 +149,7 @@ public class Auto {
             Robot.swerve::getChassisSpeeds,       // Supplier<ChassisSpeeds> -----> MUST BE ROBOT RELATIVE
             Robot.swerve::driveByChassisSpeeds,   // Consumer<ChassisSpeeds> -----> Set robot relative speeds (drive)
             new PPHolonomicDriveController(
-                 new PIDConstants(1.0, 0.0, 0.0), // Translation PID constants
+                 new PIDConstants(1, 0.55, 0.7555), // Translation PID constants
                  new PIDConstants(1.0, 0.0, 0.0) // Rotation PID constants
             ),    // HolonomicPathFollowerConfig -> config for configuring path commands
             config,
@@ -172,17 +209,17 @@ public class Auto {
             if (Left())         {
                  startPose = FieldConstants.BLUE_CAGE_BLUE;  
                  gyroHeading = FieldConstants.BLUE_CAGE_BLUE_GYRO;
-                 Robot.print("2. We are Speaker Left"); }
+                 Robot.print("2. We are Blue Cage Blue"); }
             
              if (Center())          { 
-                startPose = FieldConstants.BLUE_SPEAKER_CTR;   
-                gyroHeading = FieldConstants.BLUE_SPEAKER_CTR_GYRO;
-                Robot.print("2. We are Speaker Center"); }
+                startPose = FieldConstants.CENTER_PILLAR_BLUE;   
+                gyroHeading = FieldConstants.CENTER_PILLAR_BLUE_GYRO;
+                Robot.print("2. We are Center Pillar Blue"); }
             
             if (Right())        { 
-                startPose = FieldConstants.BLUE_SPEAKER_RIGHT; 
-                gyroHeading = FieldConstants.BLUE_SPEAKER_RIGHT_GYRO;
-                Robot.print("2. We are Speaker Right"); }
+                startPose = FieldConstants.RED_CAGE_BLUE; 
+                gyroHeading = FieldConstants.RED_CAGE_BLUE_GYRO;
+                Robot.print("2. We are Red Cage Blue"); }
         }
         // Robot.swerve.resetOdometryAndGyroFromPose(startPose);
         Robot.swerve.resetOdometryAndGyroFromPose(startPose, gyroHeading);
@@ -193,17 +230,17 @@ public class Auto {
     //            Simple Checks to make above routines cleaner
     // ------------------------------------------------------------------------
     private static boolean doNothing() {
-        //if (actionSelect.equals(AutoConfig.kActionDoNothing)) { return true; }
+        if (actionSelect.equals(AutoConfig.kActionDoNothing)) { return true; }
         return false;
     }
-    private static boolean intakeToCL() {
-        //if (actionSelect.equals(AutoConfig.kActionIntakeToCL)) { return true; }
+    private static boolean LineToReef() {
+        if (actionSelect.equals(AutoConfig.kActionLineToReef)) { return true; }
         return false;
     }
    
     private static boolean crossOnly() {
-        //if (actionSelect.equals(AutoConfig.kCrossOnlySelect)) { return true; }
-        return true;
+        if (actionSelect.equals(AutoConfig.kCrossOnlySelect)) { return true; }
+        return false;
     }
     
     private static boolean red() {

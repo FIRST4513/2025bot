@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 import com.ctre.phoenix6.Orchestra;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.pathplanner.lib.path.PathPlannerPath;
 //import com.pathplanner.lib.path.PathPlannerTrajectory;
 import com.pathplanner.lib.path.PathPoint;
@@ -95,14 +96,14 @@ ChassisSpeeds chassisSpeeds;
         Logger.recordOutput("Robot Pose", getPose());                                   // Log robot Pose
         Logger.recordOutput("Drive/ModuleStates", getModStates());                      // Log each Module's States (Vel.)
 
-         // Get the rotation of the robot from the gyro.
-            /*var gyroAngle = gyro.getYawRotation2d();
+         //Get the rotation of the robot from the gyro.
+            var gyroAngle = gyro.getYawRotation2d();
             // Update the pose
             DriveState.Pose = OdometryThread.m_odometry.update(gyroAngle,
             new SwerveModulePosition[] {
                 swerveMods[0].getPosition(), swerveMods[1].getPosition(),
                 swerveMods[2].getPosition(), swerveMods[3].getPosition()
-            });*/
+            });
             
     }
 
@@ -213,7 +214,6 @@ ChassisSpeeds chassisSpeeds;
 
         return chassisSpeeds;
     }
-
 
     public Pose2d       getPose()                   { return getDriveState().Pose; }
     public double       getPoseHdgDegrees()         { return getDriveState().Pose.getRotation().getDegrees(); }
