@@ -44,7 +44,9 @@ public class orchestraSubSys {
             "GangstasParadise.chrp",
             "Viva.chrp",
             "LavenderTown.chrp",
-            "FlyMeToTheMoon.chrp"
+            "GreenHillZone.chrp",
+            
+            "Creep.chrp"
         };
 
     static int songSelection = 0;

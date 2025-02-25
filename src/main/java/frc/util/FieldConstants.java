@@ -11,7 +11,7 @@ public class FieldConstants {
     
     public static final double BLUE_CAGE_BLUE_GYRO  = 180;
     public static final double CENTER_PILLAR_BLUE_GYRO   = 180;
-    public static final double RED_CAGE_BLUE_GYRO = -180;
+    public static final double RED_CAGE_BLUE_GYRO = 0;
 
     public static final Pose2d BLUE_AMP = new Pose2d(1.81, 7.63, Rotation2d.fromDegrees(90));
 

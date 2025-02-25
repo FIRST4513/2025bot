@@ -1,0 +1,161 @@
+Date : 2025-02-25 10:10:32
+Directory : c:\Workspace\Robot\2025bot\src\main\java\frc\robot
+Total : 89 files,  -2027 codes, -477 comments, -80 blanks, all -2584 lines
+
+Languages
++-----------------+------------+------------+------------+------------+------------+
+| language        | files      | code       | comment    | blank      | total      |
++-----------------+------------+------------+------------+------------+------------+
+| Java Properties |          1 |         -7 |          0 |         -1 |         -8 |
+| Markdown        |          1 |        -22 |          0 |         -3 |        -25 |
+| Batch           |          1 |        -41 |        -32 |        -22 |        -95 |
+| Groovy          |          2 |        -92 |        -20 |        -24 |       -136 |
+| Java            |         70 |       -722 |       -425 |        -29 |     -1,176 |
+| JSON            |         14 |     -1,143 |          0 |         -1 |     -1,144 |
++-----------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                     | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                        |         89 |     -2,027 |       -477 |        -80 |     -2,584 |
+| . (Files)                                                                                                |          3 |         43 |          3 |         13 |         59 |
+| ..                                                                                                       |         55 |     -3,289 |       -856 |       -527 |     -4,672 |
+| ..\..                                                                                                    |         19 |     -1,305 |        -52 |        -51 |     -1,408 |
+| ..\..\..                                                                                                 |         19 |     -1,305 |        -52 |        -51 |     -1,408 |
+| ..\..\..\..                                                                                              |         19 |     -1,305 |        -52 |        -51 |     -1,408 |
+| ..\..\..\..\..                                                                                           |         19 |     -1,305 |        -52 |        -51 |     -1,408 |
+| ..\..\..\..\.. (Files)                                                                                   |          4 |       -155 |        -52 |        -49 |       -256 |
+| ..\..\..\..\..\.wpilib                                                                                   |          1 |         -6 |          0 |          0 |         -6 |
+| ..\..\..\..\..\gradle                                                                                    |          1 |         -7 |          0 |         -1 |         -8 |
+| ..\..\..\..\..\gradle\wrapper                                                                            |          1 |         -7 |          0 |         -1 |         -8 |
+| ..\..\..\..\..\vendordeps                                                                                |         13 |     -1,137 |          0 |         -1 |     -1,138 |
+| ..\lib                                                                                                   |         31 |     -1,773 |       -764 |       -428 |     -2,965 |
+| ..\lib\drivers                                                                                           |          5 |       -403 |       -139 |       -115 |       -657 |
+| ..\lib\gamepads                                                                                          |         12 |       -653 |       -294 |       -140 |     -1,087 |
+| ..\lib\gamepads (Files)                                                                                  |          7 |       -339 |        -25 |        -92 |       -456 |
+| ..\lib\gamepads\mapping                                                                                  |          5 |       -314 |       -269 |        -48 |       -631 |
+| ..\lib\swerve                                                                                            |          4 |       -163 |        -81 |        -37 |       -281 |
+| ..\lib\telemetry                                                                                         |          5 |       -218 |        -69 |        -63 |       -350 |
+| ..\lib\util                                                                                              |          5 |       -336 |       -181 |        -73 |       -590 |
+| ..\util                                                                                                  |          5 |       -211 |        -40 |        -48 |       -299 |
+| XBoxCtrlrs                                                                                               |          8 |        319 |         98 |        135 |        552 |
+| XBoxCtrlrs\operator                                                                                      |          4 |        292 |         97 |        107 |        496 |
+| XBoxCtrlrs\operator (Files)                                                                              |          3 |        243 |         85 |         86 |        414 |
+| XBoxCtrlrs\operator\commands                                                                             |          1 |         49 |         12 |         21 |         82 |
+| XBoxCtrlrs\pilot                                                                                         |          4 |         27 |          1 |         28 |         56 |
+| XBoxCtrlrs\pilot (Files)                                                                                 |          3 |         21 |          1 |         22 |         44 |
+| XBoxCtrlrs\pilot\commands                                                                                |          1 |          6 |          0 |          6 |         12 |
+| auto                                                                                                     |          3 |        262 |         84 |         66 |        412 |
+| canbus                                                                                                   |          1 |          5 |          0 |          4 |          9 |
+| drivetrain                                                                                               |          5 |         15 |         56 |         25 |         96 |
+| drivetrain (Files)                                                                                       |          4 |         11 |         56 |         24 |         91 |
+| drivetrain\config                                                                                        |          1 |          4 |          0 |          1 |          5 |
+| subsystems                                                                                               |         14 |        618 |        138 |        204 |        960 |
+| subsystems\climber                                                                                       |          4 |        171 |         40 |         58 |        269 |
+| subsystems\climber (Files)                                                                               |          3 |        133 |         36 |         49 |        218 |
+| subsystems\climber\commands                                                                              |          1 |         38 |          4 |          9 |         51 |
+| subsystems\elevator                                                                                      |          4 |        221 |         39 |         63 |        323 |
+| subsystems\elevator (Files)                                                                              |          3 |        169 |         35 |         49 |        253 |
+| subsystems\elevator\commands                                                                             |          1 |         52 |          4 |         14 |         70 |
+| subsystems\intake                                                                                        |          4 |        150 |         57 |         57 |        264 |
+| subsystems\intake (Files)                                                                                |          3 |        104 |         42 |         42 |        188 |
+| subsystems\intake\commands                                                                               |          1 |         46 |         15 |         15 |         76 |
+| subsystems\orchestra                                                                                     |          2 |         76 |          2 |         26 |        104 |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| filename                                                                                                 | language        | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| c:\Workspace\Robot\2025bot\.wpilib\wpilib_preferences.json                                               | JSON            |         -6 |          0 |          0 |         -6 |
+| c:\Workspace\Robot\2025bot\WPILib-License.md                                                             | Markdown        |        -22 |          0 |         -3 |        -25 |
+| c:\Workspace\Robot\2025bot\build.gradle                                                                  | Groovy          |        -64 |        -20 |        -21 |       -105 |
+| c:\Workspace\Robot\2025bot\gradle\wrapper\gradle-wrapper.properties                                      | Java Properties |         -7 |          0 |         -1 |         -8 |
+| c:\Workspace\Robot\2025bot\gradlew.bat                                                                   | Batch           |        -41 |        -32 |        -22 |        -95 |
+| c:\Workspace\Robot\2025bot\settings.gradle                                                               | Groovy          |        -28 |          0 |         -3 |        -31 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\drivers\LimeLight.java                                  | Java            |       -174 |       -118 |        -37 |       -329 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\drivers\LimeLightControlModes.java                      | Java            |       -149 |         -1 |        -51 |       -201 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\drivers\SpectrumDigitalInput.java                       | Java            |        -25 |         -1 |        -10 |        -36 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\drivers\SpectrumDigitalRelay.java                       | Java            |        -25 |        -10 |        -10 |        -45 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\drivers\SpectrumSolenoid.java                           | Java            |        -30 |         -9 |         -7 |        -46 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\AxisButton.java                                | Java            |        -49 |         -4 |        -11 |        -64 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\Dpad.java                                      | Java            |        -29 |         -1 |         -8 |        -38 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\Gamepad.java                                   | Java            |        -42 |        -15 |        -14 |        -71 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\SpectrumButton.java                            | Java            |        -15 |         -1 |         -7 |        -23 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\ThumbStick.java                                | Java            |        -80 |         -2 |        -18 |       -100 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\Triggers.java                                  | Java            |        -26 |         -1 |         -7 |        -34 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\XboxGamepad.java                               | Java            |        -98 |         -1 |        -27 |       -126 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\mapping\Curve.java                             | Java            |        -62 |        -97 |        -16 |       -175 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\mapping\ExpCurve.java                          | Java            |        -37 |        -42 |         -8 |        -87 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\mapping\LinCurve.java                          | Java            |        -23 |        -26 |         -4 |        -53 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\mapping\SplineCurve.java                       | Java            |       -184 |        -96 |        -18 |       -298 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\gamepads\mapping\SplineType.java                        | Java            |         -8 |         -8 |         -2 |        -18 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\swerve\CTREModuleState.java                             | Java            |        -42 |        -16 |         -6 |        -64 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\swerve\Request.java                                     | Java            |        -26 |        -14 |        -10 |        -50 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\swerve\SwerveModuleConfig.java                          | Java            |        -23 |        -12 |         -4 |        -39 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\swerve\SwerveUtil.java                                  | Java            |        -72 |        -39 |        -17 |       -128 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\telemetry\Alert.java                                    | Java            |        -76 |        -44 |        -15 |       -135 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\telemetry\AlertCommand.java                             | Java            |        -26 |        -11 |        -10 |        -47 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\telemetry\CustomLayout.java                             | Java            |        -58 |         -6 |        -15 |        -79 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\telemetry\TelemetrySubsystem.java                       | Java            |        -29 |         -3 |         -8 |        -40 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\telemetry\WidgetsAndLayouts.java                        | Java            |        -29 |         -5 |        -15 |        -49 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\util\Conversions.java                                   | Java            |        -39 |        -42 |        -11 |        -92 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\util\GeomUtil.java                                      | Java            |        -42 |        -65 |        -12 |       -119 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\util\Network.java                                       | Java            |        -57 |        -16 |         -6 |        -79 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\util\Rmath.java                                         | Java            |       -123 |        -32 |        -22 |       -177 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\lib\util\Util.java                                          | Java            |        -75 |        -26 |        -22 |       -123 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\Robot.java                                            | Java            |         32 |          0 |          2 |         34 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\RobotConfig.java                                      | Java            |         10 |          1 |          9 |         20 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\RobotTelemetry.java                                   | Java            |          1 |          2 |          2 |          5 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\operator\OperatorGamepad.java              | Java            |        119 |         70 |         55 |        244 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\operator\OperatorGamepadConfig.java        | Java            |         40 |          9 |         10 |         59 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\operator\OperatorGamepadTelemetry.java     | Java            |         84 |          6 |         21 |        111 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\operator\commands\OperatorGamepadCmds.java | Java            |         49 |         12 |         21 |         82 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\pilot\PilotGamepad.java                    | Java            |         14 |          0 |         18 |         32 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\pilot\PilotGamepadConfig.java              | Java            |          4 |          1 |          2 |          7 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\pilot\PilotGamepadTelemetry.java           | Java            |          3 |          0 |          2 |          5 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\pilot\commands\PilotGamepadCmds.java       | Java            |          6 |          0 |          6 |         12 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\auto\Auto.java                                        | Java            |        187 |         46 |         38 |        271 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\auto\AutoCmds.java                                    | Java            |         52 |         34 |         16 |        102 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\auto\AutoConfig.java                                  | Java            |         23 |          4 |         12 |         39 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\canbus\canfd.java                                     | Java            |          5 |          0 |          4 |          9 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\DrivetrainSubSys.java                      | Java            |         29 |         14 |         23 |         66 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\DrivetrainTelemetry.java                   | Java            |        -20 |         24 |         -4 |          0 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\OdometryThread.java                        | Java            |         -1 |         18 |          4 |         21 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\SwerveModule.java                          | Java            |          3 |          0 |          1 |          4 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\config\DrivetrainConfig.java               | Java            |          4 |          0 |          1 |          5 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\climber\ClimberConfig.java                 | Java            |         52 |         17 |         20 |         89 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\climber\ClimberSubSys.java                 | Java            |         70 |         19 |         25 |        114 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\climber\ClimberTelemetry.java              | Java            |         11 |          0 |          4 |         15 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\climber\commands\ClimberCmds.java          | Java            |         38 |          4 |          9 |         51 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\elevator\ElevatorConfig.java               | Java            |         58 |         17 |         21 |         96 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\elevator\ElevatorSubSys.java               | Java            |         98 |         18 |         24 |        140 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\elevator\ElevatorTelemetry.java            | Java            |         13 |          0 |          4 |         17 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\elevator\commands\ElevatorCmds.java        | Java            |         52 |          4 |         14 |         70 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\intake\IntakeConfig.java                   | Java            |         18 |          9 |         13 |         40 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\intake\IntakeSubSys.java                   | Java            |         77 |         31 |         25 |        133 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\intake\IntakeTelemetry.java                | Java            |          9 |          2 |          4 |         15 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\intake\commands\IntakeCmds.java            | Java            |         46 |         15 |         15 |         76 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\orchestra\orchestraCmds.java               | Java            |         15 |          0 |          5 |         20 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\orchestra\orchestraSubSys.java             | Java            |         61 |          2 |         21 |         84 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\util\DriveState.java                                        | Java            |        -12 |         -4 |         -4 |        -20 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\util\FieldConstants.java                                    | Java            |        -25 |         -2 |        -10 |        -37 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\util\MacAddressUtilJITB.java                                | Java            |        -31 |         -2 |         -5 |        -38 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\util\PoseAndTimestamp.java                                  | Java            |        -20 |          0 |         -7 |        -27 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\util\Rmath.java                                             | Java            |       -123 |        -32 |        -22 |       -177 |
+| c:\Workspace\Robot\2025bot\vendordeps\AdvantageKit.json                                                  | JSON            |        -34 |          0 |          0 |        -34 |
+| c:\Workspace\Robot\2025bot\vendordeps\LumynLabs-2025.0.0.json                                            | JSON            |        -71 |          0 |          0 |        -71 |
+| c:\Workspace\Robot\2025bot\vendordeps\PathplannerLib-2025.1.1.json                                       | JSON            |        -38 |          0 |          0 |        -38 |
+| c:\Workspace\Robot\2025bot\vendordeps\Phoenix5-5.35.1.json                                               | JSON            |       -171 |          0 |          0 |       -171 |
+| c:\Workspace\Robot\2025bot\vendordeps\Phoenix6-25.1.0.json                                               | JSON            |       -389 |          0 |          0 |       -389 |
+| c:\Workspace\Robot\2025bot\vendordeps\PlayingWithFusion-2025.01.04.json                                  | JSON            |        -68 |          0 |          0 |        -68 |
+| c:\Workspace\Robot\2025bot\vendordeps\REVLib-2025.0.0.json                                               | JSON            |        -74 |          0 |          0 |        -74 |
+| c:\Workspace\Robot\2025bot\vendordeps\ReduxLib-2025.0.0.json                                             | JSON            |        -72 |          0 |          0 |        -72 |
+| c:\Workspace\Robot\2025bot\vendordeps\Studica-2025.0.0.json                                              | JSON            |        -71 |          0 |          0 |        -71 |
+| c:\Workspace\Robot\2025bot\vendordeps\ThriftyLib.json                                                    | JSON            |        -20 |          0 |          0 |        -20 |
+| c:\Workspace\Robot\2025bot\vendordeps\URCL.json                                                          | JSON            |        -65 |          0 |          0 |        -65 |
+| c:\Workspace\Robot\2025bot\vendordeps\WPILibNewCommands.json                                             | JSON            |        -38 |          0 |         -1 |        -39 |
+| c:\Workspace\Robot\2025bot\vendordeps\maple-sim.json                                                     | JSON            |        -26 |          0 |          0 |        -26 |
+| Total                                                                                                    |                 |     -2,027 |       -477 |        -80 |     -2,584 |
++----------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+

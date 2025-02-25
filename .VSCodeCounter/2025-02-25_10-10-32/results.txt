@@ -1,0 +1,96 @@
+Date : 2025-02-25 10:10:32
+Directory : c:\Workspace\Robot\2025bot\src\main\java\frc\robot
+Total : 45 files,  2819 codes, 1137 comments, 928 blanks, all 4884 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         44 |      2,766 |      1,137 |        917 |      4,820 |
+| Markdown |          1 |         53 |          0 |         11 |         64 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                     | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                        |         45 |      2,819 |      1,137 |        928 |      4,884 |
+| . (Files)                                                                                                |          4 |        280 |        126 |        104 |        510 |
+| XBoxCtrlrs                                                                                               |          9 |        622 |        189 |        215 |      1,026 |
+| XBoxCtrlrs (Files)                                                                                       |          1 |         53 |          0 |         11 |         64 |
+| XBoxCtrlrs\operator                                                                                      |          4 |        292 |         97 |        107 |        496 |
+| XBoxCtrlrs\operator (Files)                                                                              |          3 |        243 |         85 |         86 |        414 |
+| XBoxCtrlrs\operator\commands                                                                             |          1 |         49 |         12 |         21 |         82 |
+| XBoxCtrlrs\pilot                                                                                         |          4 |        277 |         92 |         97 |        466 |
+| XBoxCtrlrs\pilot (Files)                                                                                 |          3 |        237 |         81 |         80 |        398 |
+| XBoxCtrlrs\pilot\commands                                                                                |          1 |         40 |         11 |         17 |         68 |
+| auto                                                                                                     |          3 |        262 |         84 |         66 |        412 |
+| canbus                                                                                                   |          1 |          5 |          0 |          4 |          9 |
+| drivetrain                                                                                               |         14 |      1,032 |        600 |        335 |      1,967 |
+| drivetrain (Files)                                                                                       |          8 |        726 |        459 |        250 |      1,435 |
+| drivetrain\commands                                                                                      |          2 |        106 |         34 |         25 |        165 |
+| drivetrain\config                                                                                        |          4 |        200 |        107 |         60 |        367 |
+| subsystems                                                                                               |         14 |        618 |        138 |        204 |        960 |
+| subsystems\climber                                                                                       |          4 |        171 |         40 |         58 |        269 |
+| subsystems\climber (Files)                                                                               |          3 |        133 |         36 |         49 |        218 |
+| subsystems\climber\commands                                                                              |          1 |         38 |          4 |          9 |         51 |
+| subsystems\elevator                                                                                      |          4 |        221 |         39 |         63 |        323 |
+| subsystems\elevator (Files)                                                                              |          3 |        169 |         35 |         49 |        253 |
+| subsystems\elevator\commands                                                                             |          1 |         52 |          4 |         14 |         70 |
+| subsystems\intake                                                                                        |          4 |        150 |         57 |         57 |        264 |
+| subsystems\intake (Files)                                                                                |          3 |        104 |         42 |         42 |        188 |
+| subsystems\intake\commands                                                                               |          1 |         46 |         15 |         15 |         76 |
+| subsystems\orchestra                                                                                     |          2 |         76 |          2 |         26 |        104 |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                 | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\Main.java                                             | Java     |          8 |         13 |          5 |         26 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\Robot.java                                            | Java     |        181 |         60 |         58 |        299 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\RobotConfig.java                                      | Java     |         36 |          3 |         15 |         54 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\RobotTelemetry.java                                   | Java     |         55 |         50 |         26 |        131 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\Layouts.md                                 | Markdown |         53 |          0 |         11 |         64 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\operator\OperatorGamepad.java              | Java     |        119 |         70 |         55 |        244 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\operator\OperatorGamepadConfig.java        | Java     |         40 |          9 |         10 |         59 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\operator\OperatorGamepadTelemetry.java     | Java     |         84 |          6 |         21 |        111 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\operator\commands\OperatorGamepadCmds.java | Java     |         49 |         12 |         21 |         82 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\pilot\PilotGamepad.java                    | Java     |        113 |         66 |         49 |        228 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\pilot\PilotGamepadConfig.java              | Java     |         40 |          9 |         10 |         59 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\pilot\PilotGamepadTelemetry.java           | Java     |         84 |          6 |         21 |        111 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\XBoxCtrlrs\pilot\commands\PilotGamepadCmds.java       | Java     |         40 |         11 |         17 |         68 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\auto\Auto.java                                        | Java     |        187 |         46 |         38 |        271 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\auto\AutoCmds.java                                    | Java     |         52 |         34 |         16 |        102 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\auto\AutoConfig.java                                  | Java     |         23 |          4 |         12 |         39 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\canbus\canfd.java                                     | Java     |          5 |          0 |          4 |          9 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\AlignmentController.java                   | Java     |         61 |          6 |         14 |         81 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\DrivetrainOdometry.java                    | Java     |         39 |          8 |         10 |         57 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\DrivetrainSubSys.java                      | Java     |        153 |         75 |         60 |        288 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\DrivetrainTelemetry.java                   | Java     |         45 |         37 |         15 |         97 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\OdometryThread.java                        | Java     |        214 |        194 |         74 |        482 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\PigeonGyro.java                            | Java     |         22 |          9 |         12 |         43 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\RotationController.java                    | Java     |         50 |          6 |         14 |         70 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\SwerveModule.java                          | Java     |        142 |        124 |         51 |        317 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\commands\DrivetrainCmds.java               | Java     |         16 |         11 |          7 |         34 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\commands\SwerveDriveCmd.java               | Java     |         90 |         23 |         18 |        131 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\config\AngleFalconConfig.java              | Java     |         49 |         21 |         13 |         83 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\config\CanCoderConfig.java                 | Java     |         12 |          7 |          5 |         24 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\config\DriveFalconConfig.java              | Java     |         44 |         16 |         12 |         72 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\drivetrain\config\DrivetrainConfig.java               | Java     |         95 |         63 |         30 |        188 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\climber\ClimberConfig.java                 | Java     |         52 |         17 |         20 |         89 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\climber\ClimberSubSys.java                 | Java     |         70 |         19 |         25 |        114 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\climber\ClimberTelemetry.java              | Java     |         11 |          0 |          4 |         15 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\climber\commands\ClimberCmds.java          | Java     |         38 |          4 |          9 |         51 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\elevator\ElevatorConfig.java               | Java     |         58 |         17 |         21 |         96 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\elevator\ElevatorSubSys.java               | Java     |         98 |         18 |         24 |        140 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\elevator\ElevatorTelemetry.java            | Java     |         13 |          0 |          4 |         17 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\elevator\commands\ElevatorCmds.java        | Java     |         52 |          4 |         14 |         70 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\intake\IntakeConfig.java                   | Java     |         18 |          9 |         13 |         40 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\intake\IntakeSubSys.java                   | Java     |         77 |         31 |         25 |        133 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\intake\IntakeTelemetry.java                | Java     |          9 |          2 |          4 |         15 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\intake\commands\IntakeCmds.java            | Java     |         46 |         15 |         15 |         76 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\orchestra\orchestraCmds.java               | Java     |         15 |          0 |          5 |         20 |
+| c:\Workspace\Robot\2025bot\src\main\java\frc\robot\subsystems\orchestra\orchestraSubSys.java             | Java     |         61 |          2 |         21 |         84 |
+| Total                                                                                                    |          |      2,819 |      1,137 |        928 |      4,884 |
++----------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
