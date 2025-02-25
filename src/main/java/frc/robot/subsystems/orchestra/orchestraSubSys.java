@@ -35,14 +35,16 @@ public class orchestraSubSys {
     }
 
         static String[] songs = new String[] {
-            "tetris.chrp",
-            "FlyMeToTheMoon.chrp",
-            "CruelAngelsThesis.chrp",
             "FurElise.chrp",
-            "Symphony40.chrp",
-            "Thriller.chrp",
+            "Doom.chrp",
+            "Rolled.chrp",
+            "tetris.chrp",
+            "BeatIt.chrp",
+            "CruelAngelsThesis.chrp",
             "GangstasParadise.chrp",
+            "Viva.chrp",
             "LavenderTown.chrp",
+            "FlyMeToTheMoon.chrp"
         };
 
     static int songSelection = 0;
