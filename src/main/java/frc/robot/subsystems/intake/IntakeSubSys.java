@@ -1,20 +1,12 @@
 package frc.robot.subsystems.intake;
 
-import java.time.chrono.MinguoEra;
-
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.thethriftybot.ThriftyNova;
-//import com.thethriftybot.ThriftyNova.MotorType;
+import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.RobotConfig.AnalogPorts;
 import frc.robot.RobotConfig.Motors;
-import frc.robot.subsystems.intake.commands.IntakeCmds;
 
 
 public class IntakeSubSys extends SubsystemBase {

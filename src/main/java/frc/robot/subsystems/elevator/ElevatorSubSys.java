@@ -1,28 +1,12 @@
 package frc.robot.subsystems.elevator;
 
-import java.io.ObjectInputFilter.Status;
-
-import com.ctre.phoenix6.CANBus;
-import com.ctre.phoenix6.Orchestra;
-import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.pathplanner.lib.config.RobotConfig;
 
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
-import frc.robot.RobotConfig.AnalogPorts;
 import frc.robot.RobotConfig.Motors;
-import frc.robot.RobotConfig.PWMPorts;
-import frc.robot.XBoxCtrlrs.pilot.PilotGamepad;
-import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
-import frc.robot.canbus.canfd;
-import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 
 public class ElevatorSubSys extends SubsystemBase {
     public enum ElevatorState {

@@ -1,7 +1,5 @@
 package frc.robot.subsystems.orchestra;
 
-import com.ctre.phoenix6.Orchestra;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 

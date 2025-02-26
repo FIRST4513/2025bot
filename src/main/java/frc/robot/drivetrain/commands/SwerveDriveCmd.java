@@ -1,9 +1,6 @@
 package frc.robot.drivetrain.commands;
 
 import java.util.function.DoubleSupplier;
-import java.lang.System;
-import java.lang.annotation.Repeatable;
-
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
