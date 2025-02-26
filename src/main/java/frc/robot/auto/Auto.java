@@ -85,8 +85,31 @@ public class Auto {
             }
         }
         if (LineToReef()) {
+            if(Left()) {
+                return new SequentialCommandGroup(
+                    AutoCmds.followPath("LeftToFL"),
+                    ElevatorCmds.elevatorSetLevelOne(),
+                    new WaitCommand(.2),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(1),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetManual(),
+                    new WaitCommand(.05),
+                    ElevatorCmds.elevatorSetStopped()
+                    );
+            }
             if(Center()) {
-
+                return new SequentialCommandGroup(
+                    AutoCmds.followPath("CenterToFC"),
+                    ElevatorCmds.elevatorSetLevelOne(),
+                    new WaitCommand(.2),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(1),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetManual(),
+                    new WaitCommand(.05),
+                    ElevatorCmds.elevatorSetStopped()
+                    );
             }
             if(Right()) {
                 return new SequentialCommandGroup(
@@ -190,19 +213,19 @@ public class Auto {
         if (red()) {
             Robot.print("1. We are red");
             if (Left())         { 
-                startPose = FieldConstants.RED_SPEAKER_LEFT;
-                gyroHeading = FieldConstants.RED_SPEAKER_LEFT_GYRO; 
-                Robot.print("2. We are Speaker Left"); }
+                startPose = FieldConstants.RED_CAGE_RED;
+                gyroHeading = FieldConstants.RED_CAGE_RED_GYRO; 
+                Robot.print("2. We are Red Cage Red"); }
             
             if (Center())          { 
-                startPose = FieldConstants.RED_SPEAKER_CTR;  
-                gyroHeading = FieldConstants.RED_SPEAKER_CTR_GYRO; 
-                Robot.print("2. We are Speaker Center"); }
+                startPose = FieldConstants.CENTER_PILLAR_RED;  
+                gyroHeading = FieldConstants.CENTER_PILLAR_RED_GYRO; 
+                Robot.print("2. We are Center Pillar Red"); }
             
             if (Right())        { 
-                startPose = FieldConstants.RED_SPEAKER_RIGHT; 
-                gyroHeading = FieldConstants.RED_SPEAKER_RIGHT_GYRO;
-                 Robot.print("2. We are Speaker Right"); }
+                startPose = FieldConstants.BLUE_CAGE_RED; 
+                gyroHeading = FieldConstants.BLUE_CAGE_RED_GYRO;
+                 Robot.print("2. We are Blue Cage Red"); }
 
         } else {
             Robot.print("1. We are Blue");

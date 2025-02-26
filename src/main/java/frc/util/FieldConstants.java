@@ -5,7 +5,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 
 public class FieldConstants {
     /* Blue Field Positions */
-    public static final Pose2d BLUE_CAGE_BLUE  = new Pose2d(7.59, 6.14, Rotation2d.fromDegrees(180));
+    public static final Pose2d BLUE_CAGE_BLUE  = new Pose2d(7.59, 6.2, Rotation2d.fromDegrees(180));
     public static final Pose2d CENTER_PILLAR_BLUE   = new Pose2d(7.580, 4, Rotation2d.fromDegrees(180));
     public static final Pose2d RED_CAGE_BLUE = new Pose2d(7.59, 1.900, Rotation2d.fromDegrees(180));
     
@@ -20,13 +20,13 @@ public class FieldConstants {
     public static final Pose2d BLUE_HP_RIGHT = new Pose2d(14.94, 0.69, Rotation2d.fromDegrees(-60));
     
     /* Red Fiel Positions */
-    public static final Pose2d RED_SPEAKER_LEFT  = new Pose2d(15.81, 4.41, Rotation2d.fromDegrees(60));
-    public static final Pose2d RED_SPEAKER_CTR   = new Pose2d(15.19, 5.54, Rotation2d.fromDegrees(0));
-    public static final Pose2d RED_SPEAKER_RIGHT = new Pose2d(15.81, 6.69, Rotation2d.fromDegrees(-60));
+    public static final Pose2d BLUE_CAGE_RED  = new Pose2d(10.0, 6.2, Rotation2d.fromDegrees(0));
+    public static final Pose2d CENTER_PILLAR_RED   = new Pose2d(10.0, 4, Rotation2d.fromDegrees(0));
+    public static final Pose2d RED_CAGE_RED = new Pose2d(10.0, 1.9, Rotation2d.fromDegrees(0));
 
-    public static final double RED_SPEAKER_LEFT_GYRO  = 224.6;
-    public static final double RED_SPEAKER_CTR_GYRO   = -180;
-    public static final double RED_SPEAKER_RIGHT_GYRO = 134.6;
+    public static final double BLUE_CAGE_RED_GYRO  = 180;
+    public static final double CENTER_PILLAR_RED_GYRO   = 180;
+    public static final double RED_CAGE_RED_GYRO = 180;
 
     public static final Pose2d RED_AMP = new Pose2d(14.71, 7.63, Rotation2d.fromDegrees(90));
 
