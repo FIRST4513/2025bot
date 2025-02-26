@@ -2,15 +2,11 @@ package frc.robot.subsystems.orchestra;
 
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.configs.AudioConfigs;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Robot;
 import frc.robot.drivetrain.DrivetrainSubSys;
-import frc.robot.drivetrain.config.DrivetrainConfig;
-import frc.robot.subsystems.climber.ClimberSubSys;
 import frc.robot.subsystems.elevator.ElevatorSubSys;
 
 public class orchestraSubSys {

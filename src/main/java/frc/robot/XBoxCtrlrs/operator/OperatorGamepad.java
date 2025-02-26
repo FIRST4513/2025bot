@@ -1,27 +1,14 @@
 package frc.robot.XBoxCtrlrs.operator;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.lib.gamepads.Gamepad;
 import frc.lib.gamepads.mapping.ExpCurve;
-import frc.robot.Robot;
-
 import frc.robot.RobotConfig;
-import frc.robot.RobotConfig.Gamepads;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
-//import frc.robot.mechanisms.climber.commands.ClimberCmds;
-//import frc.robot.mechanisms.shooter.commands.ShooterCmds;
-import frc.robot.subsystems.climber.ClimberSubSys;
-import frc.robot.subsystems.climber.ClimberSubSys.ClimberState;
-import frc.robot.subsystems.climber.commands.ClimberCmds;
-import frc.robot.subsystems.elevator.ElevatorSubSys;
-import frc.robot.subsystems.elevator.ElevatorSubSys.ElevatorState;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 import frc.robot.subsystems.intake.commands.IntakeCmds;
-import frc.robot.subsystems.orchestra.orchestraCmds;
 import frc.robot.subsystems.orchestra.orchestraSubSys;
 
 //figure out later

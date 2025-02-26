@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.SuppliedValueWidget;
 import frc.lib.telemetry.Alert;
 import frc.lib.telemetry.Alert.AlertType;
 import frc.lib.telemetry.TelemetrySubsystem;
@@ -11,9 +10,6 @@ import frc.robot.XBoxCtrlrs.pilot.PilotGamepadTelemetry;
 import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainTelemetry;
 import frc.robot.subsystems.elevator.ElevatorTelemetry;
-
-// import frc.robot.vision.VisionTelemetry;
-import java.util.Map;
 
 public class RobotTelemetry extends TelemetrySubsystem {
     private static boolean disablePrints = false;
