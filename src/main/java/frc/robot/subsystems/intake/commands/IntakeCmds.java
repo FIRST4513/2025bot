@@ -48,7 +48,8 @@ public class IntakeCmds {
     public static Command intakeGroundUntilGamepieceCmd() {
         return new SequentialCommandGroup(
             intakeSetFeedCmd(),
-            new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()).withTimeout(2),
+            new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()).withTimeout(4),
+            new WaitCommand(0.5),
             //intakeStopCmd(),
             //holdOnCmd(),
             intakeSetHoldCmd()

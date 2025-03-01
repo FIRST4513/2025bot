@@ -66,7 +66,7 @@ public class Robot extends LoggedRobot  {
     public static ClimberSubSys climber;
     public static ElevatorSubSys elevator;
     public static Auto auto;
-    public static orchestraSubSys orchestra;
+    //public static orchestraSubSys orchestra;
     // Automation and Assists
     // public static VisionSubSys      vision;
 
@@ -121,7 +121,7 @@ public class Robot extends LoggedRobot  {
         climber = new ClimberSubSys();
         intake = new IntakeSubSys();
         elevator = new ElevatorSubSys();
-        orchestra = new orchestraSubSys();
+        //orchestra = new orchestraSubSys();
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();
         // Set Default Commands, this method should exist for each subsystem that has commands

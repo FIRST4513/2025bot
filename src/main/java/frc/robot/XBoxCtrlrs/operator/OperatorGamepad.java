@@ -114,11 +114,11 @@ public class OperatorGamepad extends Gamepad {
 
 
         
-        gamepad.Dpad.Left.onTrue(orchestraSubSys.songDown());
-        gamepad.Dpad.Right.onTrue(orchestraSubSys.songUp());
+        //gamepad.Dpad.Left.onTrue(orchestraSubSys.songDown());
+        //gamepad.Dpad.Right.onTrue(orchestraSubSys.songUp());
 
         //gamepad.startButton.onTrue(orchestraSubSys.playsong())
-        gamepad.selectButton.onTrue(orchestraSubSys.playsong());
+        //gamepad.selectButton.onTrue(orchestraSubSys.playsong());
         //gamepad.Dpad.Left.onTrue(orchestraCmds.playTetris());
 
 
