@@ -1,9 +1,6 @@
 package frc.robot.auto;
 
 
-import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.auto.AutoBuilder;
-
 import frc.robot.drivetrain.config.DrivetrainConfig;
 
 public class AutoConfig {

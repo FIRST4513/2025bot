@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import frc.lib.telemetry.CustomLayout;
 import frc.robot.Robot;
-import frc.robot.subsystems.elevator.ElevatorSubSys;
 
 public class OperatorGamepadTelemetry {
     public final OperatorGamepad gamepad; 

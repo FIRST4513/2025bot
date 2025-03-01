@@ -12,7 +12,6 @@ import com.ctre.phoenix6.StatusSignal;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import frc.lib.swerve.CTREModuleState;
 import frc.robot.drivetrain.config.AngleFalconConfig;
 import frc.robot.drivetrain.config.CanCoderConfig;

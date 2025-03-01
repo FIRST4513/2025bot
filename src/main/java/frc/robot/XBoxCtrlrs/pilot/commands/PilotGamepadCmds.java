@@ -1,21 +1,11 @@
 package frc.robot.XBoxCtrlrs.pilot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
-import frc.robot.RobotConfig.Gamepads;
-import frc.robot.XBoxCtrlrs.operator.OperatorGamepadConfig;
 //import frc.robot.auto.Auto;
 //import frc.robot.auto.comands.AutoCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
-import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig;
-import frc.lib.gamepads.Gamepad;
-import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 
 
 
