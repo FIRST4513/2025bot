@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
@@ -45,8 +46,8 @@ public class Auto {
             SmartDashboard.putData(positionChooser);
             // Selector for Autonomous Desired Action
             actionChooser.addOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
-            actionChooser.addOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
-            actionChooser.setDefaultOption(         "Line To Reef",            AutoConfig.kActionLineToReef);
+            actionChooser.setDefaultOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
+            actionChooser.addOption(         "Line To Reef",            AutoConfig.kActionLineToReef);
             actionChooser.addOption("Right to Score", AutoConfig.kActionRightToScore);
             SmartDashboard.putData(actionChooser);
         }
@@ -104,18 +105,21 @@ public class Auto {
                         ElevatorCmds.elevatorSetStopped()
                         );
                 }
-                if(Center()) {
-                    return new SequentialCommandGroup(
-                        AutoCmds.followPath("CenterToFC"),  
+                if (Center()) {
+                    return new SequentialCommandGroup( 
+                        IntakeCmds.intakeSetHoldCmd(),
+                        AutoCmds.followPath("CenterToFC").withTimeout(4.5),
                         ElevatorCmds.elevatorSetLevelOne(),
-                        new WaitCommand(.2),
+                        new WaitCommand(1.5),
                         IntakeCmds.intakeSetTreeCmd(),
-                        new WaitCommand(1),
+                        new WaitCommand(0.7),
                         IntakeCmds.intakeSetStoppedCmd(),
+                        ElevatorCmds.elevatorSetBottom(),
+                        new WaitCommand(1),
                         ElevatorCmds.elevatorSetManual(),
-                        new WaitCommand(.05),
+                        new WaitCommand(0.03),
                         ElevatorCmds.elevatorSetStopped()
-                        );
+                    );
                 }
                 if(Right()) {
                     return new SequentialCommandGroup(
@@ -177,7 +181,46 @@ public class Auto {
             }
 
         }
-
+            if (TwoPiece()) {
+                return new SequentialCommandGroup(
+                    IntakeCmds.intakeSetHoldCmd(),
+                    AutoCmds.followPath("CenterToFC"),
+                    ElevatorCmds.elevatorSetLevelFour(),
+                    new WaitCommand(1.5),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(0.5),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetBottom(),
+                    new WaitCommand(1),
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            ElevatorCmds.elevatorSetManual(),
+                            new WaitCommand(0.2),
+                            ElevatorCmds.elevatorSetLevelTwo()
+                        ),
+                        AutoCmds.followPath("CenterToIntake")
+                    ),
+                    IntakeCmds.intakeSetFeedCmd(),
+                    new WaitCommand(1),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            ElevatorCmds.elevatorSetManual(),
+                            new WaitCommand(0.2),
+                            ElevatorCmds.elevatorSetBottom()
+                        ),
+                        AutoCmds.followPath("RIntakeToCR")
+                    ),
+                    ElevatorCmds.elevatorSetLevelFour(),
+                    new WaitCommand(1.5),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(1),
+                    IntakeCmds.intakeStopCmd(),
+                    ElevatorCmds.elevatorSetManual(),
+                    new WaitCommand(0.2),
+                    ElevatorCmds.elevatorSetBottom()
+                );
+            }
 
 
 
@@ -225,7 +268,7 @@ public class Auto {
                  new PIDConstants(1.0, 0.0, 0.0) // Rotation PID constants
             ),    // HolonomicPathFollowerConfig -> config for configuring path commands
             config,
-            ()->getAllianceFlip(),                // BooleanSupplier -------------> Should mirror/flip path
+            ()->false,                // BooleanSupplier -------------> Should mirror/flip path
             //() -> false,                        // BooleanSupplier -------------> Should mirror/flip path
             Robot.swerve                          // Subsystem: ------------------> required subsystem (usually swerve)
         );
@@ -259,25 +302,6 @@ public class Auto {
         // Set Robot position (Odometry) and Heading (Gyro) based on selected autonomous starting position
         //startPose = new Pose2d(new Translation2d(0,0), new Rotation2d(0)); // Should never use
         double gyroHeading = 0;
-        if (red()) {
-            
-            Robot.print("1. We are red");
-            if (Left())         { 
-                startPose = FieldConstants.RED_CAGE_RED;
-                gyroHeading = FieldConstants.RED_CAGE_RED_GYRO; 
-                Robot.print("2. We are Red Cage Red"); }
-            
-            if (Center())          { 
-                startPose = FieldConstants.CENTER_PILLAR_RED;  
-                gyroHeading = FieldConstants.CENTER_PILLAR_RED_GYRO; 
-                Robot.print("2. We are Center Pillar Red"); }
-            
-            if (Right())        {
-                startPose = FieldConstants.BLUE_CAGE_RED; 
-                gyroHeading = FieldConstants.BLUE_CAGE_RED_GYRO;
-                 Robot.print("2. We are Blue Cage Red"); }
-
-        } else {
             Robot.print("1. We are Blue");
             if (Left())         {
                  startPose = FieldConstants.BLUE_CAGE_BLUE;  
@@ -293,10 +317,10 @@ public class Auto {
                 startPose = FieldConstants.RED_CAGE_BLUE; 
                 gyroHeading = FieldConstants.RED_CAGE_BLUE_GYRO;
                 Robot.print("2. We are Red Cage Blue"); }
-        }
+        
         // Robot.swerve.resetOdometryAndGyroFromPose(startPose);
         Robot.swerve.resetOdometryAndGyroFromPose(startPose, gyroHeading);
-    }
+            }
 
 
     // ------------------------------------------------------------------------
@@ -318,6 +342,11 @@ public class Auto {
     
     private static boolean RightToScore() {
         if (actionSelect.equals(AutoConfig.kActionRightToScore)) { return true; }
+        return false;
+    }
+    
+    private static boolean TwoPiece() {
+        if (actionSelect.equals(AutoConfig.kActionTwoPiece)) { return true; } 
         return false;
     }
     
