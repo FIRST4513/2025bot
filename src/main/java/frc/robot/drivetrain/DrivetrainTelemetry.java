@@ -35,14 +35,14 @@ public class DrivetrainTelemetry {
         Mod2Name = swerve.swerveMods[2].modName;
         Mod3Name = swerve.swerveMods[3].modName;
 
-        moduleLayout(Mod0Name, 0, tab).withPosition(0, 0).withSize(4, 4);
-        moduleLayout(Mod1Name, 1, tab).withPosition(4, 0).withSize(4, 4);
-        moduleLayout(Mod2Name, 2, tab).withPosition(0, 4).withSize(4, 4);
-        moduleLayout(Mod3Name, 3, tab).withPosition(4, 4).withSize(4, 4);
+       // moduleLayout(Mod0Name, 0, tab).withPosition(0, 0).withSize(4, 4);
+       // moduleLayout(Mod1Name, 1, tab).withPosition(4, 0).withSize(4, 4);
+       // moduleLayout(Mod2Name, 2, tab).withPosition(0, 4).withSize(4, 4);
+       // moduleLayout(Mod3Name, 3, tab).withPosition(4, 4).withSize(4, 4);
 
 
         
-        tab.addCamera("camera", "camera", "http://10.45.13.12:1182/stream.mjpg").withPosition(12, 4).withSize(4, 4);
+        tab.addCamera("camera", "camera", "http://10.45.13.11:1184/stream.mjpg").withPosition(1,1).withSize(4, 4);
     }
 
     public ShuffleboardLayout moduleLayout(String name, int moduleNum, ShuffleboardTab tab) {
