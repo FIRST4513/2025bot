@@ -2,6 +2,7 @@ package frc.robot.auto;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -14,20 +15,21 @@ public class AutoCmds {
     public static Command DoNothingCmd() {
         // Set position and Gyro Heading based on position
         return new SequentialCommandGroup(
-                new InstantCommand(() -> System.out.println("do nothing cmd"))
-                //new InstantCommand(() -> Auto.setStartPose())
+            new InstantCommand(() -> System.out.println("do nothing cmd"))
+            //new InstantCommand(() -> Auto.setStartPose())
         );
     }
 
     // ----------------------------- Cross Line Commands -------------------------------------
-    public static Command
-    CrossLineOnlyCmd(String pathName) {
+    public static Command 
+    CrossLineOnlyCmd( String pathName ) {
         return new SequentialCommandGroup(
-                new InstantCommand(() -> Robot.print("Auto Shoot Left Speaker with path " + pathName)),
-                initAndFollowPath(pathName)
+                new InstantCommand( ()-> Robot.print( "Auto Shoot Left Speaker with path " + pathName)),
+                initAndFollowPath( pathName )
                 // lock wheels
         );
     }
+
 
 
     // ----------------------------------- Two Note ------------------------------------------
@@ -61,15 +63,15 @@ public class AutoCmds {
 
     // Get a Command that Follows a Path
     public static Command followPath(String name) {
-        try {
-            PathPlannerPath path = PathPlannerPath.fromPathFile(name);
+        try{
+        PathPlannerPath path = PathPlannerPath.fromPathFile(name); 
 
-            // Create a path following command using AutoBuilder. This will also trigger event markers.
-            return AutoBuilder.followPath(path);
+        // Create a path following command using AutoBuilder. This will also trigger event markers.
+        return AutoBuilder.followPath(path);
         } catch (Exception e) {
-            DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
-            return DoNothingCmd();
-        }
+        DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+        return DoNothingCmd();
+    }
     }
 
     public static Command initAndFollowPath(String name) {
@@ -77,8 +79,8 @@ public class AutoCmds {
         // only build blue paths, and then rely on AutoBuilder to flip path at run time as needed for red.
         Robot.print("Loading path name: " + name);
         return new SequentialCommandGroup(
-                new InstantCommand(() -> Auto.setStartPose()),      // Init Robot Pose on Field
-                followPath(name)                                    // Run Path
+            new InstantCommand(() -> Auto.setStartPose()),      // Init Robot Pose on Field                 
+            followPath(name)                                    // Run Path
         );
     }
 
