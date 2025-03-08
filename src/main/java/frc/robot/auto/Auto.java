@@ -64,13 +64,6 @@ public class Auto {
             getAutoSelections();
             setStartPose();                 // Initialize Robot Pose on Field
     
-            if (getAllianceFlip()) {
-                oneEighty = 180;
-            }
-            if (!getAllianceFlip()) {
-                oneEighty = 0;
-            }
-
 
             // ------------------------------- Do Nothing ---------------------------
             if (doNothing()) {
@@ -132,8 +125,8 @@ public class Auto {
                     ElevatorCmds.elevatorSetManual(),
                     new WaitCommand(.05),
                     ElevatorCmds.elevatorSetStopped(),
-                    AutoCmds.followPath("RightToIntake"),
-                    new InstantCommand(()->Robot.swerve.setGyroHeading(oneEighty))
+                    AutoCmds.followPath("RightToIntake")
+                    //new InstantCommand(()->Robot.swerve.setGyroHeading(oneEighty))
                     );
                 }
                 else {

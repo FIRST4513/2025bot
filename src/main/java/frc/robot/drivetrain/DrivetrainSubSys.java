@@ -208,8 +208,9 @@ ChassisSpeeds chassisSpeeds;
 
     // Odometry Methods
     public void resetPose(Pose2d pose)      { 
-        
-        OdometryThread.m_odometry.resetPosition(getRotation(),   new SwerveModulePosition[] {
+        //Old method of resetPosition was to call getRotation() for the gyro heading
+
+        OdometryThread.m_odometry.resetPosition(Robot.swerve.gyro.getYawRotation2d(),   new SwerveModulePosition[] {
             swerveMods[0].getPosition(),
             swerveMods[1].getPosition(),
             swerveMods[2].getPosition(),
