@@ -6,14 +6,14 @@ import frc.robot.drivetrain.config.DrivetrainConfig;
 public class AutoConfig {
 
     // Auto menu Position selectors
-    public static final String kLeft         = "Left";
-    public static final String kCenter         = "Center";
-    public static final String kRight           = "Right";
+    public static final String kLeft = "Left";
+    public static final String kCenter = "Center";
+    public static final String kRight = "Right";
 
     // Auto menu Action selectors
-    public static final String kActionDoNothing         = "Do Nothing";
-    public static final String kCrossOnlySelect         = "Crossline";
-    public static final String kActionLineToReef     = "Line to Reef";
+    public static final String kActionDoNothing = "Do Nothing";
+    public static final String kCrossOnlySelect = "Crossline";
+    public static final String kActionLineToReef = "Line to Reef";
     public static final String kActionRightToScore = "Right to Score";
     public static final String kActionTwoPiece = "Two Piece";
     // variables for tuning
@@ -30,7 +30,7 @@ public class AutoConfig {
     public static final double kMaxAccel = 2.4;     // 2 worked but took too long
     public static final double kGenPathMaxSpeed = 2.0;
     public static final double kGenPathMaxAceel = 3.0;
-    public static double driveBaseRadius = Math.hypot((DrivetrainConfig.trackWidth / 2.0), (DrivetrainConfig.wheelBase/2.0));
+    public static double driveBaseRadius = Math.hypot((DrivetrainConfig.trackWidth / 2.0), (DrivetrainConfig.wheelBase / 2.0));
 
 
 }
