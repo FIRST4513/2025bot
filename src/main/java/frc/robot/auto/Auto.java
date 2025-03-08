@@ -5,11 +5,17 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.*;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.Robot.TeamAlliance;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
@@ -23,7 +29,7 @@ public class Auto {
     public static String actionSelect;
     public static String positionSelect;
     private static Pose2d startPose;
-
+    
     static int oneEighty;
         // ----- Autonomous Subsystem Constructor -----
         public Auto() {
@@ -137,20 +143,85 @@ public class Auto {
             }
             if (RightToScore()) {
 
-            if (Center()) {
-                return new SequentialCommandGroup(IntakeCmds.intakeSetHoldCmd(), AutoCmds.followPath("CenterToFC").withTimeout(4.5), ElevatorCmds.elevatorSetLevelFour(), new WaitCommand(1.5), IntakeCmds.intakeSetTreeCmd(), new WaitCommand(0.7), IntakeCmds.intakeSetStoppedCmd(), ElevatorCmds.elevatorSetBottom(), new WaitCommand(1), ElevatorCmds.elevatorSetManual(), new WaitCommand(0.03), ElevatorCmds.elevatorSetStopped());
-            }
-
-            if (Right()) {
-                return new SequentialCommandGroup(IntakeCmds.intakeSetHoldCmd(), AutoCmds.followPath("RightToFRS").withTimeout(4.5), ElevatorCmds.elevatorSetLevelFour(), new WaitCommand(1.5), IntakeCmds.intakeSetTreeCmd(), new WaitCommand(0.7), IntakeCmds.intakeSetStoppedCmd(), ElevatorCmds.elevatorSetBottom(), new WaitCommand(1), ElevatorCmds.elevatorSetManual(), new WaitCommand(0.03), ElevatorCmds.elevatorSetStopped(), AutoCmds.followPath("RightToIntake"), new InstantCommand(() -> Robot.swerve.setGyroHeading(oneEighty))
+                if (Center()) {
+                    return new SequentialCommandGroup( 
+                        IntakeCmds.intakeSetHoldCmd(),
+                        AutoCmds.followPath("CenterToFC").withTimeout(4.5),
+                        ElevatorCmds.elevatorSetLevelFour(),
+                        new WaitCommand(1.5),
+                        IntakeCmds.intakeSetTreeCmd(),
+                        new WaitCommand(0.7),
+                        IntakeCmds.intakeSetStoppedCmd(),
+                        ElevatorCmds.elevatorSetBottom(),
+                        new WaitCommand(1),
+                        ElevatorCmds.elevatorSetManual(),
+                        new WaitCommand(0.03),
+                        ElevatorCmds.elevatorSetStopped()
+                    );
+                }
+    
+                if (Right()) {
+                return new SequentialCommandGroup( 
+                    IntakeCmds.intakeSetHoldCmd(),
+                    AutoCmds.followPath("RightToFRS").withTimeout(4.5),
+                    ElevatorCmds.elevatorSetLevelFour(),
+                    new WaitCommand(1.5),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(0.7),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetBottom(),
+                    new WaitCommand(1),
+                    ElevatorCmds.elevatorSetManual(),
+                    new WaitCommand(0.03),
+                    ElevatorCmds.elevatorSetStopped(),
+                    AutoCmds.followPath("RightToIntake"),
+                    new InstantCommand(()->Robot.swerve.setGyroHeading(oneEighty))
 
                 );
             }
 
         }
-        if (TwoPiece()) {
-            return new SequentialCommandGroup(IntakeCmds.intakeSetHoldCmd(), AutoCmds.followPath("CenterToFC"), ElevatorCmds.elevatorSetLevelFour(), new WaitCommand(1.5), IntakeCmds.intakeSetTreeCmd(), new WaitCommand(0.5), IntakeCmds.intakeSetStoppedCmd(), ElevatorCmds.elevatorSetBottom(), new WaitCommand(1), new ParallelCommandGroup(new SequentialCommandGroup(ElevatorCmds.elevatorSetManual(), new WaitCommand(0.2), ElevatorCmds.elevatorSetLevelTwo()), AutoCmds.followPath("CenterToIntake")), IntakeCmds.intakeSetFeedCmd(), new WaitCommand(1), IntakeCmds.intakeSetStoppedCmd(), new ParallelCommandGroup(new SequentialCommandGroup(ElevatorCmds.elevatorSetManual(), new WaitCommand(0.2), ElevatorCmds.elevatorSetBottom()), AutoCmds.followPath("RIntakeToCR")), ElevatorCmds.elevatorSetLevelFour(), new WaitCommand(1.5), IntakeCmds.intakeSetTreeCmd(), new WaitCommand(1), IntakeCmds.intakeStopCmd(), ElevatorCmds.elevatorSetManual(), new WaitCommand(0.2), ElevatorCmds.elevatorSetBottom());
-        }
+            if (TwoPiece()) {
+                return new SequentialCommandGroup(
+                    IntakeCmds.intakeSetHoldCmd(),
+                    AutoCmds.followPath("CenterToFC"),
+                    ElevatorCmds.elevatorSetLevelFour(),
+                    new WaitCommand(1.5),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(0.5),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetBottom(),
+                    new WaitCommand(1),
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            ElevatorCmds.elevatorSetManual(),
+                            new WaitCommand(0.2),
+                            ElevatorCmds.elevatorSetLevelTwo()
+                        ),
+                        AutoCmds.followPath("CenterToIntake")
+                    ),
+                    IntakeCmds.intakeSetFeedCmd(),
+                    new WaitCommand(1),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            ElevatorCmds.elevatorSetManual(),
+                            new WaitCommand(0.2),
+                            ElevatorCmds.elevatorSetBottom()
+                        ),
+                        AutoCmds.followPath("RIntakeToCR")
+                    ),
+                    ElevatorCmds.elevatorSetLevelFour(),
+                    new WaitCommand(1.5),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(1),
+                    IntakeCmds.intakeStopCmd(),
+                    ElevatorCmds.elevatorSetManual(),
+                    new WaitCommand(0.2),
+                    ElevatorCmds.elevatorSetBottom()
+                );
+            }
+
 
 
         // ------------------------------ Three Note  -------------------------------
@@ -175,16 +246,14 @@ public class Auto {
 
     // ----- Configuration and Setup Methods -----
 
-    static RobotConfig config;
-
-    {
-        try {
-            config = RobotConfig.fromGUISettings();
-        } catch (Exception e) {
-            // Handle exception as needed
-            e.printStackTrace();
-        }
+    static RobotConfig config;{
+    try{
+      config = RobotConfig.fromGUISettings();
+    } catch (Exception e) {
+      // Handle exception as needed
+      e.printStackTrace();
     }
+}
 
     // Configures the auto builder to use to run paths in autonomous and in teleop
     public static void configureAutoBuilder() {
@@ -205,16 +274,16 @@ public class Auto {
         );
     }
 
-    public static Boolean getAllianceFlip() {
+    public static Boolean getAllianceFlip(){
         // Boolean supplier that controls when the path will be mirrored for the red alliance
         // This will flip the path being followed to the red side of the field.
 
-        if ((DriverStation.isAutonomous()) && (Robot.alliance == TeamAlliance.RED)) {
+        if ((DriverStation.isAutonomous()) && (Robot.alliance == TeamAlliance.RED) ) {
             // Were in Autonomous Mode and Alliance is Red, so invert field
             return true;
         } else {
-            // Not Autonomous or Alliance is Blue so dont invert field
-            return false;
+        // Not Autonomous or Alliance is Blue so dont invert field
+        return false;
         }
     }
 
@@ -233,73 +302,57 @@ public class Auto {
         // Set Robot position (Odometry) and Heading (Gyro) based on selected autonomous starting position
         //startPose = new Pose2d(new Translation2d(0,0), new Rotation2d(0)); // Should never use
         double gyroHeading = 0;
-        Robot.print("1. We are Blue");
-        if (Left()) {
-            startPose = FieldConstants.BLUE_CAGE_BLUE;
-            gyroHeading = FieldConstants.BLUE_CAGE_BLUE_GYRO;
-            Robot.print("2. We are Blue Cage Blue");
-        }
-
-        if (Center()) {
-            startPose = FieldConstants.CENTER_PILLAR_BLUE;
-            gyroHeading = FieldConstants.CENTER_PILLAR_BLUE_GYRO;
-            Robot.print("2. We are Center Pillar Blue");
-        }
-
-        if (Right()) {
-            startPose = FieldConstants.RED_CAGE_BLUE;
-            gyroHeading = FieldConstants.RED_CAGE_BLUE_GYRO;
-            Robot.print("2. We are Red Cage Blue");
-        }
-
+            Robot.print("1. We are Blue");
+            if (Left())         {
+                 startPose = FieldConstants.BLUE_CAGE_BLUE;  
+                 gyroHeading = FieldConstants.BLUE_CAGE_BLUE_GYRO;
+                 Robot.print("2. We are Blue Cage Blue"); }
+            
+             if (Center())          { 
+                startPose = FieldConstants.CENTER_PILLAR_BLUE;   
+                gyroHeading = FieldConstants.CENTER_PILLAR_BLUE_GYRO;
+                Robot.print("2. We are Center Pillar Blue"); }
+            
+            if (Right())        {
+                startPose = FieldConstants.RED_CAGE_BLUE; 
+                gyroHeading = FieldConstants.RED_CAGE_BLUE_GYRO;
+                Robot.print("2. We are Red Cage Blue"); }
+        
         // Robot.swerve.resetOdometryAndGyroFromPose(startPose);
         Robot.swerve.resetOdometryAndGyroFromPose(startPose, gyroHeading);
-    }
+            }
 
 
     // ------------------------------------------------------------------------
     //            Simple Checks to make above routines cleaner
     // ------------------------------------------------------------------------
     private static boolean doNothing() {
-        if (actionSelect.equals(AutoConfig.kActionDoNothing)) {
-            return true;
-        }
+        if (actionSelect.equals(AutoConfig.kActionDoNothing)) { return true; }
         return false;
     }
-
     private static boolean LineToReef() {
-        if (actionSelect.equals(AutoConfig.kActionLineToReef)) {
-            return true;
-        }
+        if (actionSelect.equals(AutoConfig.kActionLineToReef)) { return true; }
         return false;
     }
-
+   
     private static boolean crossOnly() {
-        if (actionSelect.equals(AutoConfig.kCrossOnlySelect)) {
-            return true;
-        }
+        if (actionSelect.equals(AutoConfig.kCrossOnlySelect)) { return true; }
         return false;
     }
-
+    
     private static boolean RightToScore() {
-        if (actionSelect.equals(AutoConfig.kActionRightToScore)) {
-            return true;
-        }
+        if (actionSelect.equals(AutoConfig.kActionRightToScore)) { return true; }
         return false;
     }
-
+    
     private static boolean TwoPiece() {
-        if (actionSelect.equals(AutoConfig.kActionTwoPiece)) {
-            return true;
-        }
+        if (actionSelect.equals(AutoConfig.kActionTwoPiece)) { return true; } 
         return false;
     }
-
-
+    
+    
     private static boolean red() {
-        if (Robot.alliance == TeamAlliance.RED) {
-            return true;
-        }
+        if (Robot.alliance == TeamAlliance.RED) { return true; }
         return false;
     }
 
@@ -309,23 +362,15 @@ public class Auto {
     // }
 
     private static boolean Left() {
-        if (positionSelect.equals(AutoConfig.kLeft)) {
-            return true;
-        }
+        if (positionSelect.equals(AutoConfig.kLeft)) { return true; }
         return false;
     }
-
     private static boolean Center() {
-        if (positionSelect.equals(AutoConfig.kCenter)) {
-            return true;
-        }
+        if (positionSelect.equals(AutoConfig.kCenter)) { return true; }
         return false;
     }
-
     private static boolean Right() {
-        if (positionSelect.equals(AutoConfig.kRight)) {
-            return true;
-        }
+        if (positionSelect.equals(AutoConfig.kRight)) { return true; }
         return false;
     }
 
