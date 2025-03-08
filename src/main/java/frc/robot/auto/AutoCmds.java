@@ -15,8 +15,8 @@ public class AutoCmds {
     public static Command DoNothingCmd() {
         // Set position and Gyro Heading based on position
         return new SequentialCommandGroup(
-            new InstantCommand(() -> System.out.println("do nothing cmd")),
-            new InstantCommand(() -> Auto.setStartPose())
+            new InstantCommand(() -> System.out.println("do nothing cmd"))
+            //new InstantCommand(() -> Auto.setStartPose())
         );
     }
 
