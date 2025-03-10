@@ -19,6 +19,7 @@ import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.subsystems.climber.ClimberSubSys;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
 import frc.robot.subsystems.elevator.ElevatorSubSys;
+import frc.robot.subsystems.finger.FingerSubSys;
 import frc.robot.subsystems.intake.IntakeSubSys;
 import frc.robot.subsystems.orchestra.orchestraSubSys;
 import org.littletonrobotics.junction.LogFileUtil;
@@ -55,6 +56,7 @@ public class Robot extends LoggedRobot  {
     public static PilotGamepad      pilotGamepad;
     public static OperatorGamepad   operatorGamepad;
     public static IntakeSubSys intake;
+    public static FingerSubSys finger;
     public static ClimberSubSys climber;
     public static ElevatorSubSys elevator;
     public static Auto auto;
@@ -112,7 +114,9 @@ public class Robot extends LoggedRobot  {
         // rotarySwitch = new RotarySwitchSubSys(); 
         climber = new ClimberSubSys();
         intake = new IntakeSubSys();
+        finger = new FingerSubSys();
         elevator = new ElevatorSubSys();
+
         //orchestra = new orchestraSubSys();
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();

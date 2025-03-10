@@ -8,6 +8,7 @@ import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
+import frc.robot.subsystems.finger.FingerCmds;
 import frc.robot.subsystems.intake.commands.IntakeCmds;
 import frc.robot.subsystems.orchestra.orchestraSubSys;
 
@@ -98,6 +99,8 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightBumper.onFalse(IntakeCmds.intakeSetStoppedCmd());
 
         gamepad.leftBumper.onTrue(IntakeCmds.intakeGroundUntilGamepieceCmd());
+
+        gamepad.selectButton.onTrue(FingerCmds.fingerSetTemp());
 
 
         
