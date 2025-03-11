@@ -14,6 +14,7 @@ public class ElevatorSubSys extends SubsystemBase {
         LEVELTWO,
         LEVELTHREE,
         LEVELFOUR,
+        HIGHALGAE,
         BOTTOM,
         INTAKE,
         MANUAL,
@@ -54,6 +55,9 @@ public class ElevatorSubSys extends SubsystemBase {
             case LEVELFOUR:
             //Robot.print(Double.toString(getRotations()));
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.LEVELFOUR));
+                         break;
+            case HIGHALGAE: 
+                         elevatorMotor.setControl(mr.withPosition(ElevatorConfig.HIGHALGAE));
                          break;
             case BOTTOM:
                          elevatorMotor.setControl(mr.withPosition(ElevatorConfig.BOTTOM));
