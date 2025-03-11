@@ -116,7 +116,7 @@ public class Auto {
                 }
                 if(Right()) {
                     return new SequentialCommandGroup(
-                    AutoCmds.followPath("RightToFRS"),
+                    AutoCmds.followPath("RightToFR"),
                     ElevatorCmds.elevatorSetLevelOne(),
                     new WaitCommand(.2),
                     IntakeCmds.intakeSetTreeCmd(),
@@ -125,7 +125,12 @@ public class Auto {
                     ElevatorCmds.elevatorSetManual(),
                     new WaitCommand(.05),
                     ElevatorCmds.elevatorSetStopped(),
-                    AutoCmds.followPath("RightToIntake")
+                    AutoCmds.followPath("RightToIntake"),
+                    ElevatorCmds.elevatorSetLevelTwo(),
+                    IntakeCmds.intakeSetFeedCmd(),
+                    new WaitCommand(3),
+                    IntakeCmds.intakeSetHoldCmd(),
+                    ElevatorCmds.elevatorSetBottom()
                     //new InstantCommand(()->Robot.swerve.setGyroHeading(oneEighty))
                     );
                 }
