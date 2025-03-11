@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.Map;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import frc.lib.telemetry.Alert;
@@ -93,6 +95,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
         tab.addNumber("BR º", () -> Robot.swerve.swerveMods[3].getSteerAngle()).withPosition(8, 1).withSize(1, 1);
         tab.addNumber("BR v", () -> Robot.swerve.swerveMods[3].getModuleVelocityMPS()).withPosition(9, 1).withSize(1, 1);
 
+        tab.addDouble("Distance", () -> Robot.getDistanceMM()/25.4).withWidget("Simple Dial").withProperties(Map.of("min", 2, "max", 20));
         // tab.addBoolean("Climber Lower", () -> !climberLowerSw.get()).withPosition(7, 0);
         // tab.addBoolean("Climber Mid", () -> !climberMidSw.get()).withPosition(7, 2);
         // tab.addBoolean("Elevator Bottom", () -> !elevatorSw.get()).withPosition(7, 4);

@@ -29,6 +29,7 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import au.grapplerobotics.CanBridge;
+import au.grapplerobotics.LaserCan;
 
 
 // ------------------- Constructor -----------------
@@ -54,6 +55,7 @@ public class Robot extends LoggedRobot  {
         NONE;
     }
     public static TeamAlliance alliance;
+    public static LaserCan.Measurement measurement;
 
     // Base Robot
     public static DrivetrainSubSys  swerve;
@@ -64,25 +66,28 @@ public class Robot extends LoggedRobot  {
     public static ClimberSubSys climber;
     public static ElevatorSubSys elevator;
     public static Auto auto;
-    //public static orchestraSubSys orchestra;
-    // Automation and Assists
-    // public static VisionSubSys      vision;
-
-    // Game Piece Manipulation
-
-
-    // Misc
+    private static LaserCan lc;
     
-    // public static RotarySwitchSubSys rotarySwitch;
-
-    public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
-
-    public static String MAC = "";
-
-    // -----------------  Robot General Methods ------------------
-    @Override
-    public void robotInit() {
+        //public static orchestraSubSys orchestra;
+        // Automation and Assists
+        // public static VisionSubSys      vision;
+    
+        // Game Piece Manipulation
+    
+    
+        // Misc
         
+        // public static RotarySwitchSubSys rotarySwitch;
+    
+        public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
+    
+        public static String MAC = "";
+    
+        // -----------------  Robot General Methods ------------------
+        @Override
+        public void robotInit() {
+            
+            Robot.lc = new LaserCan(25);
         
         CanBridge.runTCP();
         sysTimer.reset();			// System timer for Competition run
@@ -105,6 +110,7 @@ public class Robot extends LoggedRobot  {
         Threads.setCurrentThreadPriority(true, 99);
         CommandScheduler.getInstance().run();       // Make sure scheduled commands get run
         Threads.setCurrentThreadPriority(true, 10); // Set the main thread back to normal priority
+        Robot.measurement = lc.getMeasurement();
     }
 
     private void intializeSubsystems() {
@@ -248,6 +254,10 @@ public class Robot extends LoggedRobot  {
         CommandScheduler.getInstance().getActiveButtonLoop().clear();
         pilotGamepad.resetConfig();  // Reset Config for all gamepads and other button bindings 
         operatorGamepad.resetConfig();
+    }
+
+    public static int getDistanceMM() {
+        return measurement.distance_mm;
     }
 
 
