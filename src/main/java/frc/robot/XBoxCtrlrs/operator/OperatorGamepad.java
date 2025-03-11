@@ -7,6 +7,7 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
+import frc.robot.subsystems.elevator.ElevatorSubSys.ElevatorState;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 import frc.robot.subsystems.finger.FingerCmds;
 import frc.robot.subsystems.intake.commands.IntakeCmds;
@@ -91,6 +92,9 @@ public class OperatorGamepad extends Gamepad {
 
         gamepad.yButton.onTrue(ElevatorCmds.levelfour);
 
+        gamepad.Dpad.Right.onTrue(ElevatorCmds.elevatorSetState(ElevatorState.HIGHALGAE));
+
+
         gamepad.Dpad.Up.whileTrue(ElevatorCmds.elevatorSetManual());
         gamepad.Dpad.Up.onFalse(ElevatorCmds.elevatorSetStopped());
 
@@ -100,7 +104,10 @@ public class OperatorGamepad extends Gamepad {
 
         gamepad.leftBumper.onTrue(IntakeCmds.intakeGroundUntilGamepieceCmd());
 
-        gamepad.selectButton.onTrue(FingerCmds.fingerSetTemp());
+        gamepad.selectButton.whileTrue(FingerCmds.fingerSetOn());
+        gamepad.selectButton.onFalse(FingerCmds.fingerSetStopped());
+        gamepad.startButton.whileTrue(FingerCmds.fingerSetIn());
+        gamepad.startButton.onFalse(FingerCmds.fingerSetStopped());
 
 
         

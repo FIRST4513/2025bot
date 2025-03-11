@@ -19,6 +19,7 @@ public class FingerCmds {
     }
 
     public static Command fingerSetOn() { return fingerSetState(FingerState.ON); }
+    public static Command fingerSetIn() { return fingerSetState(FingerState.IN); }
     public static Command fingerSetStopped() { return fingerSetState(FingerState.STOPPED); }
 
     public static Command fingerSetTemp() { 

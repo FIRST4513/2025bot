@@ -9,6 +9,7 @@ import frc.robot.subsystems.intake.IntakeSubSys.IntakeState;
 public class FingerSubSys extends SubsystemBase{
     public enum FingerState {
         ON,
+        IN,
         STOPPED
     }
 
@@ -23,10 +24,12 @@ public class FingerSubSys extends SubsystemBase{
     @Override
     public void periodic() {
         switch (state) {
-            case ON: FingerMotor.set(0.25);
+            case ON: FingerMotor.set(.4);
+                     break;
+            case IN: FingerMotor.set(-0.4);
                      break;
             default:
-                FingerMotor.set(0);
+                FingerMotor.set(-0.1);
                 break;
         }
     }
