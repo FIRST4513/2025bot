@@ -209,7 +209,7 @@ ChassisSpeeds chassisSpeeds;
     // Odometry Methods
     public void resetPose(Pose2d pose)      { 
         //Old method of resetPosition was to call getRotation() for the gyro heading
-
+        //TODO: find out why getRotation() flips the heading 180 degrees on every run. 
         OdometryThread.m_odometry.resetPosition(Robot.swerve.gyro.getYawRotation2d(),   new SwerveModulePosition[] {
             swerveMods[0].getPosition(),
             swerveMods[1].getPosition(),

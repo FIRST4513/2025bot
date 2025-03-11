@@ -28,10 +28,14 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import au.grapplerobotics.CanBridge;
 
 
 // ------------------- Constructor -----------------
 public class Robot extends LoggedRobot  {
+
+        
+
     public static Timer sysTimer = new Timer();
 
     public enum RobotIdentity {
@@ -78,6 +82,9 @@ public class Robot extends LoggedRobot  {
     // -----------------  Robot General Methods ------------------
     @Override
     public void robotInit() {
+        
+        
+        CanBridge.runTCP();
         sysTimer.reset();			// System timer for Competition run
         sysTimer.start();
         //updateAlliance();           // Get current Alliance Color and init teleop positions
