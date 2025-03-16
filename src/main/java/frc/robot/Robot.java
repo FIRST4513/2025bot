@@ -66,7 +66,7 @@ public class Robot extends LoggedRobot  {
     public static ClimberSubSys climber;
     public static ElevatorSubSys elevator;
     public static Auto auto;
-    private static LaserCan lc;
+    //private static LaserCan lc;
     
         //public static orchestraSubSys orchestra;
         // Automation and Assists
@@ -87,7 +87,7 @@ public class Robot extends LoggedRobot  {
         @Override
         public void robotInit() {
             
-            Robot.lc = new LaserCan(25);
+            //Robot.lc = new LaserCan(25);
         
         CanBridge.runTCP();
         sysTimer.reset();			// System timer for Competition run
@@ -110,7 +110,7 @@ public class Robot extends LoggedRobot  {
         Threads.setCurrentThreadPriority(true, 99);
         CommandScheduler.getInstance().run();       // Make sure scheduled commands get run
         Threads.setCurrentThreadPriority(true, 10); // Set the main thread back to normal priority
-        Robot.measurement = lc.getMeasurement();
+        //Robot.measurement = lc.getMeasurement();
     }
 
     private void intializeSubsystems() {

@@ -18,7 +18,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.Robot.TeamAlliance;
+import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.subsystems.elevator.commands.ElevatorCmds;
+import frc.robot.subsystems.finger.FingerCmds;
 import frc.robot.subsystems.intake.commands.IntakeCmds;
 import frc.util.FieldConstants;
 
@@ -31,107 +33,106 @@ public class Auto {
     private static Pose2d startPose;
     
     static int oneEighty;
-        // ----- Autonomous Subsystem Constructor -----
-        public Auto() {
-            configureAutoBuilder();
-            registerNamedCommands();
-            setupSelectors();                // Setup on screen slection menus
-        }
-    
-        public static void setupSelectors() {
-            // Selector for Robot Starting Position on field
-            positionChooser.addOption("Left",        AutoConfig.kLeft);
-            positionChooser.setDefaultOption(       "Center",      AutoConfig.kCenter);
-            positionChooser.addOption(       "Right",       AutoConfig.kRight);
-            SmartDashboard.putData(positionChooser);
-            // Selector for Autonomous Desired Action
-            actionChooser.addOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
-            actionChooser.setDefaultOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
-            actionChooser.addOption(         "Line To Reef",            AutoConfig.kActionLineToReef);
-            actionChooser.addOption("Right to Score", AutoConfig.kActionRightToScore);
-            SmartDashboard.putData(actionChooser);
-        }
-    
-        // ------ Get operator selected responses from shuffleboard -----
-        public static void getAutoSelections() {
-            actionSelect =     actionChooser.getSelected();
-            positionSelect =  positionChooser.getSelected();
-            Robot.print("Action Select = " +     actionSelect);
-            Robot.print("Position Select = " +     positionSelect);
-        }
-        
-        public static Command getAutonomousCommand() {
-            getAutoSelections();
-            setStartPose();                 // Initialize Robot Pose on Field
-    
-
-            // ------------------------------- Do Nothing ---------------------------
-            if (doNothing()) {
-                System.out.println("********* DO Nothing Selection *********");
-                return AutoCmds.DoNothingCmd();
+            // ----- Autonomous Subsystem Constructor -----
+            public Auto() {
+                configureAutoBuilder();
+                registerNamedCommands();
+                setupSelectors();                // Setup on screen slection menus
             }
-            if (crossOnly()) { 
-                if(Left()) {
-                    return AutoCmds.followPath("CrossLeft");
-                }
-                if(Center()) {
-                    return AutoCmds.followPath("CrossCenter");
-                }
-                if(Right()) {
-                    return AutoCmds.followPath("CrossRight");
-                }
-                else {
+        
+            public static void setupSelectors() {
+                // Selector for Robot Starting Position on field
+                positionChooser.addOption("Left",        AutoConfig.kLeft);
+                positionChooser.setDefaultOption(       "Center",      AutoConfig.kCenter);
+                positionChooser.addOption(       "Right",       AutoConfig.kRight);
+                // Selector for Autonomous Desired Action
+                actionChooser.addOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
+                actionChooser.setDefaultOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
+                actionChooser.addOption(         "Line To Reef",            AutoConfig.kActionLineToReef);
+                actionChooser.addOption("Right to Score", AutoConfig.kActionRightToScore);
+            }
+        
+            // ------ Get operator selected responses from shuffleboard -----
+            public static void getAutoSelections() {
+                actionSelect =     actionChooser.getSelected();
+                positionSelect =  positionChooser.getSelected();
+                Robot.print("Action Select = " +     actionSelect);
+                Robot.print("Position Select = " +     positionSelect);
+            }
+            
+            public static Command getAutonomousCommand() {
+                getAutoSelections();
+                setStartPose();                 // Initialize Robot Pose on Field
+        
+    
+                // ------------------------------- Do Nothing ---------------------------
+                if (doNothing()) {
+                    System.out.println("********* DO Nothing Selection *********");
                     return AutoCmds.DoNothingCmd();
                 }
-            }
-            if (LineToReef()) {
-                if(Left()) {
-                    return new SequentialCommandGroup(
-                        AutoCmds.followPath("LeftToFL"),
-                        ElevatorCmds.elevatorSetLevelOne(),
-                        new WaitCommand(.2),
-                        IntakeCmds.intakeSetTreeCmd(),
-                        new WaitCommand(1),
-                        IntakeCmds.intakeSetStoppedCmd(),
-                        ElevatorCmds.elevatorSetManual(),
-                        new WaitCommand(.05),
-                        ElevatorCmds.elevatorSetStopped()
+                if (crossOnly()) { 
+                    if(Left()) {
+                        return AutoCmds.followPath("CrossLeft");
+                    }
+                    if(Center()) {
+                        return AutoCmds.followPath("CrossCenter");
+                    }
+                    if(Right()) {
+                        return AutoCmds.followPath("CrossRight");
+                    }
+                    else {
+                        return AutoCmds.DoNothingCmd();
+                    }
+                }
+                if (LineToReef()) {
+                    if(Left()) {
+                        return new SequentialCommandGroup(
+                            IntakeCmds.intakeSetHoldCmd(),
+                            AutoCmds.followPath("LeftToFL"),
+                            ElevatorCmds.elevatorSetLevelOne(),
+                            new WaitCommand(1),
+                            IntakeCmds.intakeSetTreeCmd(),
+                            new WaitCommand(1),
+                            IntakeCmds.intakeSetStoppedCmd(),
+                            ElevatorCmds.elevatorSetBottom(),
+                            new WaitCommand(0.5),
+                            ElevatorCmds.elevatorSetManual(),
+                            new WaitCommand(0.03),
+                            ElevatorCmds.elevatorSetStopped()
+                            );
+                    }
+                    if (Center()) {
+                        return new SequentialCommandGroup( 
+                            IntakeCmds.intakeSetHoldCmd(),
+                            AutoCmds.followPath("CenterToFC"),
+                            ElevatorCmds.elevatorSetLevelOne(),
+                            new WaitCommand(1),
+                            IntakeCmds.intakeSetTreeCmd(),
+                            new WaitCommand(1),
+                            IntakeCmds.intakeSetStoppedCmd(),
+                            ElevatorCmds.elevatorSetBottom(),
+                            new WaitCommand(0.5),
+                            ElevatorCmds.elevatorSetManual(),
+                            new WaitCommand(0.03),
+                            ElevatorCmds.elevatorSetStopped()
                         );
-                }
-                if (Center()) {
-                    return new SequentialCommandGroup( 
-                        IntakeCmds.intakeSetHoldCmd(),
-                        AutoCmds.followPath("CenterToFC").withTimeout(4.5),
-                        ElevatorCmds.elevatorSetLevelOne(),
-                        new WaitCommand(1.5),
-                        IntakeCmds.intakeSetTreeCmd(),
-                        new WaitCommand(0.7),
-                        IntakeCmds.intakeSetStoppedCmd(),
-                        ElevatorCmds.elevatorSetBottom(),
-                        new WaitCommand(1),
-                        ElevatorCmds.elevatorSetManual(),
-                        new WaitCommand(0.03),
-                        ElevatorCmds.elevatorSetStopped()
-                    );
-                }
-                if(Right()) {
-                    return new SequentialCommandGroup(
-                    AutoCmds.followPath("RightToFR"),
-                    ElevatorCmds.elevatorSetLevelOne(),
-                    new WaitCommand(.2),
-                    IntakeCmds.intakeSetTreeCmd(),
-                    new WaitCommand(1),
-                    IntakeCmds.intakeSetStoppedCmd(),
-                    ElevatorCmds.elevatorSetManual(),
-                    new WaitCommand(.05),
-                    ElevatorCmds.elevatorSetStopped(),
-                    AutoCmds.followPath("RightToIntake"),
-                    ElevatorCmds.elevatorSetLevelTwo(),
-                    IntakeCmds.intakeSetFeedCmd(),
-                    new WaitCommand(3),
-                    IntakeCmds.intakeSetHoldCmd(),
-                    ElevatorCmds.elevatorSetBottom()
-                    //new InstantCommand(()->Robot.swerve.setGyroHeading(oneEighty))
+                    }
+                    if(Right()) {
+                        return new SequentialCommandGroup(
+                            IntakeCmds.intakeSetHoldCmd(),
+                            AutoCmds.followPath("RightToFR"),
+                            ElevatorCmds.elevatorSetLevelOne(),
+                            new WaitCommand(1),
+                            IntakeCmds.intakeSetTreeCmd(),
+                            new WaitCommand(1),
+                            IntakeCmds.intakeSetStoppedCmd(),
+                            ElevatorCmds.elevatorSetBottom(),
+                            new WaitCommand(0.5),
+                            ElevatorCmds.elevatorSetManual(),
+                            new WaitCommand(.03),
+                            ElevatorCmds.elevatorSetStopped(),
+                            AutoCmds.followPath("FRToIntake"),
+                        new InstantCommand(() -> DrivetrainSubSys.setGyroHeading(DrivetrainSubSys.getGyroYawDegrees() - 180))
                     );
                 }
                 else {
@@ -173,7 +174,11 @@ public class Auto {
                     new WaitCommand(0.03),
                     ElevatorCmds.elevatorSetStopped(),
                     AutoCmds.followPath("RightToIntake"),
-                    new InstantCommand(()->Robot.swerve.setGyroHeading(oneEighty))
+                    ElevatorCmds.elevatorSetLevelTwo(),
+                    IntakeCmds.intakeSetFeedCmd(),
+                    new WaitCommand(3),
+                    IntakeCmds.intakeSetHoldCmd(),
+                    ElevatorCmds.elevatorSetBottom()
 
                 );
             }
