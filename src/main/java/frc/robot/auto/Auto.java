@@ -43,13 +43,11 @@ public class Auto {
             positionChooser.addOption("Left",        AutoConfig.kLeft);
             positionChooser.setDefaultOption(       "Center",      AutoConfig.kCenter);
             positionChooser.addOption(       "Right",       AutoConfig.kRight);
-            SmartDashboard.putData(positionChooser);
             // Selector for Autonomous Desired Action
             actionChooser.addOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
             actionChooser.setDefaultOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
             actionChooser.addOption(         "Line To Reef",            AutoConfig.kActionLineToReef);
             actionChooser.addOption("Right to Score", AutoConfig.kActionRightToScore);
-            SmartDashboard.putData(actionChooser);
         }
     
         // ------ Get operator selected responses from shuffleboard -----
