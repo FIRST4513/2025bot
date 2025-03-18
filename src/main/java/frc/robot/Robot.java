@@ -35,7 +35,7 @@ import au.grapplerobotics.LaserCan;
 // ------------------- Constructor -----------------
 public class Robot extends LoggedRobot  {
 
-        
+    private Vision vision;
 
     public static Timer sysTimer = new Timer();
 
@@ -88,7 +88,7 @@ public class Robot extends LoggedRobot  {
         public void robotInit() {
             
             //Robot.lc = new LaserCan(25);
-        
+        vision = new Vision();
         CanBridge.runTCP();
         sysTimer.reset();			// System timer for Competition run
         sysTimer.start();
@@ -111,6 +111,15 @@ public class Robot extends LoggedRobot  {
         CommandScheduler.getInstance().run();       // Make sure scheduled commands get run
         Threads.setCurrentThreadPriority(true, 10); // Set the main thread back to normal priority
         //Robot.measurement = lc.getMeasurement();
+        var visionEst = vision.getEstimatedGlobalPose();
+        visionEst.ifPresent(
+                est -> {
+                    // Change our trust in the measurement based on the tags we can see
+                    var estStdDevs = vision.getEstimationStdDevs();
+
+                    swerve.addVisionMeasurement(
+                            est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                });
     }
 
     private void intializeSubsystems() {

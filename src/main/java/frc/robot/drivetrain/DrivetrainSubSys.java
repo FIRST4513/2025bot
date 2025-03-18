@@ -3,6 +3,9 @@ package frc.robot.drivetrain;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -12,6 +15,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.swerve.Request;
@@ -33,14 +38,35 @@ public class DrivetrainSubSys extends SubsystemBase {
         public SwerveModuleState frontRightState;
         public SwerveModuleState BackLeftState;
         public SwerveModuleState BackRightState;
-    
-        
-    
-    ChassisSpeeds chassisSpeeds;
-    
-        // ----- Constructor -----
+
+    private final SwerveDriveKinematics kinematics = DrivetrainConfig.getKinematics();
+
+    private final SwerveDrivePoseEstimator poseEstimator;
+
+    private SwerveModulePosition[] swerveModulePositions;
+
+    // ----- Constructor -----
         public DrivetrainSubSys() {
-            
+
+
+
+            // Define the standard deviations for the pose estimator, which determine how fast the pose
+            // estimate converges to the vision measurement. This should depend on the vision measurement
+            // noise
+            // and how many or how frequently vision measurements are applied to the pose estimator.
+            var stateStdDevs = VecBuilder.fill(0.1, 0.1, 0.1);
+            var visionStdDevs = VecBuilder.fill(1, 1, 1);
+            poseEstimator =
+                    new SwerveDrivePoseEstimator(
+                            kinematics,
+                            Rotation2d.fromDegrees(
+                                    getGyroYawDegrees()),
+                            swerveModulePositions,
+                            new Pose2d(),
+                            stateStdDevs,
+                            visionStdDevs);
+
+
             // Instantiate all the Swerve Drive Modules
             for (int i = 0; i < 4; i++) {
                 swerveMods[i] = new SwerveModule(i);
@@ -79,15 +105,14 @@ public class DrivetrainSubSys extends SubsystemBase {
             Logger.recordOutput("Gyro/Angle", getGyroYawDegrees());                         // Log Gyro Heading
             Logger.recordOutput("Robot Pose", getPose());                                   // Log robot Pose
             Logger.recordOutput("Drive/ModuleStates", getModStates());                      // Log each Module's States (Vel.)
-    
+
+            swerveModulePositions[0] = swerveMods[0].getPosition();
+            swerveModulePositions[1] = swerveMods[1].getPosition();
+            swerveModulePositions[2] = swerveMods[2].getPosition();
+            swerveModulePositions[3] = swerveMods[3].getPosition();
              //Get the rotation of the robot from the gyro.
-                var gyroAngle = gyro.getYawRotation2d();
-                // Update the pose
-                DriveState.Pose = OdometryThread.m_odometry.update(gyroAngle,
-                new SwerveModulePosition[] {
-                    swerveMods[0].getPosition(), swerveMods[1].getPosition(),
-                    swerveMods[2].getPosition(), swerveMods[3].getPosition()
-                });
+            var gyroAngle = gyro.getYawRotation2d();
+            DriveState.Pose = OdometryThread.m_odometry.update(gyroAngle, swerveModulePositions);
                 
         }
     
@@ -267,6 +292,15 @@ public class DrivetrainSubSys extends SubsystemBase {
         } finally {
             odometry.m_stateLock.writeLock().unlock();
         }
+    }
+
+    public void addVisionMeasurement(Pose2d visionMeasurement, double timestampSeconds) {
+        poseEstimator.addVisionMeasurement(visionMeasurement, timestampSeconds);
+    }
+
+    public void addVisionMeasurement(
+            Pose2d visionMeasurement, double timestampSeconds, Matrix<N3, N1> stdDevs) {
+        poseEstimator.addVisionMeasurement(visionMeasurement, timestampSeconds, stdDevs);
     }
 
  }
