@@ -10,6 +10,7 @@ public class FingerSubSys extends SubsystemBase{
     public enum FingerState {
         ON,
         IN,
+        HOLD,
         STOPPED
     }
 
@@ -24,12 +25,14 @@ public class FingerSubSys extends SubsystemBase{
     @Override
     public void periodic() {
         switch (state) {
-            case ON: FingerMotor.set(.4);
+            case ON: FingerMotor.set(.70);
                      break;
             case IN: FingerMotor.set(-0.4);
                      break;
+            case HOLD: FingerMotor.set(-0.3);
+                       break;
             default:
-                FingerMotor.set(-0.1);
+                FingerMotor.set(0.0);
                 break;
         }
     }

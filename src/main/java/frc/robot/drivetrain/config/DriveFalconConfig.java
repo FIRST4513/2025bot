@@ -8,7 +8,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class DriveFalconConfig {
     /* Calculate the ratio of drive motor rotation to meter on ground */
-    public static final double rotationsPerWheelRotation = 6.746;  // falcon rotations per 1 wheel rotation
+    public static final double rotationsPerWheelRotation = 8.14;  // falcon rotations per 1 wheel rotation
     public static final double metersPerWheelRotation = DrivetrainConfig.getWheelCircumference();  // meters traveled with 1 wheel rotation
     public static final double driveRotationsPerMeter = rotationsPerWheelRotation / metersPerWheelRotation;
 
