@@ -37,6 +37,10 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 
+//TODO: These have just been pulled straight from the photon example
+//   we'll need to pull them from the actual robot code
+
+
 public class Constants {
     public static class Vision {
         public static final String kCameraName = "YOUR CAMERA NAME";

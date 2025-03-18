@@ -29,7 +29,7 @@ import frc.robot.drivetrain.config.DrivetrainConfig;
 public class DrivetrainSubSys extends SubsystemBase {
 
     public static SwerveModule swerveMods[] = new SwerveModule[4];
-    public static PigeonGyro gyro;
+    public static PigeonGyro gyro = new PigeonGyro(); // Initialize Gyro
         protected OdometryThread odometry;
         private final RotationController rotationController;
     
@@ -295,11 +295,13 @@ public class DrivetrainSubSys extends SubsystemBase {
     }
 
     public void addVisionMeasurement(Pose2d visionMeasurement, double timestampSeconds) {
+        System.out.println("Adding vision measurement: " + visionMeasurement + " at timestamp: " + timestampSeconds);
         poseEstimator.addVisionMeasurement(visionMeasurement, timestampSeconds);
     }
 
     public void addVisionMeasurement(
             Pose2d visionMeasurement, double timestampSeconds, Matrix<N3, N1> stdDevs) {
+        System.out.println("Adding vision measurement: " + visionMeasurement + " at timestamp: " + timestampSeconds + " with stdDevs: " + stdDevs);
         poseEstimator.addVisionMeasurement(visionMeasurement, timestampSeconds, stdDevs);
     }
 
