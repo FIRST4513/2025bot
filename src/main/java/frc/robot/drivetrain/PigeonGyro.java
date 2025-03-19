@@ -2,7 +2,6 @@ package frc.robot.drivetrain;
 
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.Pigeon2;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -25,18 +24,26 @@ public class PigeonGyro {
     }
 
     // Get Yaw (Heading) in Rotation2d format (+CCW -CW)
-    public Rotation2d getYawRotation2d()            { return pigeon2.getRotation2d(); }
+    public Rotation2d getYawRotation2d() {
+        return pigeon2.getRotation2d();
+    }
 
     // Get Yaw (Heading) in Degreees
-    public Double getYawDegrees()                   { return getYawRotation2d().getDegrees(); }
+    public Double getYawDegrees() {
+        return getYawRotation2d().getDegrees();
+    }
 
     //  Set Yaw (Heading) to 0
-    public void yawReset()                          { pigeon2.reset(); }
-    
+    public void yawReset() {
+        pigeon2.reset();
+    }
+
     //  Set Yaw (Heading) to Angle in degrees
-    public void yawReset(double angle)              { pigeon2.setYaw(angle); }
+    public void yawReset(double angle) {
+        pigeon2.setYaw(angle);
+    }
 
-    public void yawReset(Rotation2d angle)          { pigeon2.setYaw(angle.getDegrees()); }
-
-    
+    public void yawReset(Rotation2d angle) {
+        pigeon2.setYaw(angle.getDegrees());
+    }
 }

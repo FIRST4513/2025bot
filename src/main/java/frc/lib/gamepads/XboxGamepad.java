@@ -58,7 +58,7 @@ public class XboxGamepad extends Joystick {
         setRumble(RumbleType.kRightRumble, rightValue);
     }
 
-    static enum XboxButton {
+    enum XboxButton {
         A(1),
         B(2),
         X(3),
@@ -81,7 +81,7 @@ public class XboxGamepad extends Joystick {
         }
     }
 
-    public static enum XboxAxis {
+    public enum XboxAxis {
         LEFT_X(0),
         LEFT_Y(1),
         LEFT_TRIGGER(2),
@@ -101,7 +101,7 @@ public class XboxGamepad extends Joystick {
         }
     }
 
-    public static enum XboxDpad {
+    public enum XboxDpad {
         UNPRESSED(-1),
         UP(0),
         UP_RIGHT(45),

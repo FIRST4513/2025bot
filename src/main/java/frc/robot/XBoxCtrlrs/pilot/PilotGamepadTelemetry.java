@@ -61,7 +61,7 @@ public class PilotGamepadTelemetry {
         public GenericEntry xLeftScalarValEntry;
         public GenericEntry yRightScalarValEntry;
         public GenericEntry xRightScalarValEntry;
-        private PilotGamepad gamepad;
+        private final PilotGamepad gamepad;
 
         public gamepadLayout(String name, ShuffleboardTab tab, PilotGamepad gamepad){
             super(name, tab);

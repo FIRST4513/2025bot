@@ -26,7 +26,7 @@ import java.util.Arrays;
  */
 public class SplineCurve extends Curve {
     /** Types of spline segments used in spline curves. */
-    private static enum SegmentType {
+    private enum SegmentType {
         LINEAR,
         RIGHT_PARABOLIC,
         LEFT_PARABOLIC,

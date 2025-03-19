@@ -161,7 +161,7 @@ public class OperatorGamepad extends Gamepad {
     // ----- Getters and Setters for Speed Selections -----
 
     public MaxSpeeds getSelectedSpeed(){
-        String speed = speedChooser.getSelected();;
+        String speed = speedChooser.getSelected();
         if ( speed == "Fast")    return MaxSpeeds.FAST;
         if ( speed == "Medium") return MaxSpeeds.MEDIUM;
         return MaxSpeeds.SLOW;

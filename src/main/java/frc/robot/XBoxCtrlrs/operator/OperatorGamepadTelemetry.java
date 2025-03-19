@@ -61,7 +61,7 @@ public class OperatorGamepadTelemetry {
         public GenericEntry xLeftScalarValEntry;
         public GenericEntry yRightScalarValEntry;
         public GenericEntry xRightScalarValEntry;
-        private OperatorGamepad gamepad;
+        private final OperatorGamepad gamepad;
 
         public gamepadLayout(String name, ShuffleboardTab tab, OperatorGamepad gamepad){
             super(name, tab);

@@ -109,8 +109,7 @@ public class IntakeSubSys extends SubsystemBase {
         return gamepieceDetectSensor.getAverageVoltage();    }
 
     public boolean getGamepieceDetected() {
-        if (getSensorVal() > IntakeConfig.gamepieceDetectDistance) { return true; }
-        return false;
+        return getSensorVal() > IntakeConfig.gamepieceDetectDistance;
     }
 
 

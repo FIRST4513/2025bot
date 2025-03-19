@@ -17,7 +17,7 @@ public interface Request {
     /*
      * Contains everything the control requests need to calculate the module state
      */
-    public class ControlRequestParameters {
+    class ControlRequestParameters {
         public SwerveDriveKinematics kinematics;
         public Pose2d currentPose;
         public double timestamp;
@@ -25,13 +25,13 @@ public interface Request {
         public double updatePeriod;
     }
 
-    public StatusCode apply(ControlRequestParameters parameters, SwerveModule... modulesToApply);
+    StatusCode apply(ControlRequestParameters parameters, SwerveModule... modulesToApply);
 
     /**
      * Does nothing to the swerve module state. This is the default state of a newly created swerve
      * drive mechanism.
      */
-    public class Idle implements Request {
+    class Idle implements Request {
 
         /** True to use open-loop control while stopped. */
         public boolean IsOpenLoop = false;

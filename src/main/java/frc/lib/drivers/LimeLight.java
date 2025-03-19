@@ -13,10 +13,10 @@ import frc.lib.drivers.LimeLightControlModes.*;
  */
 public class LimeLight {
 
-    private NetworkTable m_table;
+    private final NetworkTable m_table;
     private String m_tableName;
     private Boolean isConnected = false;
-    private double _hearBeatPeriod = 0.1;
+    private final double _hearBeatPeriod = 0.1;
 
     class PeriodicRunnable implements java.lang.Runnable {
         public void run() {
@@ -26,11 +26,7 @@ public class LimeLight {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (getPipelineLatency() == 0.0) {
-                isConnected = false;
-            } else {
-                isConnected = true;
-            }
+            isConnected = getPipelineLatency() != 0.0;
         }
     }
 
@@ -77,11 +73,7 @@ public class LimeLight {
     public boolean getIsTargetFound() {
         NetworkTableEntry tv = m_table.getEntry("tv");
         double v = tv.getDouble(0);
-        if (v == 0.0f) {
-            return false;
-        } else {
-            return true;
-        }
+        return v != 0.0f;
     }
 
     /**
@@ -280,25 +272,25 @@ public class LimeLight {
      * @return The rotation to the target in degrees
      */
     public double getAdvanced_RotationToTarget(Advanced_Target raw) {
-        NetworkTableEntry txRaw = m_table.getEntry("tx" + Integer.toString(raw.getValue()));
+        NetworkTableEntry txRaw = m_table.getEntry("tx" + raw.getValue());
         double x = txRaw.getDouble(0.0);
         return x;
     }
 
     public double getAdvanced_degVerticalToTarget(Advanced_Target raw) {
-        NetworkTableEntry tyRaw = m_table.getEntry("ty" + Integer.toString(raw.getValue()));
+        NetworkTableEntry tyRaw = m_table.getEntry("ty" + raw.getValue());
         double y = tyRaw.getDouble(0.0);
         return y;
     }
 
     public double getAdvanced_TargetArea(Advanced_Target raw) {
-        NetworkTableEntry taRaw = m_table.getEntry("ta" + Integer.toString(raw.getValue()));
+        NetworkTableEntry taRaw = m_table.getEntry("ta" + raw.getValue());
         double a = taRaw.getDouble(0.0);
         return a;
     }
 
     public double getAdvanced_Skew_Rotation(Advanced_Target raw) {
-        NetworkTableEntry tsRaw = m_table.getEntry("ts" + Integer.toString(raw.getValue()));
+        NetworkTableEntry tsRaw = m_table.getEntry("ts" + raw.getValue());
         double s = tsRaw.getDouble(0.0);
         return s;
     }
@@ -315,13 +307,13 @@ public class LimeLight {
     }
 
     public double getAdvanced_RawCrosshair_X(Advanced_Crosshair raw) {
-        NetworkTableEntry cxRaw = m_table.getEntry("cx" + Integer.toString(raw.getValue()));
+        NetworkTableEntry cxRaw = m_table.getEntry("cx" + raw.getValue());
         double x = cxRaw.getDouble(0.0);
         return x;
     }
 
     public double getAdvanced_RawCrosshair_Y(Advanced_Crosshair raw) {
-        NetworkTableEntry cyRaw = m_table.getEntry("cy" + Integer.toString(raw.getValue()));
+        NetworkTableEntry cyRaw = m_table.getEntry("cy" + raw.getValue());
         double y = cyRaw.getDouble(0.0);
         return y;
     }

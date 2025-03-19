@@ -11,17 +11,17 @@ import frc.lib.gamepads.XboxGamepad.XboxAxis;
   public class AxisButton {
     private final GenericHID joy;
     private final int axis;
-    private double targetVal;
-    private ThresholdType thresholdType;
+    private final double targetVal;
+    private final ThresholdType thresholdType;
 
     public Trigger triggerButton;
     
-    public static enum ThresholdType {
+    public enum ThresholdType {
         LESS_THAN,
         GREATER_THAN,
         EXACT,
         POV,
-        DEADBAND;
+        DEADBAND
     }
     
     public AxisButton(Joystick joystick, int axis, double threshold, ThresholdType thresholdType) {

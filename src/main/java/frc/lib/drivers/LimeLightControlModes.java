@@ -20,9 +20,9 @@ public class LimeLightControlModes {
             }
         }
 
-        private double value;
+        private final double value;
 
-        private LedMode(double value) {
+        LedMode(double value) {
             this.value = value;
         }
 
@@ -51,9 +51,9 @@ public class LimeLightControlModes {
             }
         }
 
-        private double value;
+        private final double value;
 
-        private CamMode(double value) {
+        CamMode(double value) {
             this.value = value;
         }
 
@@ -83,9 +83,9 @@ public class LimeLightControlModes {
             }
         }
 
-        private double value;
+        private final double value;
 
-        private StreamType(double value) {
+        StreamType(double value) {
             this.value = value;
         }
 
@@ -114,9 +114,9 @@ public class LimeLightControlModes {
             }
         }
 
-        private double value;
+        private final double value;
 
-        private Snapshot(double value) {
+        Snapshot(double value) {
             this.value = value;
         }
 
@@ -147,9 +147,9 @@ public class LimeLightControlModes {
             }
         }
 
-        private Integer value;
+        private final Integer value;
 
-        private Advanced_Target(Integer value) {
+        Advanced_Target(Integer value) {
             this.value = value;
         }
 
@@ -179,9 +179,9 @@ public class LimeLightControlModes {
             }
         }
 
-        private Integer value;
+        private final Integer value;
 
-        private Advanced_Crosshair(Integer value) {
+        Advanced_Crosshair(Integer value) {
             this.value = value;
         }
 

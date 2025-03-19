@@ -8,6 +8,7 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
+import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.subsystems.climber.ClimberSubSys.ClimberState;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
 
@@ -66,7 +67,7 @@ public class PilotGamepad extends Gamepad {
         // gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.resetPose()));
 
         // "Select" Button - Reset Gyro to 180
-        gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
+        gamepad.selectButton.onTrue(new InstantCommand(() -> DrivetrainSubSys.setGyroHeading(180)));
 
         /*gamepad.Dpad.Up.whileTrue(ClimberCmds.climberSetExtend());
         gamepad.Dpad.Up.onFalse(ClimberCmds.climberSetState(ClimberState.STOPPED));
@@ -138,7 +139,7 @@ public class PilotGamepad extends Gamepad {
     // ----- Getters and Setters for Speed Selections -----
 
     public MaxSpeeds getSelectedSpeed(){
-        String speed = speedChooser.getSelected();;
+        String speed = speedChooser.getSelected();
         if ( speed == "Fast")    return MaxSpeeds.FAST;
         if ( speed == "Medium") return MaxSpeeds.MEDIUM;
         return MaxSpeeds.SLOW;

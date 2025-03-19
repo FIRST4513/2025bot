@@ -12,7 +12,7 @@ import frc.lib.telemetry.Alert.AlertType;
  * to true when the command is initialized. Sets status to false when the command is ended.
  */
 public class AlertCommand extends Command {
-    private Alert alert;
+    private final Alert alert;
 
     public AlertCommand(String alertMessage) {
         this(alertMessage, AlertType.INFO);

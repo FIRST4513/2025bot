@@ -4,7 +4,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 
 /** Constants used by the Pilot Gamepad */
 public class PilotGamepadConfig {
-    public static enum MaxSpeeds {FAST, MEDIUM, SLOW}
+    public enum MaxSpeeds {FAST, MEDIUM, SLOW}
 
 
     // 

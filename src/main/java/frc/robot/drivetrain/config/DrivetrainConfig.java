@@ -63,7 +63,7 @@ public class DrivetrainConfig {
     /**
      * Array[4] of Strings representing the names of each Swerve Module
      */
-    private static final String moduleNames[] = {"FL Mod 0",
+    private static final String[] moduleNames = {"FL Mod 0",
                                                  "FR Mod 1",
                                                  "BL Mod 2",
                                                  "BR Mod 3"};
@@ -87,7 +87,7 @@ public class DrivetrainConfig {
     // and just go through their config and steal the offsets from there
 
         
-    private static final double angleOffsets[] = {      -0.37890625,  // FL  comp 2024 //0.1955  | pratice bot 25 -0.145263671875
+    private static final double[] angleOffsets = {      -0.37890625,  // FL  comp 2024 //0.1955  | pratice bot 25 -0.145263671875
                                                         0.44775390625,  // FR  comp 2024 //-0.4553 | practice bot 25 -0.349365234375
                                                         0.048583984375,  // BL  comp 2024 //-0.1252 | practice bot 25
                                                         -0.411376953125}; // BR  comp 2024 //0.1010 | practice bot 25 -0.1416015625
@@ -111,7 +111,7 @@ public class DrivetrainConfig {
 //     };
 
     // Competition Bot
-    private static final InvertedValue angleInverts[] = {
+    private static final InvertedValue[] angleInverts = {
         InvertedValue.Clockwise_Positive,         // FL
         InvertedValue.Clockwise_Positive,         // FR
         InvertedValue.Clockwise_Positive,         // BL
@@ -119,7 +119,7 @@ public class DrivetrainConfig {
     };
 
     // Competition Bot
-    private static final InvertedValue driveInverts[] = {
+    private static final InvertedValue[] driveInverts = {
         InvertedValue.CounterClockwise_Positive,  // FL
         InvertedValue.Clockwise_Positive,  // FR
         InvertedValue.CounterClockwise_Positive,  // BL
@@ -129,7 +129,7 @@ public class DrivetrainConfig {
     /**
      * Array[4] of ints that represent the drive motor CAN ID for each Module
      */
-    private static final int driveCanIDs[] = {RobotConfig.Motors.FLdriveMotorID,
+    private static final int[] driveCanIDs = {RobotConfig.Motors.FLdriveMotorID,
                                               RobotConfig.Motors.FRdriveMotorID,
                                               RobotConfig.Motors.BLdriveMotorID,
                                               RobotConfig.Motors.BRdriveMotorID};
@@ -137,7 +137,7 @@ public class DrivetrainConfig {
     /**
      * Array[4] of ints that represent the angle motor CAN ID for each Module
      */
-    private static final int angleCanIDs[] = {RobotConfig.Motors.FLangleMotorID,
+    private static final int[] angleCanIDs = {RobotConfig.Motors.FLangleMotorID,
                                               RobotConfig.Motors.FRangleMotorID,
                                               RobotConfig.Motors.BLangleMotorID,
                                               RobotConfig.Motors.BRangleMotorID};
@@ -145,7 +145,7 @@ public class DrivetrainConfig {
     /**
      * Array[4] of ints that represents the CAN Coder CAN ID for each Module
      */
-    private static final int canCoderIDs[] = {RobotConfig.Encoders.FLcanCoderID,
+    private static final int[] canCoderIDs = {RobotConfig.Encoders.FLcanCoderID,
                                               RobotConfig.Encoders.FRcanCoderID,
                                               RobotConfig.Encoders.BLcanCoderID,
                                               RobotConfig.Encoders.BRcanCoderID};
