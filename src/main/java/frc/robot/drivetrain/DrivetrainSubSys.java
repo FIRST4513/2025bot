@@ -1,5 +1,9 @@
 package frc.robot.drivetrain;
 
+// WPILib Core
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+// WPILib Math
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -12,9 +16,12 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.drivetrain.config.DrivetrainConfig;
+
+// Third Party
 import org.littletonrobotics.junction.Logger;
+
+// Custom Code
+import frc.robot.drivetrain.config.DrivetrainConfig;
 
 public class DrivetrainSubSys extends SubsystemBase {
 
@@ -32,45 +39,48 @@ public class DrivetrainSubSys extends SubsystemBase {
 
     // ----- Constructor -----
     public DrivetrainSubSys() {
+        // Initialize swerve modules first
+        for (int i = 0; i < 4; i++) {
+            swerveMods[i] = new SwerveModule(i);
+        }
+
+        // Initialize gyro
+        gyro = new PigeonGyro();
+
+        // Now we can safely get positions since modules are created
         swerveModulePositions = new SwerveModulePosition[4];
         swerveModulePositions[0] = swerveMods[0].getPosition();
         swerveModulePositions[1] = swerveMods[1].getPosition();
         swerveModulePositions[2] = swerveMods[2].getPosition();
         swerveModulePositions[3] = swerveMods[3].getPosition();
-        // Define the standard deviations for the pose estimator, which determine how fast the pose
-        // estimate converges to the vision measurement. This should depend on the vision measurement
-        // noise
-        // and how many or how frequently vision measurements are applied to the pose estimator.
+
+        // Define the standard deviations for the pose estimator
         var stateStdDevs = VecBuilder.fill(0.1, 0.1, 0.1);
         var visionStdDevs = VecBuilder.fill(1, 1, 1);
         SwerveDriveKinematics kinematics = DrivetrainConfig.getKinematics();
-        poseEstimator =
-                new SwerveDrivePoseEstimator(
-                        kinematics,
-                        Rotation2d.fromDegrees(
-                                getGyroYawDegrees()),
-                        swerveModulePositions,
-                        new Pose2d(),
-                        stateStdDevs,
-                        visionStdDevs);
+        poseEstimator = new SwerveDrivePoseEstimator(
+                kinematics,
+                Rotation2d.fromDegrees(
+                        getGyroYawDegrees()),
+                swerveModulePositions,
+                new Pose2d(),
+                stateStdDevs,
+                visionStdDevs);
 
-        for (int i = 0; i < 4; i++) {
-            swerveMods[i] = new SwerveModule(i);
-        }
-
-        gyro = new PigeonGyro();
-
-        frontLeftState = new SwerveModuleState(swerveMods[0].getModuleVelocityMPS(), swerveMods[0].getSteerAngleRotation2d());
-        frontRightState = new SwerveModuleState(swerveMods[1].getModuleVelocityMPS(), swerveMods[1].getSteerAngleRotation2d());
-        BackLeftState = new SwerveModuleState(swerveMods[2].getModuleVelocityMPS(), swerveMods[2].getSteerAngleRotation2d());
-        BackRightState = new SwerveModuleState(swerveMods[3].getModuleVelocityMPS(), swerveMods[3].getSteerAngleRotation2d());
-
+        frontLeftState = new SwerveModuleState(swerveMods[0].getModuleVelocityMPS(),
+                swerveMods[0].getSteerAngleRotation2d());
+        frontRightState = new SwerveModuleState(swerveMods[1].getModuleVelocityMPS(),
+                swerveMods[1].getSteerAngleRotation2d());
+        BackLeftState = new SwerveModuleState(swerveMods[2].getModuleVelocityMPS(),
+                swerveMods[2].getSteerAngleRotation2d());
+        BackRightState = new SwerveModuleState(swerveMods[3].getModuleVelocityMPS(),
+                swerveMods[3].getSteerAngleRotation2d());
     }
 
     @Override
     public void periodic() {
-        Logger.recordOutput("Gyro/Angle", getGyroYawDegrees());                         // Log Gyro Heading
-        Logger.recordOutput("Robot Pose", poseEstimator.getEstimatedPosition());                                   // Log robot Pose
+        Logger.recordOutput("Gyro/Angle", getGyroYawDegrees()); // Log Gyro Heading
+        Logger.recordOutput("Robot Pose", poseEstimator.getEstimatedPosition()); // Log robot Pose
 
         swerveModulePositions[0] = swerveMods[0].getPosition();
         swerveModulePositions[1] = swerveMods[1].getPosition();
@@ -83,10 +93,13 @@ public class DrivetrainSubSys extends SubsystemBase {
     // ----- Driving Methods -----
 
     /**
-     * Used to drive the swerve robot, should be called from commands that require swerve.
+     * Used to drive the swerve robot, should be called from commands that require
+     * swerve.
      *
-     * @param fwdPositive            Velocity of the robot fwd/rev, Forward Positive meters per second
-     * @param leftPositive           Velocity of the robot left/right, Left Positive meters per secound
+     * @param fwdPositive            Velocity of the robot fwd/rev, Forward Positive
+     *                               meters per second
+     * @param leftPositive           Velocity of the robot left/right, Left Positive
+     *                               meters per secound
      * @param omegaRadiansPerSecond  Rotation Radians per second
      * @param fieldRelative          If the robot should drive in field relative
      * @param isOpenLoop             If the robot should drive in open loop
@@ -94,13 +107,14 @@ public class DrivetrainSubSys extends SubsystemBase {
      */
 
     public void drive(double fwdPositive,
-                      double leftPositive,
-                      double omegaRadiansPerSecond,
-                      boolean fieldRelative,
-                      boolean isOpenLoop,
-                      Translation2d centerOfRotationMeters) {
+            double leftPositive,
+            double omegaRadiansPerSecond,
+            boolean fieldRelative,
+            boolean isOpenLoop,
+            Translation2d centerOfRotationMeters) {
 
-        // --------------- Step 1 Set Chassis Speeds Field or Robot Relative  -----------------
+        // --------------- Step 1 Set Chassis Speeds Field or Robot Relative
+        // -----------------
         // mps (Meters Per Second) and rps (Radians Per Second)
         ChassisSpeeds speeds;
         if (fieldRelative) {
@@ -113,27 +127,32 @@ public class DrivetrainSubSys extends SubsystemBase {
         driveByChassisSpeeds(speeds);
     }
 
-
     public void driveByChassisSpeeds(ChassisSpeeds speeds) {
-        // --------------- Step 2 Create Swerve Modules Desired States Array ---------------
-        // Wheel Velocity (mps) and Wheel Angle (radians) for each of the 4 swerve modules
-        SwerveModuleState[] swerveModuleDesiredStates =
-                DrivetrainConfig.getKinematics().toSwerveModuleStates(speeds, new Translation2d());
+        // --------------- Step 2 Create Swerve Modules Desired States Array
+        // ---------------
+        // Wheel Velocity (mps) and Wheel Angle (radians) for each of the 4 swerve
+        // modules
+        SwerveModuleState[] swerveModuleDesiredStates = DrivetrainConfig.getKinematics().toSwerveModuleStates(speeds,
+                new Translation2d());
 
-        // -------------------------- Step 3 Desaturate Wheel speeds -----------------------
-        // LOOK INTO THE OTHER CONSTRUCTOR FOR desaturateWheelSpeeds to see if it is better
+        // -------------------------- Step 3 Desaturate Wheel speeds
+        // -----------------------
+        // LOOK INTO THE OTHER CONSTRUCTOR FOR desaturateWheelSpeeds to see if it is
+        // better
         SwerveDriveKinematics.desaturateWheelSpeeds(
                 swerveModuleDesiredStates, DrivetrainConfig.getMaxVelocity());
 
-        // ------------------ Step 4 Send Desrired Module states to wheel modules ----------------
+        // ------------------ Step 4 Send Desrired Module states to wheel modules
+        // ----------------
         for (SwerveModule mod : swerveMods) {
             mod.setDesiredState(swerveModuleDesiredStates[mod.modNumber], false);
         }
     }
 
-    // ------------------- Lock Wheels at angle to prevent rolling -------------------
+    // ------------------- Lock Wheels at angle to prevent rolling
+    // -------------------
     public void setModulesLock() {
-        double[] angles = {225, 135, 315, 45};
+        double[] angles = { 225, 135, 315, 45 };
         for (int i = 0; i < 4; i++) {
             swerveMods[i].setDesiredState(new SwerveModuleState(0, new Rotation2d(angles[i])), false);
         }
@@ -150,17 +169,14 @@ public class DrivetrainSubSys extends SubsystemBase {
         poseEstimator.resetPosition(
                 Rotation2d.fromDegrees(gyroHeading),
                 swerveModulePositions,
-                pose
-        );
+                pose);
     }
-
 
     // -------------- Odometry Getters/Setters ---------------------------------
 
     public ChassisSpeeds getChassisSpeeds() {
         return DrivetrainConfig.m_kinematics.toChassisSpeeds(
-                frontLeftState, frontRightState, BackLeftState, BackRightState
-        );
+                frontLeftState, frontRightState, BackLeftState, BackRightState);
     }
 
     public Pose2d getPose() {
@@ -172,8 +188,7 @@ public class DrivetrainSubSys extends SubsystemBase {
         poseEstimator.resetPosition(
                 DrivetrainSubSys.gyro.getYawRotation2d(),
                 swerveModulePositions,
-                pose
-        );
+                pose);
     }
 
     public void resetPose() {
@@ -193,7 +208,7 @@ public class DrivetrainSubSys extends SubsystemBase {
     }
 
     /***********************************************************************
-     *                       Control - Request - Processing
+     * Control - Request - Processing
      ************************************************************************/
 
     public void addVisionMeasurement(Pose2d visionMeasurement, double timestampSeconds) {
@@ -203,7 +218,8 @@ public class DrivetrainSubSys extends SubsystemBase {
 
     public void addVisionMeasurement(
             Pose2d visionMeasurement, double timestampSeconds, Matrix<N3, N1> stdDevs) {
-        System.out.println("Adding vision measurement: " + visionMeasurement + " at timestamp: " + timestampSeconds + " with stdDevs: " + stdDevs);
+        System.out.println("Adding vision measurement: " + visionMeasurement + " at timestamp: " + timestampSeconds
+                + " with stdDevs: " + stdDevs);
         poseEstimator.addVisionMeasurement(visionMeasurement, timestampSeconds, stdDevs);
     }
 

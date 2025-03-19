@@ -5,7 +5,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import frc.robot.RobotConfig;
+import frc.robot.Constants;
 
 
 public class DrivetrainConfig {
@@ -129,26 +129,26 @@ public class DrivetrainConfig {
     /**
      * Array[4] of ints that represent the drive motor CAN ID for each Module
      */
-    private static final int[] driveCanIDs = {RobotConfig.Motors.FLdriveMotorID,
-                                              RobotConfig.Motors.FRdriveMotorID,
-                                              RobotConfig.Motors.BLdriveMotorID,
-                                              RobotConfig.Motors.BRdriveMotorID};
+    private static final int[] driveCanIDs = {Constants.Motors.FLdriveMotorID,
+                                              Constants.Motors.FRdriveMotorID,
+                                              Constants.Motors.BLdriveMotorID,
+                                              Constants.Motors.BRdriveMotorID};
 
     /**
      * Array[4] of ints that represent the angle motor CAN ID for each Module
      */
-    private static final int[] angleCanIDs = {RobotConfig.Motors.FLangleMotorID,
-                                              RobotConfig.Motors.FRangleMotorID,
-                                              RobotConfig.Motors.BLangleMotorID,
-                                              RobotConfig.Motors.BRangleMotorID};
+    private static final int[] angleCanIDs = {Constants.Motors.FLangleMotorID,
+                                              Constants.Motors.FRangleMotorID,
+                                              Constants.Motors.BLangleMotorID,
+                                              Constants.Motors.BRangleMotorID};
 
     /**
      * Array[4] of ints that represents the CAN Coder CAN ID for each Module
      */
-    private static final int[] canCoderIDs = {RobotConfig.Encoders.FLcanCoderID,
-                                              RobotConfig.Encoders.FRcanCoderID,
-                                              RobotConfig.Encoders.BLcanCoderID,
-                                              RobotConfig.Encoders.BRcanCoderID};
+    private static final int[] canCoderIDs = {Constants.Encoders.FLcanCoderID,
+                                              Constants.Encoders.FRcanCoderID,
+                                              Constants.Encoders.BLcanCoderID,
+                                              Constants.Encoders.BRcanCoderID};
 
     // ----- Getters for info about a specific module -----
     public static String getModName(int modID)        { return moduleNames[modID]; }

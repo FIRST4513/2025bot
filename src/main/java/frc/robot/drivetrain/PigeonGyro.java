@@ -5,7 +5,7 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
-import frc.robot.RobotConfig.Gyros;
+import frc.robot.Constants;
 
 public class PigeonGyro {
     protected Pigeon2 pigeon2;
@@ -18,7 +18,7 @@ public class PigeonGyro {
      */
     public PigeonGyro() {
         // REQUIRES USE OF CANIVORE - if not using canivore DONT SAY CANBUS:"CANFD" BECAUSE THEN ITS NOT A CANFD!!
-        pigeon2 = new Pigeon2(Gyros.Pigeon2ID, "CANFD");
+        pigeon2 = new Pigeon2(Constants.Gyros.Pigeon2ID, "CANFD");
         yawGetter = pigeon2.getYaw().clone();   // Degrees +CCW
         angularZVelGetter = pigeon2.getAngularVelocityZWorld().clone();
     }

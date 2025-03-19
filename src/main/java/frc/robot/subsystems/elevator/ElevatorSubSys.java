@@ -6,7 +6,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotConfig.Motors;
+import frc.robot.Constants;
 
 public class ElevatorSubSys extends SubsystemBase {
     public enum ElevatorState {
@@ -26,7 +26,7 @@ public class ElevatorSubSys extends SubsystemBase {
     final MotionMagicVoltage mr = new MotionMagicVoltage(0);
     
     // Devices
-    public static TalonFX elevatorMotor = new TalonFX(Motors.ElevatorMotorID, "CANFD");
+    public static TalonFX elevatorMotor = new TalonFX(Constants.Motors.ElevatorMotorID, "CANFD");
     
     
     /* ----- Constructor ----- */

@@ -5,8 +5,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotConfig.Motors;
-import frc.robot.RobotConfig.PWMPorts;
+import frc.robot.Constants;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
 
 public class ClimberSubSys extends SubsystemBase {
@@ -22,8 +21,8 @@ public class ClimberSubSys extends SubsystemBase {
     
     
     // Devices
-    public static TalonFX climberMotor = new TalonFX(Motors.ClimberMotorID, "CANFD");
-    public static Servo WinchLock = new Servo(PWMPorts.winchLockID);
+    public static TalonFX climberMotor = new TalonFX(Constants.Motors.ClimberMotorID, "CANFD");
+    public static Servo WinchLock = new Servo(Constants.PWMPorts.winchLockID);
     final MotionMagicVoltage mr = new MotionMagicVoltage(0);
 
     

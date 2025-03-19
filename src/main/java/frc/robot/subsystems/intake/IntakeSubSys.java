@@ -5,9 +5,7 @@ import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotConfig.AnalogPorts;
-import frc.robot.RobotConfig.Motors;
-
+import frc.robot.Constants;
 
 public class IntakeSubSys extends SubsystemBase {
     public enum IntakeState {
@@ -24,10 +22,10 @@ public class IntakeSubSys extends SubsystemBase {
     // Devices
     //public ThriftyNova intakeBottomMotor = new ThriftyNova(Motors.IntakeBottomMotorID, MotorType.MINION);
     //public ThriftyNova intakeTopMotor = new ThriftyNova(Motors.IntakeTopMotorID, MotorType.MINION);
-    public SparkMax intakeBottomMotor = new SparkMax(Motors.IntakeBottomMotorID, MotorType.kBrushless);
-    public SparkMax intakeTopMotor = new SparkMax(Motors.IntakeTopMotorID, MotorType.kBrushless);
+    public SparkMax intakeBottomMotor = new SparkMax(Constants.Motors.IntakeBottomMotorID, MotorType.kBrushless);
+    public SparkMax intakeTopMotor = new SparkMax(Constants.Motors.IntakeTopMotorID, MotorType.kBrushless);
 
-    public AnalogInput gamepieceDetectSensor = new AnalogInput(AnalogPorts.intakeGamepieceSensor);
+    public AnalogInput gamepieceDetectSensor = new AnalogInput(Constants.AnalogPorts.intakeGamepieceSensor);
 
     /* ----- Constructor ----- */
     public IntakeSubSys() { 

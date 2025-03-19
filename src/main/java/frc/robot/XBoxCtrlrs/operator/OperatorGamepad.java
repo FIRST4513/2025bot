@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.gamepads.Gamepad;
 import frc.lib.gamepads.mapping.ExpCurve;
-import frc.robot.RobotConfig;
+import frc.robot.Constants;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 import frc.robot.subsystems.elevator.ElevatorSubSys.ElevatorState;
@@ -53,7 +53,7 @@ public class OperatorGamepad extends Gamepad {
 
     // ----- Constructor -----
     public OperatorGamepad() {
-        super("Pilot", RobotConfig.Gamepads.operatorGamepadPort);
+        super("Pilot", Constants.Gamepads.operatorGamepadPort);
         setupSpeedMenu();
     }
 

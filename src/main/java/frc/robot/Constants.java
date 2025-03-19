@@ -58,6 +58,52 @@ public class Constants {
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
     }
 
+    public static class Motors {
+        // ----- Swerve drive -----
+        public static final int FLdriveMotorID      =  1;  // Can ID Kraken
+        public static final int FRdriveMotorID      =  3;  // Can ID Kraken
+        public static final int BLdriveMotorID      =  7;  // Can ID Kraken
+        public static final int BRdriveMotorID      =  5;  // Can ID Kraken
+
+        public static final int FLangleMotorID      =  2;  // Can ID Kraken
+        public static final int FRangleMotorID      =  4;  // Can ID Kraken
+        public static final int BLangleMotorID      =  8;  // Can ID Kraken
+        public static final int BRangleMotorID      =  6;  // Can ID Kraken
+
+        public static final int ClimberMotorID      = 20;  // Can ID Kraken
+
+        public static final int IntakeBottomMotorID = 21; // 
+        public static final int IntakeTopMotorID    = 22;
+
+        public static final int ElevatorMotorID     = 15;
+    }
+
+    public static class Gamepads {
+        public static final int pilotGamepadPort      = 0;  // USB PORT
+        public static final int operatorGamepadPort   = 1;  // USB PORT
+    }
+
+    public static class Gyros {
+        public static final int Pigeon2ID          = 13;  // Can ID Pigeon 2
+    }
+
+    public static class Encoders {
+        // Swerve Angles
+        public static final int FLcanCoderID       =  9;  // Cancoder CAN ID
+        public static final int FRcanCoderID       = 10;  // Cancoder CAN ID
+        public static final int BLcanCoderID       = 12;  // Cancoder CAN ID
+        public static final int BRcanCoderID       = 11;  // Cancoder CAN ID
+    }
+
+    public static class AnalogPorts {
+        public static final int intakeGamepieceSensor = 0;
+        //max 4 ports
+    }
+
+    public static class PWMPorts {
+        public static final int winchLockID = 9;
+    }
+
     public static class Swerve {
         // Physical properties
         public static final double kTrackWidth = Units.inchesToMeters(18.5);

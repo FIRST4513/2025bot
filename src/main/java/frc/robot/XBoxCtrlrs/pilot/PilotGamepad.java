@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.lib.gamepads.Gamepad;
 import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
-import frc.robot.RobotConfig;
+import frc.robot.Constants;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.subsystems.climber.ClimberSubSys.ClimberState;
@@ -52,7 +52,7 @@ public class PilotGamepad extends Gamepad {
 
     // ----- Constructor -----
     public PilotGamepad() {
-        super("Pilot", RobotConfig.Gamepads.pilotGamepadPort);
+        super("Pilot", Constants.Gamepads.pilotGamepadPort);
         setupSpeedMenu();
     }
 
