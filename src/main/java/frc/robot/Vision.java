@@ -1,5 +1,6 @@
 /*
- * MIT License
+ * MIT Licen4
+ * se
  *
  * Copyright (c) PhotonVision
  *
@@ -54,7 +55,8 @@ public class Vision {
     private VisionSystemSim visionSim;
 
     public Vision() {
-        camera = new PhotonCamera(kCameraName);
+        // Use a different camera name in simulation vs real robot
+        camera = new PhotonCamera(Robot.isSimulation() ? "simulated_camera" : kCameraName);
 
         photonEstimator =
                 new PhotonPoseEstimator(kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, kRobotToCam);

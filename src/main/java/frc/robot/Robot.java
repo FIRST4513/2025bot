@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.RuntimeType;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -65,6 +66,25 @@ public class Robot extends LoggedRobot {
         DataLogManager.start();
         DriverStation.startDataLog(DataLogManager.getLog());
         //initAdvantageKitLogger();   // This logger replaces the WPI Data logger methods
+    }
+
+    /**
+     * Get if the robot is a simulation.
+     *
+     * @return If the robot is running in simulation.
+     */
+    public static boolean isSimulation() {
+        return getRuntimeType() == RuntimeType.kSimulation;
+    }
+
+    /**
+     * Get if the robot is real.
+     *
+     * @return If the robot is running in the real world.
+     */
+    public static boolean isReal() {
+        RuntimeType runtimeType = getRuntimeType();
+        return runtimeType == RuntimeType.kRoboRIO || runtimeType == RuntimeType.kRoboRIO2;
     }
 
     @Override

@@ -11,7 +11,7 @@ import frc.lib.telemetry.CustomLayout;
 import frc.robot.Robot;
 
 public class OperatorGamepadTelemetry {
-    public final OperatorGamepad gamepad; 
+    public final OperatorGamepad gamepad;
 
     // Tab & Layouts  //
     private static ShuffleboardTab m_tab;
