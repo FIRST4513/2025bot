@@ -18,7 +18,8 @@ public class ElevatorSubSys extends SubsystemBase {
         BOTTOM,
         INTAKE,
         MANUAL,
-        MANUAL2,
+        HOLDUP,
+        HOLDDOWN,
         STOPPED
 
     }
@@ -67,8 +68,10 @@ public class ElevatorSubSys extends SubsystemBase {
                          break;
             case MANUAL: elevatorMotor.set(ElevatorConfig.MANUAL);
                          break;
-            case MANUAL2: elevatorMotor.set(ElevatorConfig.MANUAL2);
+            case HOLDUP: elevatorMotor.setControl(mr.withPosition(getRotations() + ElevatorConfig.HOLDUP));
                           break;
+            case HOLDDOWN: elevatorMotor.setControl(mr.withPosition(getRotations() + ElevatorConfig.HOLDDOWN));
+                            break;
 
             
             // stopped included:

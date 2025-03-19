@@ -17,8 +17,11 @@ public class ElevatorConfig {
     protected static final double BOTTOM      = 0;
     protected static final double INTAKE      = 11.5;
     protected static final double MANUAL      = 0.1;
-    protected static final double MANUAL2     = -0.1;
+    
+    protected static final double HOLDUP      = 0.1;
+    protected static final double HOLDDOWN    = -0.1;
     protected static final double RESET       = 0.03;
+
 
     
     /* Inverts */
