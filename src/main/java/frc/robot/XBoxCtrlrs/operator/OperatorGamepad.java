@@ -93,16 +93,10 @@ public class OperatorGamepad extends Gamepad {
 
         gamepad.rightStickButton.onTrue(ElevatorCmds.elevatorSetState(ElevatorState.HIGHALGAE));
 
+        gamepad.Dpad.Up.whileTrue(ElevatorCmds.elevatorSetManual());
+        gamepad.Dpad.Up.onFalse(ElevatorCmds.elevatorSetStopped());
 
-        gamepad.Dpad.Right.whileTrue(ElevatorCmds.elevatorSetManual());
-        gamepad.Dpad.Right.onFalse(ElevatorCmds.elevatorSetStopped());
-
-        gamepad.Dpad.Left.onTrue(OperatorGamepadCmds.stopAllCmd());
-
-        gamepad.Dpad.Up.onTrue(ElevatorCmds.elevatorSetHoldUp());
-
-        gamepad.Dpad.Down.onTrue(ElevatorCmds.elevatorSetHoldDown());
-
+        gamepad.Dpad.Down.onTrue(OperatorGamepadCmds.stopAllCmd());
 
         gamepad.rightBumper.whileTrue(IntakeCmds.intakeSetTreeCmd()); 
         gamepad.rightBumper.onFalse(IntakeCmds.intakeSetStoppedCmd());
