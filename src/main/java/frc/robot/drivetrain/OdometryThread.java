@@ -53,10 +53,13 @@ public class OdometryThread extends Thread {
     // TODO: figure out
     protected final boolean IsOnCANFD = true;
 
-    protected static SwerveDrivePoseEstimator m_odometry;
+    public static SwerveDrivePoseEstimator m_odometry;
+
+
     protected ControlRequestParameters m_requestParameters = new ControlRequestParameters();
     protected Matrix<N3, N1> visionMeasurementStdDevs;
 
+    
     int lastThreadPriority = START_THREAD_PRIORITY;
     int threadPriorityToSet = START_THREAD_PRIORITY;
 
@@ -110,10 +113,11 @@ public class OdometryThread extends Thread {
                                                 DrivetrainConfig.kVisionStdDevY,
                                                 DrivetrainConfig.kVisionStdDevTheta);
 
-
+        var stateStdDevs = VecBuilder.fill(0.1, 0.1, 0.1);
+        var visionStdDevs = VecBuilder.fill(1, 1, 1);
         m_odometry =
             new SwerveDrivePoseEstimator(
-                    DrivetrainConfig.getKinematics(), new Rotation2d(), m_modulePositions, new Pose2d());
+                    DrivetrainConfig.getKinematics(), new Rotation2d(), m_modulePositions, new Pose2d(), stateStdDevs, visionStdDevs);
 
         /*SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
             DrivetrainConfig.getKinematics(), DrivetrainSubSys.gyro.getYawRotation2d(),
@@ -463,7 +467,10 @@ public class OdometryThread extends Thread {
         return VecBuilder.fill(x, y, Units.degreesToRadians(theta));
     }
 
-
+    public static void printAndReset(Pose2d visionEst, double Timestamp, Matrix<N3,N1> standardDevs) {
+        Robot.print("ADDING VISION MEASUREMENT");
+        m_odometry.addVisionMeasurement(visionEst, Timestamp, standardDevs);
+    }
 
 
 

@@ -22,6 +22,8 @@ import frc.robot.subsystems.elevator.ElevatorSubSys;
 import frc.robot.subsystems.finger.FingerSubSys;
 import frc.robot.subsystems.intake.IntakeSubSys;
 import frc.robot.subsystems.orchestra.orchestraSubSys;
+import frc.robot.subsystems.vision.Vision;
+
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -66,6 +68,7 @@ public class Robot extends LoggedRobot  {
     public static ClimberSubSys climber;
     public static ElevatorSubSys elevator;
     public static Auto auto;
+    public static Vision vision;
     //private static LaserCan lc;
     
         //public static orchestraSubSys orchestra;
@@ -111,6 +114,21 @@ public class Robot extends LoggedRobot  {
         CommandScheduler.getInstance().run();       // Make sure scheduled commands get run
         Threads.setCurrentThreadPriority(true, 10); // Set the main thread back to normal priority
         //Robot.measurement = lc.getMeasurement();
+
+        var visionEst = vision.getEstimatedGlobalPose();
+
+        visionEst.ifPresent(
+                est -> {
+                    Robot.print("POSE PRESENT");
+                    // Change our trust in the measurement based on the tags we can see
+                    var estStdDevs = vision.getEstimationStdDevs();
+
+                    frc.robot.drivetrain.OdometryThread.printAndReset(
+                        est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs
+                    );
+                    //frc.robot.drivetrain.OdometryThread.m_odometry.addVisionMeasurement(
+                    //        est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                });
     }
 
     private void intializeSubsystems() {
@@ -129,6 +147,7 @@ public class Robot extends LoggedRobot  {
         intake = new IntakeSubSys();
         finger = new FingerSubSys();
         elevator = new ElevatorSubSys();
+        vision = new Vision();
 
         //orchestra = new orchestraSubSys();
         // Telemetry (MUST BE LAST)

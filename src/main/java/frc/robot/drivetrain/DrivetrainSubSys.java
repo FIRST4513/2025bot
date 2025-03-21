@@ -83,6 +83,7 @@ public class DrivetrainSubSys extends SubsystemBase {
              //Get the rotation of the robot from the gyro.
                 var gyroAngle = gyro.getYawRotation2d();
                 // Update the pose
+                
                 DriveState.Pose = OdometryThread.m_odometry.update(gyroAngle,
                 new SwerveModulePosition[] {
                     swerveMods[0].getPosition(), swerveMods[1].getPosition(),

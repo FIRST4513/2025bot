@@ -10,6 +10,7 @@ import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 import frc.robot.subsystems.climber.ClimberSubSys.ClimberState;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
+import frc.robot.subsystems.vision.Vision;
 
 //figure out later
 //import frc.util.FieldConstants;
@@ -92,7 +93,7 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetStartup());
 
-        
+        gamepad.yButton.onTrue(new InstantCommand(()-> Vision.hasTarget()));
 
 
 

@@ -53,7 +53,7 @@ public class ElevatorConfig {
         private static final double nonload_kD = 0.1;   // (D)erivative Value
         private static final double nonload_kV = 0.12;  // Volts/100 (?)
         private static final double nonload_kS = 0.05;  // (S)tiction Value:
-        private static final double nonload_kG = 0.4;
+        private static final double nonload_kG = 0;
     
         private static final boolean enableCurrentLimitting = true;
         private static final double  suppCurrent = 40;      // Max Amps allowed in Supply
