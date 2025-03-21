@@ -63,7 +63,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
      private PhotonCameraSim cameraSim;
      private VisionSystemSim visionSim;
 
-     static PhotonPipelineResult result;
+     static List<PhotonPipelineResult> result;
           
      
      
@@ -73,7 +73,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
               camera = new PhotonCamera(kCameraName);
              
      
-              result = camera.getLatestResult();
+              result = camera.getAllUnreadResults();
      
               photonEstimator = new PhotonPoseEstimator(kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, kRobotToCam);
               photonEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
@@ -113,9 +113,9 @@ import org.photonvision.targeting.PhotonTrackedTarget;
            */
           public Optional<EstimatedRobotPose> getEstimatedGlobalPose() {
               Optional<EstimatedRobotPose> visionEst = Optional.empty();
-              for (var change : camera.getAllUnreadResults()) {
+              for (var change : result) {
                   visionEst = photonEstimator.update(change);
-                  Robot.print("GETTING ESTIMATED POSE");
+                  //Robot.print("GETTING ESTIMATED POSE");
 
                   updateEstimationStdDevs(visionEst, change.getTargets());
       
@@ -131,10 +131,10 @@ import org.photonvision.targeting.PhotonTrackedTarget;
                   }
               }
               
-            
-              if (camera.getAllUnreadResults().isEmpty()) {
-                Robot.print("RESULTS IS EMPTY");
+              if (result.isEmpty()) {
+                Robot.print("IS EMPTY");
               }
+            
               if (visionEst.isEmpty()) {
                 Robot.print("POSE IS EMPTY");
               }
@@ -218,8 +218,15 @@ import org.photonvision.targeting.PhotonTrackedTarget;
           }
      
           public static Boolean getHasTarget() {
-                  return result.hasTargets();
+            for (var v : result) {
+                    return v.hasTargets();
+                }
+                            return null;
          }
+
+         //public static PhotonPipelineResult getResultTarget() {
+          //  result.
+        //}
      
          public static void hasTarget() {
              if (getHasTarget()) {
