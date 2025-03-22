@@ -10,9 +10,9 @@ public class ElevatorConfig {
 
     // retract/eject speeds
     protected static final double LEVELONE    = 2.5;
-    protected static final double LEVELTWO    = 10;
-    protected static final double LEVELTHREE  = 23;
-    protected static final double LEVELFOUR   = 44.5;
+    protected static final double LEVELTWO    = 7.25;
+    protected static final double LEVELTHREE  = 20.1;
+    protected static final double LEVELFOUR   = 41;
     protected static final double HIGHALGAE   = 35;
     protected static final double BOTTOM      = 0;
     protected static final double INTAKE      = 11.5;
@@ -23,7 +23,6 @@ public class ElevatorConfig {
     protected static final double RESET       = 0.03;
 
 
-    
     /* Inverts */
     protected static final boolean climberMotorInvert = true;
 
@@ -42,7 +41,7 @@ public class ElevatorConfig {
 
 
         /* constants for height definitions */
-        public static final double MAX_ROTATIONS = 48.5;
+        public static final double MAX_ROTATIONS = 43;
         /* configuration constants */
         private static final double mmCruiseVelocity = 200;  // 12 rpm cruise
         private static final double mmAcceleration   = 200;  // ~0.5 seconds to max vel.
@@ -52,8 +51,8 @@ public class ElevatorConfig {
         private static final double nonload_kI = 0.0;   // (I)ntegral Value
         private static final double nonload_kD = 0.1;   // (D)erivative Value
         private static final double nonload_kV = 0.12;  // Volts/100 (?)
-        private static final double nonload_kS = 0.05;  // (S)tiction Value:
-        private static final double nonload_kG = 0;
+        private static final double nonload_kS = 0.1;  // (S)tiction Value:
+        private static final double nonload_kG = 0.45;
     
         private static final boolean enableCurrentLimitting = true;
         private static final double  suppCurrent = 40;      // Max Amps allowed in Supply

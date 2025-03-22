@@ -55,7 +55,7 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
  
  public class Vision {
-     private final PhotonCamera camera;
+     public final static PhotonCamera camera = new PhotonCamera(kCameraName);
      private final PhotonPoseEstimator photonEstimator;
      private Matrix<N3, N1> curStdDevs;
  
@@ -69,10 +69,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
      
      
       
-          public Vision() {   
-              camera = new PhotonCamera(kCameraName);
-             
-     
+          public Vision() {                
               result = camera.getAllUnreadResults();
      
               photonEstimator = new PhotonPoseEstimator(kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, kRobotToCam);
@@ -116,7 +113,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
               for (var change : result) {
                   visionEst = photonEstimator.update(change);
                   if (visionEst.isEmpty()){
-                    Robot.print("POSE IS EMPTY");
+                    //Robot.print("POSE IS EMPTY");
                   }
                   else {
                     Robot.print("NOT EMPTY");
@@ -138,7 +135,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
               }
               
               if (result.isEmpty()) {
-                Robot.print("IS EMPTY");
+                //Robot.print("IS EMPTY");
               }
             
               return visionEst;

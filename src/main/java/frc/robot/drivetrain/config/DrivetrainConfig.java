@@ -54,8 +54,8 @@ public class DrivetrainConfig {
     // Max speed our robot can sprint at
     public static final double maxVelocity = 4.79;  // Speed at 12 volts MPS
     public static final double maxAccel = maxVelocity * 1.5; // take 1/2 sec to get to max speed.
-    public static final double maxAngularVelocity =
-            maxVelocity / (Math.hypot(wheelBase / 2.0, trackWidth / 2.0));
+    public static final double maxAngularVelocity = 0.15;
+            //maxVelocity / (Math.hypot(wheelBase / 2.0, trackWidth / 2.0));
     public static final double maxAngularAcceleration = Math.pow(maxAngularVelocity, 2);
 
     // ----- Identification Arrays

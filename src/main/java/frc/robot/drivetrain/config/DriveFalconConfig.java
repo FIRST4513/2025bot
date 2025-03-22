@@ -13,7 +13,7 @@ public class DriveFalconConfig {
     public static final double driveRotationsPerMeter = rotationsPerWheelRotation / metersPerWheelRotation;
 
     /* Drive Motor Characterization Values */
-    private static final double kP = 0.04;   // (P)roportional value
+    private static final double kP = 0.01;  //0.04 // (P)roportional value
     private static final double kI = 0.0;   // (I)ntegral Value
     private static final double kD = 0.01;  // (D)erivative Value
     // KS - Volts Stiction -     How many volts are needed to simply start moving/overcoming friction

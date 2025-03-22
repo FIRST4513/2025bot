@@ -2,12 +2,15 @@ package frc.robot.XBoxCtrlrs.pilot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.lib.gamepads.Gamepad;
 import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
+import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
+import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.subsystems.climber.ClimberSubSys.ClimberState;
 import frc.robot.subsystems.climber.commands.ClimberCmds;
 import frc.robot.subsystems.vision.Vision;
@@ -95,6 +98,9 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.yButton.onTrue(new InstantCommand(()-> Vision.hasTarget()));
 
+        gamepad.aButton.whileTrue(new InstantCommand(()-> robotVision()));
+        gamepad.aButton.onFalse(new InstantCommand(()-> robotNoVision()));
+
 
 
         /* ----- Example Ways to use Buttons in different ways ---- */
@@ -113,6 +119,15 @@ public class PilotGamepad extends Gamepad {
     public void setupTestButtons() {}
 
     // ----- Custom Methods for Getting Gamepad Values and Inputs -----
+
+
+    public void robotVision() {
+        Robot.swerve.setDefaultCommand(PilotGamepadCmds.FpvWithVision());
+    }
+    
+    public void robotNoVision() {
+        Robot.swerve.setDefaultCommand(PilotGamepadCmds.FpvPilotSwerveCmd());
+    }
 
     // forward/backward down the field
     public double getDriveFwdPositive() {

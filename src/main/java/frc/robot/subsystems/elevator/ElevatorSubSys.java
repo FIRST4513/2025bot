@@ -102,7 +102,7 @@ public class ElevatorSubSys extends SubsystemBase {
     /* ----- Getters ---- */
 
     public double getMotorSpeed() { return elevatorMotor.get(); }
-    public double getRotations() { return elevatorMotor.getPosition().getValueAsDouble(); }
+    public static double getRotations() { return elevatorMotor.getPosition().getValueAsDouble(); }
     
     public ElevatorState getState() { return state; }
 
