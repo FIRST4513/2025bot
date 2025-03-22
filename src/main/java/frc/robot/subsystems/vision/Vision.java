@@ -115,6 +115,12 @@ import org.photonvision.targeting.PhotonTrackedTarget;
               Optional<EstimatedRobotPose> visionEst = Optional.empty();
               for (var change : result) {
                   visionEst = photonEstimator.update(change);
+                  if (visionEst.isEmpty()){
+                    Robot.print("POSE IS EMPTY");
+                  }
+                  else {
+                    Robot.print("NOT EMPTY");
+                  }
                   //Robot.print("GETTING ESTIMATED POSE");
 
                   updateEstimationStdDevs(visionEst, change.getTargets());
@@ -135,9 +141,6 @@ import org.photonvision.targeting.PhotonTrackedTarget;
                 Robot.print("IS EMPTY");
               }
             
-              if (visionEst.isEmpty()) {
-                Robot.print("POSE IS EMPTY");
-              }
               return visionEst;
           }
       
