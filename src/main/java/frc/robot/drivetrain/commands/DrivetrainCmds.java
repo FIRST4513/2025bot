@@ -8,7 +8,7 @@ import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
 public class DrivetrainCmds {
 
     public static void setupDefaultCommand() {
-        Robot.swerve.setDefaultCommand(PilotGamepadCmds.FpvWithVision());
+        Robot.swerve.setDefaultCommand(PilotGamepadCmds.FpvPilotSwerveCmd());
     }
 
     // ----------------------- Gyro & Odometry Commands  ------------------------

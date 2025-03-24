@@ -63,14 +63,14 @@ import org.photonvision.targeting.PhotonTrackedTarget;
      private PhotonCameraSim cameraSim;
      private VisionSystemSim visionSim;
 
-     static List<PhotonPipelineResult> result;
+     static List<PhotonPipelineResult> results;
           
      
      
      
       
           public Vision() {                
-              result = camera.getAllUnreadResults();
+              results = camera.getAllUnreadResults();
      
               photonEstimator = new PhotonPoseEstimator(kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, kRobotToCam);
               photonEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
@@ -110,31 +110,30 @@ import org.photonvision.targeting.PhotonTrackedTarget;
            */
           public Optional<EstimatedRobotPose> getEstimatedGlobalPose() {
               Optional<EstimatedRobotPose> visionEst = Optional.empty();
-              for (var change : result) {
-                  visionEst = photonEstimator.update(change);
-                  if (visionEst.isEmpty()){
-                    //Robot.print("POSE IS EMPTY");
-                  }
-                  else {
-                    Robot.print("NOT EMPTY");
-                  }
-                  //Robot.print("GETTING ESTIMATED POSE");
-
-                  updateEstimationStdDevs(visionEst, change.getTargets());
-      
-                  if (Robot.isSimulation()) {
-                      visionEst.ifPresentOrElse(
-                              est ->
-                                      getSimDebugField()
-                                              .getObject("VisionEstimation")
-                                              .setPose(est.estimatedPose.toPose2d()),
-                              () -> {
-                                  getSimDebugField().getObject("VisionEstimation").setPoses();
-                              });
-                  }
-              }
               
-              if (result.isEmpty()) {
+              if (!results.isEmpty()) {
+                // Camera processed a new frame since last
+                // Get the last one in the list.
+                var result = results.get(results.size() - 1);
+                if (result.hasTargets()) {
+                    // At least one AprilTag was seen by the camera
+                    for (var target : result.getTargets()) {
+
+                        visionEst = photonEstimator.update(result);
+                        if (visionEst.isEmpty()){
+                          //Robot.print("POSE IS EMPTY");
+                        }
+                        else {
+                          Robot.print("NOT EMPTY");
+                        }
+                        //Robot.print("GETTING ESTIMATED POSE");
+      
+                        updateEstimationStdDevs(visionEst, result.getTargets());
+                    }
+                }
+            }
+              
+              if (results.isEmpty()) {
                 //Robot.print("IS EMPTY");
               }
             
@@ -218,7 +217,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
           }
      
           public static Boolean getHasTarget() {
-            for (var v : result) {
+            for (var v : results) {
                     return v.hasTargets();
                 }
                             return null;

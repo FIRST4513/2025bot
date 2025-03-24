@@ -249,29 +249,29 @@ public class Robot extends LoggedRobot  {
         @Override
         public void teleopPeriodic() {
     
-            boolean targetVisible = false;
-            targetYaw = 0.0;
-            var results = Vision.camera.getAllUnreadResults();
-            if (!results.isEmpty()) {
-                // Camera processed a new frame since last
-                // Get the last one in the list.
-                var result = results.get(results.size() - 1);
-                if (result.hasTargets()) {
-                    // At least one AprilTag was seen by the camera
-                    for (var target : result.getTargets()) {
-                        if (target.getFiducialId() == 21) {
-                            Robot.print("SEEING TAG 21");
-                            // Found Tag 7, record its information
-                            targetYaw = target.getYaw();
-                            if (Math.abs(targetYaw) < 0.6) {
-                                targetYaw=0;
-                            }
-                            //Robot.print(Double.toString(targetYaw));
-                            targetVisible = true;
-                        }
-                    }
-                }
-            }
+            // boolean targetVisible = false;
+            // targetYaw = 0.0;
+            // var results = Vision.camera.getAllUnreadResults();
+            // if (!results.isEmpty()) {
+            //     // Camera processed a new frame since last
+            //     // Get the last one in the list.
+            //     var result = results.get(results.size() - 1);
+            //     if (result.hasTargets()) {
+            //         // At least one AprilTag was seen by the camera
+            //         for (var target : result.getTargets()) {
+            //             if (target.getFiducialId() == 21) {
+            //                 Robot.print("SEEING TAG 21");
+            //                 // Found Tag 7, record its information
+            //                 targetYaw = target.getYaw();
+            //                 if (Math.abs(targetYaw) < 0.6) {
+            //                     targetYaw=0;
+            //                 }
+            //                 //Robot.print(Double.toString(targetYaw));
+            //                 targetVisible = true;
+            //             }
+            //         }
+            //     }
+            // }
         }
     
         @Override
