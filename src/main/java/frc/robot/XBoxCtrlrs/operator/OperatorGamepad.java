@@ -98,6 +98,8 @@ public class OperatorGamepad extends Gamepad {
 
         gamepad.Dpad.Down.onTrue(OperatorGamepadCmds.stopAllCmd());
 
+        gamepad.Dpad.Right.onTrue(ElevatorCmds.elevatorSetState(ElevatorState.HIGHALGAE));
+
         gamepad.rightBumper.whileTrue(IntakeCmds.intakeSetTreeCmd()); 
         gamepad.rightBumper.onFalse(IntakeCmds.intakeSetStoppedCmd());
 

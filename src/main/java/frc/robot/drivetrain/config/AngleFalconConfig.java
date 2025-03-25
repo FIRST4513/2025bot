@@ -14,7 +14,7 @@ public class AngleFalconConfig {
     // private static final double kP = 1.25;   // (P)roportional value
     private static final double kP = 50;   // (P)roportional value
     private static final double kI = 0.0;   // (I)ntegral Value
-    private static final double kD = 3.0;   // (D)erivative Value
+    private static final double kD = 0.0;   // (D)erivative Value
     private static final double kV = 0.0;  // Volts/100 (?)
     private static final double kS = 0.0;  // (S)tiction Value: 
 

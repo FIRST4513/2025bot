@@ -116,9 +116,12 @@ import org.photonvision.targeting.PhotonTrackedTarget;
                 // Get the last one in the list.
                 var result = results.get(results.size() - 1);
                 if (result.hasTargets()) {
+                    //var tags = result.getBestTarget();
+                    //Robot.print(Integer.toString(tags.getFiducialId()));
+
                     // At least one AprilTag was seen by the camera
                         visionEst = photonEstimator.update(result);
-                        if (visionEst.isEmpty()){
+                        if (!visionEst.isPresent()){
                           //Robot.print("POSE IS EMPTY");
                         }
                         else {
@@ -130,10 +133,6 @@ import org.photonvision.targeting.PhotonTrackedTarget;
                 }
             }
               
-              if (results.isEmpty()) {
-                //Robot.print("IS EMPTY");
-              }
-            
               return visionEst;
           }
       

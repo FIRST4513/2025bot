@@ -134,7 +134,11 @@ public class Robot extends LoggedRobot  {
                         //frc.robot.drivetrain.OdometryThread.m_odometry.addVisionMeasurement(
                                 //est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                     });
+            if (visionEst.isEmpty()) {
+                //Robot.print("hello");
+            }
         }
+            
     
         private void intializeSubsystems() {
             Timer.delay(1);
