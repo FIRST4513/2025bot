@@ -96,8 +96,6 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetStartup());
 
-        gamepad.yButton.onTrue(new InstantCommand(()-> Vision.hasTarget()));
-
         gamepad.aButton.whileTrue(new InstantCommand(()-> robotVision()));
         gamepad.aButton.onFalse(new InstantCommand(()-> robotNoVision()));
 

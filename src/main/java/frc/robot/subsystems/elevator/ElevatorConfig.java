@@ -10,7 +10,7 @@ public class ElevatorConfig {
 
     // retract/eject speeds
     protected static final double LEVELONE    = 2.5;
-    protected static final double LEVELTWO    = 9.25;
+    protected static final double LEVELTWO    = 10.25;
     protected static final double LEVELTHREE  = 22.1;
     protected static final double LEVELFOUR   = 43.5;
     protected static final double HIGHALGAE   = 35;

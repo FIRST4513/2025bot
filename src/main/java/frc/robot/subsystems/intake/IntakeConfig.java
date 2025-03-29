@@ -7,7 +7,7 @@ public class IntakeConfig {
     protected static final double gamepieceDetectDistance = 1;
 
     // retract/eject speeds
-    protected static final double FEED = 0.25;
+    protected static final double FEED = 0.4;
     public static final double TROPH = 0;
     protected static final double TREE = -0.175;
     protected static final double HOLD = 0.05;

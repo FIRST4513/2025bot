@@ -161,9 +161,13 @@ public class Auto {
                 if (Right()) {
                 return new SequentialCommandGroup( 
                     IntakeCmds.intakeSetHoldCmd(),
-                    AutoCmds.followPath("RightToFRS").withTimeout(4.5),
+                    AutoCmds.followPath("VisionToFRS").withTimeout(4),//3.9
                     ElevatorCmds.elevatorSetLevelFour(),
-                    new WaitCommand(1.5),
+                    new WaitCommand(0.8),
+                    ElevatorCmds.elevatorSetManual(),
+                    new WaitCommand(0.03),
+                    ElevatorCmds.elevatorSetLevelFour(),
+                    new WaitCommand(0.3),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.7),
                     IntakeCmds.intakeSetStoppedCmd(),
@@ -171,13 +175,25 @@ public class Auto {
                     new WaitCommand(1),
                     ElevatorCmds.elevatorSetManual(),
                     new WaitCommand(0.03),
-                    ElevatorCmds.elevatorSetStopped()
-                    // AutoCmds.followPath("RightToIntake"),
-                    // ElevatorCmds.elevatorSetLevelTwo(),
-                    // IntakeCmds.intakeSetFeedCmd(),
-                    // new WaitCommand(3),
-                    // IntakeCmds.intakeSetHoldCmd(),
-                    // ElevatorCmds.elevatorSetBottom()
+                    ElevatorCmds.elevatorSetStopped(),
+                    AutoCmds.followPath("RightToIntake"),
+                    ElevatorCmds.elevatorSetLevelTwo(),
+                    IntakeCmds.intakeSetFeedCmd(),
+                    new WaitCommand(3),
+                    IntakeCmds.intakeSetHoldCmd(),
+                    ElevatorCmds.elevatorSetBottom(),
+                    AutoCmds.followPath("RIntakeToCR"),
+                    new WaitCommand(.3),
+                    ElevatorCmds.elevatorSetLevelFour(),
+                    new WaitCommand(1),
+                    ElevatorCmds.elevatorSetManual(),
+                    new WaitCommand(0.03),
+                    ElevatorCmds.elevatorSetLevelFour(),
+                    new WaitCommand(0.3),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(0.5),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetBottom()
 
                 );
             }

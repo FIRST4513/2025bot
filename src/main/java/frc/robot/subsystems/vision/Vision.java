@@ -111,16 +111,23 @@ import org.photonvision.targeting.PhotonTrackedTarget;
           public Optional<EstimatedRobotPose> getEstimatedGlobalPose() {
               Optional<EstimatedRobotPose> visionEst = Optional.empty();
 
-              if (!results.isEmpty()) {
+              //if (!results.isEmpty()) {
                 // Camera processed a new frame since last
                 // Get the last one in the list.
-                var result = results.get(results.size() - 1);
-                if (result.hasTargets()) {
+                for (var result : camera.getAllUnreadResults()) {
+                    if (result.hasTargets()) {
                     //var tags = result.getBestTarget();
                     //Robot.print(Integer.toString(tags.getFiducialId()));
 
                     // At least one AprilTag was seen by the camera
                         visionEst = photonEstimator.update(result);
+                        if (visionEst.isPresent()) {
+                            var posedata = visionEst.get();
+                            Robot.print("pose is" + posedata.estimatedPose.toPose2d());
+                        }
+                        else {
+                            //Robot.print("pose is EMPTY");
+                        }
                         if (!visionEst.isPresent()){
                           //Robot.print("POSE IS EMPTY");
                         }
@@ -130,7 +137,8 @@ import org.photonvision.targeting.PhotonTrackedTarget;
                         //Robot.print("GETTING ESTIMATED POSE");
       
                         updateEstimationStdDevs(visionEst, result.getTargets());
-                }
+                    }
+                //}
             }
               
               return visionEst;

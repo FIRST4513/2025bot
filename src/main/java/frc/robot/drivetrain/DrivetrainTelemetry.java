@@ -42,7 +42,7 @@ public class DrivetrainTelemetry {
 
 
         
-        tab.addCamera("camera", "camera", "http://10.45.13.11:1181/stream.mjpg").withPosition(1,1).withSize(4, 4);
+        //tab.addCamera("camera", "camera", "http://10.45.13.11:1181/stream.mjpg").withPosition(1,1).withSize(4, 4);
     }
 
     public ShuffleboardLayout moduleLayout(String name, int moduleNum, ShuffleboardTab tab) {

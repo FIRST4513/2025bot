@@ -17,7 +17,7 @@ public class Constants {
     // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     // TODO: make real
         public static final Transform3d kRobotToCam =
-            new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0, 0, 0));
+            new Transform3d(new Translation3d(0.3048, -0.2286, 0.1524), new Rotation3d(0, 0.0872665, 0));
 
     // TODO: make real
         public static final String kCameraName = "Apriltag Camera";
@@ -28,7 +28,7 @@ public class Constants {
 
         // The standard deviations of our vision estimated poses, which affect correction rate
         // (Fake values. Experiment and determine estimation noise on an actual robot.)
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(2, 2, 4);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
 
     }
