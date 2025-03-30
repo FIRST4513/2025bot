@@ -2,6 +2,7 @@ package frc.robot.auto;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Robot;
 import frc.robot.Robot.TeamAlliance;
 import frc.robot.drivetrain.DrivetrainSubSys;
@@ -31,6 +33,7 @@ public class Auto {
     public static String actionSelect;
     public static String positionSelect;
     private static Pose2d startPose;
+    public static PathPlannerAuto autoCommand;
     
     static int oneEighty;
         // ----- Autonomous Subsystem Constructor -----
@@ -62,7 +65,7 @@ public class Auto {
         
         public static Command getAutonomousCommand() {
             getAutoSelections();
-            setStartPose();                 // Initialize Robot Pose on Field
+            //setStartPose();                 // Initialize Robot Pose on Field
     
 
             // ------------------------------- Do Nothing ---------------------------
@@ -161,40 +164,61 @@ public class Auto {
                 if (Right()) {
                 return new SequentialCommandGroup( 
                     IntakeCmds.intakeSetHoldCmd(),
-                    AutoCmds.followPath("VisionToFRS").withTimeout(4),//3.9
-                    ElevatorCmds.elevatorSetLevelFour(),
-                    new WaitCommand(0.8),
-                    ElevatorCmds.elevatorSetManual(),
-                    new WaitCommand(0.03),
-                    ElevatorCmds.elevatorSetLevelFour(),
-                    new WaitCommand(0.3),
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            new WaitCommand(1.75),
+                            ElevatorCmds.elevatorSetLevelFour(),
+                            new WaitCommand(0.7),
+                            ElevatorCmds.elevatorSetManual(),
+                            new WaitCommand(0.03),
+                            ElevatorCmds.elevatorSetLevelFour()
+                        ),
+                        AutoCmds.followPath("VisionToFRS")
+                    ),
+                    new WaitCommand(0.15),
                     IntakeCmds.intakeSetTreeCmd(),
-                    new WaitCommand(0.7),
+                    new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
-                    ElevatorCmds.elevatorSetBottom(),
-                    new WaitCommand(1),
-                    ElevatorCmds.elevatorSetManual(),
-                    new WaitCommand(0.03),
-                    ElevatorCmds.elevatorSetStopped(),
+                    ElevatorCmds.elevatorSetIntake(),
+
+                    new ParallelCommandGroup(
                     AutoCmds.followPath("RightToIntake"),
-                    ElevatorCmds.elevatorSetLevelTwo(),
-                    IntakeCmds.intakeSetFeedCmd(),
-                    new WaitCommand(3),
-                    IntakeCmds.intakeSetHoldCmd(),
-                    ElevatorCmds.elevatorSetBottom(),
-                    AutoCmds.followPath("RIntakeToCR"),
-                    new WaitCommand(.3),
-                    ElevatorCmds.elevatorSetLevelFour(),
-                    new WaitCommand(1),
-                    ElevatorCmds.elevatorSetManual(),
-                    new WaitCommand(0.03),
-                    ElevatorCmds.elevatorSetLevelFour(),
+                    new SequentialCommandGroup(
+                        new WaitCommand(1),
+                        IntakeCmds.intakeSetFeedCmd()
+                        )
+                    ),
+                    new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+                    new WaitCommand(0.1),
+
+
+
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            new WaitCommand(2.5),
+                            ElevatorCmds.elevatorSetLevelFour(),
+                            new WaitCommand(0.7),
+                            ElevatorCmds.elevatorSetManual(),
+                            new WaitCommand(0.03),
+                            ElevatorCmds.elevatorSetLevelFour()
+                        ),
+                        AutoCmds.followPath("RIntakeToCR")
+                    ),
                     new WaitCommand(0.3),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
-                    ElevatorCmds.elevatorSetBottom()
+                    ElevatorCmds.elevatorSetIntake(),
 
+                    new ParallelCommandGroup(
+                    AutoCmds.followPath("CRToIntake"),
+                    new SequentialCommandGroup(
+                        new WaitCommand(0.5),
+                        IntakeCmds.intakeSetFeedCmd()
+                        )
+                    ),
+                    new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+                    new WaitCommand(0.1)
                 );
             }
 
@@ -392,5 +416,11 @@ public class Auto {
         return false;
     }
 
+    private static void onTrigger() {
+        autoCommand = new PathPlannerAuto("VisionToFRS");
+        autoCommand.event("raiseToL4").onTrue(ElevatorCmds.elevatorSetLevelFour());
+
+
+    }
 
 }
