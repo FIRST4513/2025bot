@@ -173,19 +173,20 @@ public class Auto {
                             new WaitCommand(0.03),
                             ElevatorCmds.elevatorSetLevelFour()
                         ),
-                        AutoCmds.followPath("VisionToFRS")
+                        AutoCmds.followPath("RightToFRS")
                     ),
                     new WaitCommand(0.15),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
-                    ElevatorCmds.elevatorSetIntake(),
+                    ElevatorCmds.elevatorSetBottom(),
 
                     new ParallelCommandGroup(
-                    AutoCmds.followPath("RightToIntake"),
-                    new SequentialCommandGroup(
-                        new WaitCommand(1),
-                        IntakeCmds.intakeSetFeedCmd()
+                        AutoCmds.followPath("RightToIntake"),
+                        new SequentialCommandGroup(
+                            new WaitCommand(2.5),
+                            ElevatorCmds.elevatorSetIntake(),
+                            IntakeCmds.intakeSetFeedCmd()
                         )
                     ),
                     new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
@@ -306,8 +307,8 @@ public class Auto {
             Robot.swerve::getChassisSpeeds,       // Supplier<ChassisSpeeds> -----> MUST BE ROBOT RELATIVE
             Robot.swerve::driveByChassisSpeeds,   // Consumer<ChassisSpeeds> -----> Set robot relative speeds (drive)
             new PPHolonomicDriveController(
-                 new PIDConstants(1, 0.55, 0.7555), // Translation PID constants
-                 new PIDConstants(1.0, 0.0, 0.0) // Rotation PID constants
+                 new PIDConstants(3.5, 0.55, 0.7555), // Translation PID constants 1, 0.55, 0.7555
+                 new PIDConstants(1.5, 0.0, 0.0) // Rotation PID constants
             ),    // HolonomicPathFollowerConfig -> config for configuring path commands
             config,
             ()->false,                // BooleanSupplier -------------> Should mirror/flip path

@@ -56,6 +56,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
  
  public class Vision {
      public final static PhotonCamera camera = new PhotonCamera(kCameraName);
+     public final static PhotonCamera topcamera = new PhotonCamera(ktCameraName);
      private final PhotonPoseEstimator photonEstimator;
      private Matrix<N3, N1> curStdDevs;
  
@@ -108,38 +109,51 @@ import org.photonvision.targeting.PhotonTrackedTarget;
            * @return An {@link EstimatedRobotPose} with an estimated pose, estimate timestamp, and targets
            *     used for estimation.
            */
-          public Optional<EstimatedRobotPose> getEstimatedGlobalPose() {
+          public Optional<EstimatedRobotPose> getEstimatedGlobalPose(PhotonCamera cam) {
               Optional<EstimatedRobotPose> visionEst = Optional.empty();
 
               //if (!results.isEmpty()) {
                 // Camera processed a new frame since last
                 // Get the last one in the list.
-                for (var result : camera.getAllUnreadResults()) {
-                    if (result.hasTargets()) {
-                    //var tags = result.getBestTarget();
-                    //Robot.print(Integer.toString(tags.getFiducialId()));
-
-                    // At least one AprilTag was seen by the camera
-                        visionEst = photonEstimator.update(result);
-                        if (visionEst.isPresent()) {
-                            var posedata = visionEst.get();
-                            Robot.print("pose is" + posedata.estimatedPose.toPose2d());
-                        }
-                        else {
-                            //Robot.print("pose is EMPTY");
-                        }
-                        if (!visionEst.isPresent()){
-                          //Robot.print("POSE IS EMPTY");
-                        }
-                        else {
-                          Robot.print("NOT EMPTY");
-                        }
-                        //Robot.print("GETTING ESTIMATED POSE");
-      
-                        updateEstimationStdDevs(visionEst, result.getTargets());
+                for (var result : cam.getAllUnreadResults()) {
+                    if (cam == topcamera) {
+                        for (var target : result.getTargets())
+                            if (target.getFiducialId() == 1 || target.getFiducialId() == 2 ||target.getFiducialId() == 12 ||target.getFiducialId() == 13) {
+                                if (result.hasTargets()) {
+                                    //var tags = result.getBestTarget();
+                                    //Robot.print(Integer.toString(tags.getFiducialId()));
+                
+                                    // At least one AprilTag was seen by the camera
+                                        visionEst = photonEstimator.update(result);
+                                        if (visionEst.isPresent()) {
+                                            var posedata = visionEst.get();
+                                            Robot.print("pose is" + posedata.estimatedPose.toPose2d());
+                                        }
+                      
+                                        updateEstimationStdDevs(visionEst, result.getTargets());
+                                    }
+                            }
+                        
                     }
+                    else {
+                        if (result.hasTargets()) {
+                            //var tags = result.getBestTarget();
+                            //Robot.print(Integer.toString(tags.getFiducialId()));
+        
+                            // At least one AprilTag was seen by the camera
+                                visionEst = photonEstimator.update(result);
+                                if (visionEst.isPresent()) {
+                                    var posedata = visionEst.get();
+                                    Robot.print("pose is" + posedata.estimatedPose.toPose2d());
+                                }
+              
+                                updateEstimationStdDevs(visionEst, result.getTargets());
+                            }
+                    }
+
                 //}
             }
+           
               
               return visionEst;
           }

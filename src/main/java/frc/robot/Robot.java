@@ -120,11 +120,12 @@ public class Robot extends LoggedRobot  {
             //Robot.print(Double.toString(ElevatorSubSys.getRotations()));
 
 
-            var visionEst = vision.getEstimatedGlobalPose();
+            var visionEst = vision.getEstimatedGlobalPose(Vision.camera);
+            var topVisionEst = vision.getEstimatedGlobalPose(Vision.topcamera);
     
             visionEst.ifPresent(
                     est -> {
-                        Robot.print("POSE PRESENT");
+                        //Robot.print("BOTTOM POSE PRESENT");
                         // Change our trust in the measurement based on the tags we can see
                         var estStdDevs = vision.getEstimationStdDevs();
     
@@ -134,6 +135,22 @@ public class Robot extends LoggedRobot  {
                         //frc.robot.drivetrain.OdometryThread.m_odometry.addVisionMeasurement(
                                 //est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                     });
+            if (visionEst.isEmpty()) {
+                //Robot.print("hello");
+            }
+            topVisionEst.ifPresent(
+                est -> {
+                    
+                    Robot.print("TOP POSE PRESENT");
+                    // Change our trust in the measurement based on the tags we can see
+                    var estStdDevs = vision.getEstimationStdDevs();
+
+                    frc.robot.drivetrain.OdometryThread.printAndReset(
+                        est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs
+                    );
+                    //frc.robot.drivetrain.OdometryThread.m_odometry.addVisionMeasurement(
+                            //est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                });
             if (visionEst.isEmpty()) {
                 //Robot.print("hello");
             }
