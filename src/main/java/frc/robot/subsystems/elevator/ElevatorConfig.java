@@ -10,9 +10,9 @@ public class ElevatorConfig {
 
     // retract/eject speeds
     protected static final double LEVELONE    = 2.5;
-    protected static final double LEVELTWO    = 10.25;
-    protected static final double LEVELTHREE  = 22.1;
-    protected static final double LEVELFOUR   = 43.25;
+    protected static final double LEVELTWO    = 9;
+    protected static final double LEVELTHREE  = 21.1;
+    protected static final double LEVELFOUR   = 42.5;
     protected static final double HIGHALGAE   = 35;
     protected static final double BOTTOM      = 0;
     protected static final double INTAKE      = 11;
@@ -50,8 +50,8 @@ public class ElevatorConfig {
         private static final double nonload_kI = 0.0;   // (I)ntegral Value
         private static final double nonload_kD = 0.1;   // (D)erivative Value
         private static final double nonload_kV = 0.12;  // Volts/100 (?)
-        private static final double nonload_kS = 0.1;  // (S)tiction Value:
-        private static final double nonload_kG = 0.45;
+        private static final double nonload_kS = .9;  // (S)tiction Value:
+        private static final double nonload_kG = 0.4;
     
         private static final boolean enableCurrentLimitting = true;
         private static final double  suppCurrent = 40;      // Max Amps allowed in Supply

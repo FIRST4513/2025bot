@@ -166,7 +166,7 @@ public class Auto {
                     IntakeCmds.intakeSetHoldCmd(),
                     new ParallelCommandGroup(
                         new SequentialCommandGroup(
-                            new WaitCommand(1.75),
+                            new WaitCommand(1.25),
                             ElevatorCmds.elevatorSetLevelFour(),
                             new WaitCommand(0.7),
                             ElevatorCmds.elevatorSetManual(),
@@ -175,7 +175,7 @@ public class Auto {
                         ),
                         AutoCmds.followPath("RightToFRS")
                     ),
-                    new WaitCommand(0.15),
+                    new WaitCommand(0.25),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
@@ -196,7 +196,7 @@ public class Auto {
 
                     new ParallelCommandGroup(
                         new SequentialCommandGroup(
-                            new WaitCommand(2.5),
+                            new WaitCommand(2),
                             ElevatorCmds.elevatorSetLevelFour(),
                             new WaitCommand(0.7),
                             ElevatorCmds.elevatorSetManual(),
@@ -307,11 +307,11 @@ public class Auto {
             Robot.swerve::getChassisSpeeds,       // Supplier<ChassisSpeeds> -----> MUST BE ROBOT RELATIVE
             Robot.swerve::driveByChassisSpeeds,   // Consumer<ChassisSpeeds> -----> Set robot relative speeds (drive)
             new PPHolonomicDriveController(
-                 new PIDConstants(3.5, 0.55, 0.7555), // Translation PID constants 1, 0.55, 0.7555
-                 new PIDConstants(1.5, 0.0, 0.0) // Rotation PID constants
+                 new PIDConstants(3.5, 0.75, 0.7555), // Translation PID constants 1, 0.55, 0.7555
+                 new PIDConstants(1.5, 0.5, 0.5) // Rotation PID constants
             ),    // HolonomicPathFollowerConfig -> config for configuring path commands
             config,
-            ()->false,                // BooleanSupplier -------------> Should mirror/flip path
+            ()->getAllianceFlip(),                // BooleanSupplier -------------> Should mirror/flip path
             //() -> false,                        // BooleanSupplier -------------> Should mirror/flip path
             Robot.swerve                          // Subsystem: ------------------> required subsystem (usually swerve)
         );
@@ -322,7 +322,7 @@ public class Auto {
         // This will flip the path being followed to the red side of the field.
 
         if ((DriverStation.isAutonomous()) && (Robot.alliance == TeamAlliance.RED) ) {
-            // Were in Autonomous Mode and Alliance is Red, so invert field
+            // We're in Autonomous Mode and Alliance is Red, so invert field
             return true;
         } else {
         // Not Autonomous or Alliance is Blue so dont invert field
