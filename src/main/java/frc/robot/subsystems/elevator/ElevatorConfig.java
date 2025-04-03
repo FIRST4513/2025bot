@@ -8,9 +8,9 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 public class ElevatorConfig {
     // IR Prox distance value for detection of a gamepiece
 
-    // retract/eject speeds
+    //ELEVATOR HEIGHTS IN INCHES FROM BOTTOM OF GAMEPIECE = 21 + (1.2 * revolutions)
     protected static final double LEVELONE    = 2.5;
-    protected static final double LEVELTWO    = 9;
+    protected static final double LEVELTWO    = 8.5;
     protected static final double LEVELTHREE  = 21.1;
     protected static final double LEVELFOUR   = 42.5;
     protected static final double HIGHALGAE   = 35;
@@ -46,12 +46,12 @@ public class ElevatorConfig {
         private static final double mmAcceleration   = 200;  // ~0.5 seconds to max vel.
         private static final double mmJerk           = 0;  // ~0.2 seconds to max accel.
     
-        private static final double nonload_kP = 0.0;   // (P)roportional value
-        private static final double nonload_kI = 0.0;   // (I)ntegral Value
-        private static final double nonload_kD = 0.1;   // (D)erivative Value
+        private static final double nonload_kP = 2;   // (P)roportional value
+        private static final double nonload_kI = 0.4;   // (I)ntegral Value
+        private static final double nonload_kD = 0.3;   // (D)erivative Value
         private static final double nonload_kV = 0.12;  // Volts/100 (?)
-        private static final double nonload_kS = .9;  // (S)tiction Value:
-        private static final double nonload_kG = 0.4;
+        private static final double nonload_kS = .1;  // (S)tiction Value:
+        private static final double nonload_kG = 0.45;
     
         private static final boolean enableCurrentLimitting = true;
         private static final double  suppCurrent = 40;      // Max Amps allowed in Supply

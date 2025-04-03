@@ -167,10 +167,6 @@ public class Auto {
                     new ParallelCommandGroup(
                         new SequentialCommandGroup(
                             new WaitCommand(1.25),
-                            ElevatorCmds.elevatorSetLevelFour(),
-                            new WaitCommand(0.7),
-                            ElevatorCmds.elevatorSetManual(),
-                            new WaitCommand(0.03),
                             ElevatorCmds.elevatorSetLevelFour()
                         ),
                         AutoCmds.followPath("RightToFRS")
@@ -197,10 +193,6 @@ public class Auto {
                     new ParallelCommandGroup(
                         new SequentialCommandGroup(
                             new WaitCommand(2),
-                            ElevatorCmds.elevatorSetLevelFour(),
-                            new WaitCommand(0.7),
-                            ElevatorCmds.elevatorSetManual(),
-                            new WaitCommand(0.03),
                             ElevatorCmds.elevatorSetLevelFour()
                         ),
                         AutoCmds.followPath("RIntakeToCR")
