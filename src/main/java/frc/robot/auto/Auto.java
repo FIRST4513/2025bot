@@ -52,7 +52,7 @@ public class Auto {
             actionChooser.addOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
             actionChooser.setDefaultOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
             actionChooser.addOption(         "Line To Reef",            AutoConfig.kActionLineToReef);
-            actionChooser.addOption("Right to Score", AutoConfig.kActionRightToScore);
+            actionChooser.addOption("Level 4", AutoConfig.kActionLevel4);
         }
     
         // ------ Get operator selected responses from shuffleboard -----
@@ -142,7 +142,7 @@ public class Auto {
                 }
     
             }
-            if (RightToScore()) {
+            if (Level4()) {
 
                 if (Center()) {
                     return new SequentialCommandGroup( 
@@ -214,6 +214,60 @@ public class Auto {
                     new WaitCommand(0.1)
                 );
             }
+                if (Left()) {
+                    return new SequentialCommandGroup( 
+                    IntakeCmds.intakeSetHoldCmd(),
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            new WaitCommand(1.25),
+                            ElevatorCmds.elevatorSetLevelFour()
+                        ),
+                        AutoCmds.followPath("LeftToFLS")
+                    ),
+                    new WaitCommand(0.25),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(0.5),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetBottom(),
+
+                    new ParallelCommandGroup(
+                        AutoCmds.followPath("LeftToIntake"),
+                        new SequentialCommandGroup(
+                            new WaitCommand(2.5),
+                            ElevatorCmds.elevatorSetIntake(),
+                            IntakeCmds.intakeSetFeedCmd()
+                        )
+                    ),
+                    new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+                    new WaitCommand(0.1),
+
+
+
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            new WaitCommand(2),
+                            ElevatorCmds.elevatorSetLevelFour()
+                        ),
+                        AutoCmds.followPath("LIntakeToCL")
+                    ),
+                    new WaitCommand(0.3),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(0.5),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetIntake(),
+
+                    new ParallelCommandGroup(
+                    AutoCmds.followPath("CLToIntake"),
+                    new SequentialCommandGroup(
+                        new WaitCommand(0.5),
+                        IntakeCmds.intakeSetFeedCmd()
+                        )
+                    ),
+                    new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+                    new WaitCommand(0.1)
+                );
+
+                }
 
         }
             if (TwoPiece()) {
@@ -257,23 +311,6 @@ public class Auto {
                 );
             }
 
-
-
-        // ------------------------------ Three Note  -------------------------------
-        /*if (threeNote()) {
-            System.out.println("********* Three Selection *********");
-            if (red()) {
-                Robot.print("REEDDDDDD");
-                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "RedSpkrLeft"); }
-                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "RedSpkrCtr2ndNote", "RedSpkrCtr2ndNoteReturn", "RedSpkrCtr", "RedSpkrCtrReturn"); }
-                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "RedSpkrRight"); }
-            } else {
-                Robot.print("BLUEEEEE");
-                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
-                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "BlueSpkrCtr2ndNote", "BlueSpkrCtr2ndNoteReturn", "BlueSpkrCtr", "BlueSpkrCtrReturn"); }
-                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "BlueSpkrRight"); }
-            }
-        }*/
 
         // should never get here
         return AutoCmds.DoNothingCmd();
@@ -375,8 +412,8 @@ public class Auto {
         return false;
     }
     
-    private static boolean RightToScore() {
-        if (actionSelect.equals(AutoConfig.kActionRightToScore)) { return true; }
+    private static boolean Level4() {
+        if (actionSelect.equals(AutoConfig.kActionLevel4)) { return true; }
         return false;
     }
     

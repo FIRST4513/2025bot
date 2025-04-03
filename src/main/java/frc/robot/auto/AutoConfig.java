@@ -14,7 +14,7 @@ public class AutoConfig {
     public static final String kActionDoNothing         = "Do Nothing";
     public static final String kCrossOnlySelect         = "Crossline";
     public static final String kActionLineToReef     = "Line to Reef";
-    public static final String kActionRightToScore = "Right to Score";
+    public static final String kActionLevel4 = "Level 4";
     public static final String kActionTwoPiece = "Two Piece";
     // variables for tuning
     public static final double translationkP = 1;  // PID value (P)roportional
