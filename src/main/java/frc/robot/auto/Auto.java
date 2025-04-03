@@ -147,17 +147,18 @@ public class Auto {
                 if (Center()) {
                     return new SequentialCommandGroup( 
                         IntakeCmds.intakeSetHoldCmd(),
-                        AutoCmds.followPath("CenterToFC").withTimeout(4.5),
-                        ElevatorCmds.elevatorSetLevelFour(),
-                        new WaitCommand(1.5),
-                        IntakeCmds.intakeSetTreeCmd(),
-                        new WaitCommand(0.7),
-                        IntakeCmds.intakeSetStoppedCmd(),
-                        ElevatorCmds.elevatorSetBottom(),
+                        new WaitCommand(5),
+                        new ParallelCommandGroup(
+                            ElevatorCmds.elevatorSetLevelFour(),
+                            AutoCmds.followPath("CenterToFC")
+                        ),
                         new WaitCommand(1),
-                        ElevatorCmds.elevatorSetManual(),
-                        new WaitCommand(0.03),
-                        ElevatorCmds.elevatorSetStopped()
+                        IntakeCmds.intakeSetTreeCmd(),
+                        new WaitCommand(0.5),
+                        ElevatorCmds.elevatorSetLevelOne(),
+                        IntakeCmds.intakeStopCmd()
+
+
                     );
                 }
     
