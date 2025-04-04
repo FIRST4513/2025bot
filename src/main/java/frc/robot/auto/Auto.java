@@ -172,7 +172,7 @@ public class Auto {
                         ),
                         AutoCmds.followPath("RightToFRS")
                     ),
-                    new WaitCommand(0.25),
+                    new WaitCommand(1),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
@@ -198,7 +198,7 @@ public class Auto {
                         ),
                         AutoCmds.followPath("RIntakeToCR")
                     ),
-                    new WaitCommand(0.3),
+                    new WaitCommand(0.75),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
@@ -225,7 +225,7 @@ public class Auto {
                         ),
                         AutoCmds.followPath("LeftToFLS")
                     ),
-                    new WaitCommand(0.25),
+                    new WaitCommand(2),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
@@ -251,7 +251,7 @@ public class Auto {
                         ),
                         AutoCmds.followPath("LIntakeToCL")
                     ),
-                    new WaitCommand(0.3),
+                    new WaitCommand(0.75),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
