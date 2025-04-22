@@ -251,7 +251,7 @@ public class Auto {
                         ),
                         AutoCmds.followPath("LIntakeToCL")
                     ),
-                    new WaitCommand(0.75),
+                    new WaitCommand(0.75    ),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
@@ -337,7 +337,7 @@ public class Auto {
             Robot.swerve::getChassisSpeeds,       // Supplier<ChassisSpeeds> -----> MUST BE ROBOT RELATIVE
             Robot.swerve::driveByChassisSpeeds,   // Consumer<ChassisSpeeds> -----> Set robot relative speeds (drive)
             new PPHolonomicDriveController(
-                 new PIDConstants(3.5, 0.75, 0.7555), // Translation PID constants 1, 0.55, 0.7555
+                 new PIDConstants(0.1, 0.0, 0.0), // Translation PID constants 3.5, 0.75, 0.7555
                  new PIDConstants(1.5, 0.5, 0.5) // Rotation PID constants
             ),    // HolonomicPathFollowerConfig -> config for configuring path commands
             config,

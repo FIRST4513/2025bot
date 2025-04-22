@@ -17,13 +17,13 @@ public class AutoConfig {
     public static final String kActionLevel4 = "Level 4";
     public static final String kActionTwoPiece = "Two Piece";
     // variables for tuning
-    public static final double translationkP = 1;  // PID value (P)roportional
-    public static final double translationkI = 0;  // PID value (I)ntegral
-    public static final double translationkD = 4;  // PID value (D)erivative
+    // public static final double translationkP = 1;  // PID value (P)roportional
+    // public static final double translationkI = 0;  // PID value (I)ntegral
+    // public static final double translationkD = 4;  // PID value (D)erivative
 
-    public static final double rotationkP = 3.0;  // PID value (P)roportional
-    public static final double rotationkI = 0.0;  // PID value (I)ntegral
-    public static final double rotationkD = 0.0;  // PID value (D)erivative
+    // public static final double rotationkP = 3.0;  // PID value (P)roportional
+    // public static final double rotationkI = 0.0;  // PID value (I)ntegral
+    // public static final double rotationkD = 0.0;  // PID value (D)erivative
 
     /* Swerve Conroller Constants */
     public static final double kMaxSpeed = 2;     // note: doesn't seem to do much //I'm going to start making people add name and date to code comments -Nathaniel 3/3/25
