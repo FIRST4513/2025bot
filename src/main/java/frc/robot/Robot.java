@@ -15,6 +15,7 @@ import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepad;
 import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
 import frc.robot.auto.Auto;
+import frc.robot.auto.AutoTelemetry;
 import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.subsystems.climber.ClimberSubSys;
@@ -71,7 +72,7 @@ public class Robot extends LoggedRobot  {
         public static ElevatorSubSys elevator;
         public static Auto auto;
         public static Vision vision;
-        //private static LaserCan lc;
+        public static AutoTelemetry autoTelemetry;
         
             //public static orchestraSubSys orchestra;
             // Automation and Assists
@@ -107,6 +108,7 @@ public class Robot extends LoggedRobot  {
             DataLogManager.start();
             DriverStation.startDataLog(DataLogManager.getLog());
             initAdvantageKitLogger();   // This logger replaces the WPI Data logger methods
+            autoTelemetry = new AutoTelemetry();
         }
     
         @Override
@@ -154,6 +156,7 @@ public class Robot extends LoggedRobot  {
             if (visionEst.isEmpty()) {
                 //Robot.print("hello");
             }
+            autoTelemetry.update();
         }
             
     

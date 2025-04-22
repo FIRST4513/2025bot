@@ -25,6 +25,7 @@ import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 import frc.robot.subsystems.finger.FingerCmds;
 import frc.robot.subsystems.intake.commands.IntakeCmds;
 import frc.util.FieldConstants;
+import edu.wpi.first.math.controller.PIDController;
 
 public class Auto {
     public static final SendableChooser<String> actionChooser = new SendableChooser<>();
@@ -34,6 +35,10 @@ public class Auto {
     public static String positionSelect;
     private static Pose2d startPose;
     public static PathPlannerAuto autoCommand;
+    
+    // Add PID controllers
+    public static PIDController translationPID = new PIDController(0.1, 0.0, 0.0);
+    public static PIDController rotationPID = new PIDController(1.5, 0.5, 0.5);
     
     static int oneEighty;
         // ----- Autonomous Subsystem Constructor -----
