@@ -74,7 +74,10 @@ public class RobotTelemetry extends TelemetrySubsystem {
         // Auto Info
         tab.add("Action Selection",     Auto.actionChooser)             .withPosition(0, 2).withSize(3, 2);
         tab.add("Position Selection",   Auto.positionChooser)           .withPosition(0, 4).withSize(3, 2);
-/*
+
+        /*
+
+    
         // Match Time
         tab.addNumber("Match Time", () -> Timer.getMatchTime())         .withPosition(3, 0)
                                                                         .withSize(3, 3)
