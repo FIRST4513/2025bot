@@ -53,7 +53,7 @@ public class AutoTelemetry {
     }
 
     public void update() {
-        // Get the current values from NetworkTables
+        // First, check if Shuffleboard values have changed and update PID controllers if needed
         double translationP = translationPWidget.getEntry().getDouble(0.1);
         double translationI = translationIWidget.getEntry().getDouble(0.0);
         double translationD = translationDWidget.getEntry().getDouble(0.0);
@@ -61,7 +61,7 @@ public class AutoTelemetry {
         double rotationI = rotationIWidget.getEntry().getDouble(0.5);
         double rotationD = rotationDWidget.getEntry().getDouble(0.5);
 
-        // Update the PID constants in Auto.java if they've changed
+        // Update the PID constants in Auto.java if they've changed in Shuffleboard
         if (translationP != Auto.translationPID.getP() ||
             translationI != Auto.translationPID.getI() ||
             translationD != Auto.translationPID.getD() ||
@@ -71,6 +71,26 @@ public class AutoTelemetry {
             
             Auto.translationPID.setPID(translationP, translationI, translationD);
             Auto.rotationPID.setPID(rotationP, rotationI, rotationD);
+        }
+
+        // Then, check if PID values have changed outside of Shuffleboard and update widgets if needed
+        if (translationP != Auto.translationPID.getP()) {
+            translationPWidget.getEntry().setDouble(Auto.translationPID.getP());
+        }
+        if (translationI != Auto.translationPID.getI()) {
+            translationIWidget.getEntry().setDouble(Auto.translationPID.getI());
+        }
+        if (translationD != Auto.translationPID.getD()) {
+            translationDWidget.getEntry().setDouble(Auto.translationPID.getD());
+        }
+        if (rotationP != Auto.rotationPID.getP()) {
+            rotationPWidget.getEntry().setDouble(Auto.rotationPID.getP());
+        }
+        if (rotationI != Auto.rotationPID.getI()) {
+            rotationIWidget.getEntry().setDouble(Auto.rotationPID.getI());
+        }
+        if (rotationD != Auto.rotationPID.getD()) {
+            rotationDWidget.getEntry().setDouble(Auto.rotationPID.getD());
         }
     }
 } 
