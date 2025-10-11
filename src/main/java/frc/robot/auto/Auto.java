@@ -25,6 +25,7 @@ import frc.robot.subsystems.elevator.commands.ElevatorCmds;
 import frc.robot.subsystems.finger.FingerCmds;
 import frc.robot.subsystems.intake.commands.IntakeCmds;
 import frc.util.FieldConstants;
+import edu.wpi.first.math.controller.PIDController;
 
 public class Auto {
     public static final SendableChooser<String> actionChooser = new SendableChooser<>();
@@ -34,6 +35,10 @@ public class Auto {
     public static String positionSelect;
     private static Pose2d startPose;
     public static PathPlannerAuto autoCommand;
+    
+    // Add PID controllers
+    public static PIDController translationPID = new PIDController(0.1, 0.0, 0.0);
+    public static PIDController rotationPID = new PIDController(1.5, 0.5, 0.5);
     
     static int oneEighty;
         // ----- Autonomous Subsystem Constructor -----
@@ -52,7 +57,7 @@ public class Auto {
             actionChooser.addOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
             actionChooser.setDefaultOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
             actionChooser.addOption(         "Line To Reef",            AutoConfig.kActionLineToReef);
-            actionChooser.addOption("Right to Score", AutoConfig.kActionRightToScore);
+            actionChooser.addOption("Level 4", AutoConfig.kActionLevel4);
         }
     
         // ------ Get operator selected responses from shuffleboard -----
@@ -142,22 +147,23 @@ public class Auto {
                 }
     
             }
-            if (RightToScore()) {
+            if (Level4()) {
 
                 if (Center()) {
                     return new SequentialCommandGroup( 
                         IntakeCmds.intakeSetHoldCmd(),
-                        AutoCmds.followPath("CenterToFC").withTimeout(4.5),
-                        ElevatorCmds.elevatorSetLevelFour(),
-                        new WaitCommand(1.5),
-                        IntakeCmds.intakeSetTreeCmd(),
-                        new WaitCommand(0.7),
-                        IntakeCmds.intakeSetStoppedCmd(),
-                        ElevatorCmds.elevatorSetBottom(),
+                        new WaitCommand(5),
+                        new ParallelCommandGroup(
+                            ElevatorCmds.elevatorSetLevelFour(),
+                            AutoCmds.followPath("CenterToFC")
+                        ),
                         new WaitCommand(1),
-                        ElevatorCmds.elevatorSetManual(),
-                        new WaitCommand(0.03),
-                        ElevatorCmds.elevatorSetStopped()
+                        IntakeCmds.intakeSetTreeCmd(),
+                        new WaitCommand(0.5),
+                        ElevatorCmds.elevatorSetLevelOne(),
+                        IntakeCmds.intakeStopCmd()
+
+
                     );
                 }
     
@@ -166,26 +172,23 @@ public class Auto {
                     IntakeCmds.intakeSetHoldCmd(),
                     new ParallelCommandGroup(
                         new SequentialCommandGroup(
-                            new WaitCommand(1.75),
-                            ElevatorCmds.elevatorSetLevelFour(),
-                            new WaitCommand(0.7),
-                            ElevatorCmds.elevatorSetManual(),
-                            new WaitCommand(0.03),
+                            new WaitCommand(1.25),
                             ElevatorCmds.elevatorSetLevelFour()
                         ),
-                        AutoCmds.followPath("VisionToFRS")
+                        AutoCmds.followPath("RightToFRS")
                     ),
-                    new WaitCommand(0.15),
+                    new WaitCommand(1),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
-                    ElevatorCmds.elevatorSetIntake(),
+                    ElevatorCmds.elevatorSetBottom(),
 
                     new ParallelCommandGroup(
-                    AutoCmds.followPath("RightToIntake"),
-                    new SequentialCommandGroup(
-                        new WaitCommand(1),
-                        IntakeCmds.intakeSetFeedCmd()
+                        AutoCmds.followPath("RightToIntake"),
+                        new SequentialCommandGroup(
+                            new WaitCommand(2.5),
+                            ElevatorCmds.elevatorSetIntake(),
+                            IntakeCmds.intakeSetFeedCmd()
                         )
                     ),
                     new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
@@ -195,16 +198,12 @@ public class Auto {
 
                     new ParallelCommandGroup(
                         new SequentialCommandGroup(
-                            new WaitCommand(2.5),
-                            ElevatorCmds.elevatorSetLevelFour(),
-                            new WaitCommand(0.7),
-                            ElevatorCmds.elevatorSetManual(),
-                            new WaitCommand(0.03),
+                            new WaitCommand(2),
                             ElevatorCmds.elevatorSetLevelFour()
                         ),
                         AutoCmds.followPath("RIntakeToCR")
                     ),
-                    new WaitCommand(0.3),
+                    new WaitCommand(0.75),
                     IntakeCmds.intakeSetTreeCmd(),
                     new WaitCommand(0.5),
                     IntakeCmds.intakeSetStoppedCmd(),
@@ -221,6 +220,60 @@ public class Auto {
                     new WaitCommand(0.1)
                 );
             }
+                if (Left()) {
+                    return new SequentialCommandGroup( 
+                    IntakeCmds.intakeSetHoldCmd(),
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            new WaitCommand(1.25),
+                            ElevatorCmds.elevatorSetLevelFour()
+                        ),
+                        AutoCmds.followPath("LeftToFLS")
+                    ),
+                    new WaitCommand(2),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(0.5),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetBottom(),
+
+                    new ParallelCommandGroup(
+                        AutoCmds.followPath("LeftToIntake"),
+                        new SequentialCommandGroup(
+                            new WaitCommand(2.5),
+                            ElevatorCmds.elevatorSetIntake(),
+                            IntakeCmds.intakeSetFeedCmd()
+                        )
+                    ),
+                    new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+                    new WaitCommand(0.1),
+
+
+
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                            new WaitCommand(2),
+                            ElevatorCmds.elevatorSetLevelFour()
+                        ),
+                        AutoCmds.followPath("LIntakeToCL")
+                    ),
+                    new WaitCommand(0.75    ),
+                    IntakeCmds.intakeSetTreeCmd(),
+                    new WaitCommand(0.5),
+                    IntakeCmds.intakeSetStoppedCmd(),
+                    ElevatorCmds.elevatorSetIntake(),
+
+                    new ParallelCommandGroup(
+                    AutoCmds.followPath("CLToIntake"),
+                    new SequentialCommandGroup(
+                        new WaitCommand(0.5),
+                        IntakeCmds.intakeSetFeedCmd()
+                        )
+                    ),
+                    new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+                    new WaitCommand(0.1)
+                );
+
+                }
 
         }
             if (TwoPiece()) {
@@ -265,23 +318,6 @@ public class Auto {
             }
 
 
-
-        // ------------------------------ Three Note  -------------------------------
-        /*if (threeNote()) {
-            System.out.println("********* Three Selection *********");
-            if (red()) {
-                Robot.print("REEDDDDDD");
-                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "RedSpkrLeft"); }
-                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "RedSpkrCtr2ndNote", "RedSpkrCtr2ndNoteReturn", "RedSpkrCtr", "RedSpkrCtrReturn"); }
-                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "RedSpkrRight"); }
-            } else {
-                Robot.print("BLUEEEEE");
-                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
-                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "BlueSpkrCtr2ndNote", "BlueSpkrCtr2ndNoteReturn", "BlueSpkrCtr", "BlueSpkrCtrReturn"); }
-                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "BlueSpkrRight"); }
-            }
-        }*/
-
         // should never get here
         return AutoCmds.DoNothingCmd();
     }
@@ -306,11 +342,11 @@ public class Auto {
             Robot.swerve::getChassisSpeeds,       // Supplier<ChassisSpeeds> -----> MUST BE ROBOT RELATIVE
             Robot.swerve::driveByChassisSpeeds,   // Consumer<ChassisSpeeds> -----> Set robot relative speeds (drive)
             new PPHolonomicDriveController(
-                 new PIDConstants(1, 0.55, 0.7555), // Translation PID constants
-                 new PIDConstants(1.0, 0.0, 0.0) // Rotation PID constants
+                 new PIDConstants(0, 0.0, 0.0), // Translation PID constants 3.5, 0.75, 0.7555
+                 new PIDConstants(1.5, 0.5, 0.5) // Rotation PID constants
             ),    // HolonomicPathFollowerConfig -> config for configuring path commands
             config,
-            ()->false,                // BooleanSupplier -------------> Should mirror/flip path
+            ()->getAllianceFlip(),                // BooleanSupplier -------------> Should mirror/flip path
             //() -> false,                        // BooleanSupplier -------------> Should mirror/flip path
             Robot.swerve                          // Subsystem: ------------------> required subsystem (usually swerve)
         );
@@ -321,7 +357,7 @@ public class Auto {
         // This will flip the path being followed to the red side of the field.
 
         if ((DriverStation.isAutonomous()) && (Robot.alliance == TeamAlliance.RED) ) {
-            // Were in Autonomous Mode and Alliance is Red, so invert field
+            // We're in Autonomous Mode and Alliance is Red, so invert field
             return true;
         } else {
         // Not Autonomous or Alliance is Blue so dont invert field
@@ -382,8 +418,8 @@ public class Auto {
         return false;
     }
     
-    private static boolean RightToScore() {
-        if (actionSelect.equals(AutoConfig.kActionRightToScore)) { return true; }
+    private static boolean Level4() {
+        if (actionSelect.equals(AutoConfig.kActionLevel4)) { return true; }
         return false;
     }
     

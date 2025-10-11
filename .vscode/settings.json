@@ -56,5 +56,9 @@
     "edu.wpi.first.math.proto.*",
     "edu.wpi.first.math.**.proto.*",
     "edu.wpi.first.math.**.struct.*",
-  ]
+  ],
+  "diffEditor.codeLens": true,
+  "java.debug.settings.enableRunDebugCodeLens": true,
+  "java.referencesCodeLens.enabled": true,
+  "java.implementationCodeLens": "all"
 }
