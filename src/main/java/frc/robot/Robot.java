@@ -94,20 +94,20 @@ public class Robot extends LoggedRobot  {
                 
                 //Robot.lc = new LaserCan(25);
             
-            CanBridge.runTCP();
-            sysTimer.reset();			// System timer for Competition run
-            sysTimer.start();
-            //updateAlliance();           // Get current Alliance Color and init teleop positions
-            Timer.delay( 2.0 );         // Delay for 2 seconds for robot to come fully up
-            // getIdentity();          // Look up mac address and set robot enum
-            //MAC = Network.getMACaddress();
-           
-            intializeSubsystems();
-            
-            DataLogManager.start();
-            DriverStation.startDataLog(DataLogManager.getLog());
-            initAdvantageKitLogger();   // This logger replaces the WPI Data logger methods
-        }
+                CanBridge.runTCP();
+                sysTimer.reset();			// System timer for Competition run
+                sysTimer.start();
+                //updateAlliance();           // Get current Alliance Color and init teleop positions
+                Timer.delay( 2.0 );         // Delay for 2 seconds for robot to come fully up
+                // getIdentity();          // Look up mac address and set robot enum
+                //MAC = Network.getMACaddress();
+                
+                intializeSubsystems();
+                
+                DataLogManager.start();
+                DriverStation.startDataLog(DataLogManager.getLog());
+                initAdvantageKitLogger();   // This logger replaces the WPI Data logger methods
+            }
     
         @Override
         public void robotPeriodic() {
