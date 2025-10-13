@@ -62,7 +62,7 @@ public class Robot extends LoggedRobot  {
         public static LaserCan.Measurement measurement;
     
         // Base Robot
-        public static DrivetrainSubSys  swerve;
+        public static DrivetrainSubSys      swerve;
         public static PilotGamepad      pilotGamepad;
         public static OperatorGamepad   operatorGamepad;
         public static IntakeSubSys intake;

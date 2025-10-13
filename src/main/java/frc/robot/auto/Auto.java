@@ -310,7 +310,7 @@ public class Auto {
                  new PIDConstants(1.0, 0.0, 0.0) // Rotation PID constants
             ),    // HolonomicPathFollowerConfig -> config for configuring path commands
             config,
-            ()->false,                // BooleanSupplier -------------> Should mirror/flip path
+            ()->getAllianceFlip(),                // BooleanSupplier -------------> Should mirror/flip path
             //() -> false,                        // BooleanSupplier -------------> Should mirror/flip path
             Robot.swerve                          // Subsystem: ------------------> required subsystem (usually swerve)
         );
